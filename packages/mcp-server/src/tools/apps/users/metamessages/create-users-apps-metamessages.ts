@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   resource: 'apps.users.metamessages',
   operation: 'write',
   tags: [],
+  httpMethod: 'post',
+  httpPath: '/v1/apps/{app_id}/users/{user_id}/metamessages',
+  operationId: 'create_metamessage_v1_apps__app_id__users__user_id__metamessages_post',
 };
 
 export const tool: Tool = {

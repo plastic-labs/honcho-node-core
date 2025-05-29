@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   resource: 'apps.users.collections',
   operation: 'read',
   tags: [],
+  httpMethod: 'get',
+  httpPath: '/v1/apps/{app_id}/users/{user_id}/collections/name/{name}',
+  operationId: 'get_collection_by_name_v1_apps__app_id__users__user_id__collections_name__name__get',
 };
 
 export const tool: Tool = {

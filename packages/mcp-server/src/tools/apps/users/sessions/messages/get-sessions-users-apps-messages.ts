@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   resource: 'apps.users.sessions.messages',
   operation: 'read',
   tags: [],
+  httpMethod: 'get',
+  httpPath: '/v1/apps/{app_id}/users/{user_id}/sessions/{session_id}/messages/{message_id}',
+  operationId: 'get_message_v1_apps__app_id__users__user_id__sessions__session_id__messages__message_id__get',
 };
 
 export const tool: Tool = {

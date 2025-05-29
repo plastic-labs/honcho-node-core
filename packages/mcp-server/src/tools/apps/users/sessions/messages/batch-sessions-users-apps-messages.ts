@@ -8,6 +8,10 @@ export const metadata: Metadata = {
   resource: 'apps.users.sessions.messages',
   operation: 'write',
   tags: [],
+  httpMethod: 'post',
+  httpPath: '/v1/apps/{app_id}/users/{user_id}/sessions/{session_id}/messages/batch',
+  operationId:
+    'create_batch_messages_for_session_v1_apps__app_id__users__user_id__sessions__session_id__messages_batch_post',
 };
 
 export const tool: Tool = {
