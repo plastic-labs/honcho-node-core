@@ -8,6 +8,10 @@ export const metadata: Metadata = {
   resource: 'apps.users.collections.documents',
   operation: 'write',
   tags: [],
+  httpMethod: 'delete',
+  httpPath: '/v1/apps/{app_id}/users/{user_id}/collections/{collection_id}/documents/{document_id}',
+  operationId:
+    'delete_document_v1_apps__app_id__users__user_id__collections__collection_id__documents__document_id__delete',
 };
 
 export const tool: Tool = {

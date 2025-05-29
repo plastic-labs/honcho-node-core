@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   resource: 'apps',
   operation: 'write',
   tags: [],
+  httpMethod: 'put',
+  httpPath: '/v1/apps/{app_id}',
+  operationId: 'update_app_v1_apps__app_id__put',
 };
 
 export const tool: Tool = {

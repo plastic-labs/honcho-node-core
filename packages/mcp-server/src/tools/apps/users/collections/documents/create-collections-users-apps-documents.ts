@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   resource: 'apps.users.collections.documents',
   operation: 'write',
   tags: [],
+  httpMethod: 'post',
+  httpPath: '/v1/apps/{app_id}/users/{user_id}/collections/{collection_id}/documents',
+  operationId: 'create_document_v1_apps__app_id__users__user_id__collections__collection_id__documents_post',
 };
 
 export const tool: Tool = {
