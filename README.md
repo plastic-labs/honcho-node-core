@@ -143,13 +143,13 @@ List methods in the Honcho API are paginated.
 You can use the `for await … of` syntax to iterate through items across all pages:
 
 ```ts
-async function fetchAllAppsUsers(params) {
-  const allAppsUsers = [];
+async function fetchAllUsers(params) {
+  const allUsers = [];
   // Automatically fetches more pages as needed.
   for await (const user of client.apps.users.list('REPLACE_ME')) {
-    allAppsUsers.push(user);
+    allUsers.push(user);
   }
-  return allAppsUsers;
+  return allUsers;
 }
 ```
 
