@@ -27,13 +27,9 @@ const client = new Honcho({
   environment: 'local', // or 'demo' | 'production'; defaults to 'demo'
 });
 
-async function main() {
-  const app = await client.apps.create({ name: 'x' });
+const app = await client.apps.create({ name: 'x' });
 
-  console.log(app.id);
-}
-
-main();
+console.log(app.id);
 ```
 
 ### Request & Response types
@@ -49,12 +45,8 @@ const client = new Honcho({
   environment: 'local', // or 'demo' | 'production'; defaults to 'demo'
 });
 
-async function main() {
-  const params: Honcho.AppCreateParams = { name: 'x' };
-  const app: Honcho.App = await client.apps.create(params);
-}
-
-main();
+const params: Honcho.AppCreateParams = { name: 'x' };
+const app: Honcho.App = await client.apps.create(params);
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -67,19 +59,15 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-async function main() {
-  const app = await client.apps.create({ name: 'x' }).catch(async (err) => {
-    if (err instanceof Honcho.APIError) {
-      console.log(err.status); // 400
-      console.log(err.name); // BadRequestError
-      console.log(err.headers); // {server: 'nginx', ...}
-    } else {
-      throw err;
-    }
-  });
-}
-
-main();
+const app = await client.apps.create({ name: 'x' }).catch(async (err) => {
+  if (err instanceof Honcho.APIError) {
+    console.log(err.status); // 400
+    console.log(err.name); // BadRequestError
+    console.log(err.headers); // {server: 'nginx', ...}
+  } else {
+    throw err;
+  }
+});
 ```
 
 Error codes are as follows:
