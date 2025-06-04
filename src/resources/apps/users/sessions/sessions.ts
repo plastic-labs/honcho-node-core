@@ -161,8 +161,25 @@ export class Sessions extends APIResource {
 
 export class SessionsPage extends Page<Session> {}
 
+// ---- Trace types ----
+
+export interface FactWithSource {
+  fact: string;
+  message_id?: string | null;
+  message_content?: string | null;
+}
+
+export interface ChatTrace {
+  queries: Array<string>;
+  facts: Array<FactWithSource>;
+  tom_inference: string;
+  user_representation?: string | null;
+  latency_ms?: number | null;
+}
+
 export interface DialecticResponse {
   content: string;
+  trace?: ChatTrace;
 }
 
 export interface PageSession {
@@ -222,6 +239,8 @@ export interface SessionChatParams {
   queries: string | Array<string>;
 
   stream?: boolean;
+
+  include_trace?: boolean;
 }
 
 export interface SessionCloneParams {
@@ -272,5 +291,10 @@ export declare namespace Sessions {
     type MessageUpdateParams as MessageUpdateParams,
     type MessageListParams as MessageListParams,
     type MessageBatchParams as MessageBatchParams,
+  };
+
+  export {
+    type ChatTrace as ChatTrace,
+    type FactWithSource as FactWithSource,
   };
 }
