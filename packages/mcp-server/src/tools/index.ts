@@ -1,7 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Honcho from 'honcho-ai';
-import { Tool } from '@modelcontextprotocol/sdk/types.js';
+import { Metadata, Endpoint, HandlerFunction } from './types';
+
+export { Metadata, Endpoint, HandlerFunction };
 
 import create_apps from './apps/create-apps';
 import update_apps from './apps/update-apps';
@@ -44,24 +45,6 @@ import delete_collections_users_apps_documents from './apps/users/collections/do
 import get_collections_users_apps_documents from './apps/users/collections/documents/get-collections-users-apps-documents';
 import query_collections_users_apps_documents from './apps/users/collections/documents/query-collections-users-apps-documents';
 import create_keys from './keys/create-keys';
-
-export type HandlerFunction = (client: Honcho, args: Record<string, unknown> | undefined) => Promise<any>;
-
-export type Metadata = {
-  resource: string;
-  operation: 'read' | 'write';
-  tags: string[];
-
-  httpMethod?: string;
-  httpPath?: string;
-  operationId?: string;
-};
-
-export type Endpoint = {
-  metadata: Metadata;
-  tool: Tool;
-  handler: HandlerFunction;
-};
 
 export const endpoints: Endpoint[] = [];
 
