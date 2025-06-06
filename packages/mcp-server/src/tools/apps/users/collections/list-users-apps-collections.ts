@@ -1,5 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+import { asTextContentResult } from 'honcho-ai-mcp/tools/types';
+
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import type { Metadata } from '../../../';
 import Honcho from 'honcho-ai';
@@ -52,9 +54,9 @@ export const tool: Tool = {
   },
 };
 
-export const handler = (client: Honcho, args: Record<string, unknown> | undefined) => {
+export const handler = async (client: Honcho, args: Record<string, unknown> | undefined) => {
   const { app_id, user_id, ...body } = args as any;
-  return client.apps.users.collections.list(app_id, user_id, body);
+  return asTextContentResult(await client.apps.users.collections.list(app_id, user_id, body));
 };
 
 export default { metadata, tool, handler };
