@@ -140,6 +140,7 @@ export class Honcho extends Core.APIClient {
 
     super({
       baseURL: options.baseURL || environments[options.environment || 'demo'],
+      baseURLOverridden: baseURL ? baseURL !== environments[options.environment || 'demo'] : false,
       timeout: options.timeout ?? 60000 /* 1 minute */,
       httpAgent: options.httpAgent,
       maxRetries: options.maxRetries,
@@ -153,6 +154,13 @@ export class Honcho extends Core.APIClient {
 
   apps: API.Apps = new API.Apps(this);
   keys: API.Keys = new API.Keys(this);
+
+  /**
+   * Check whether the base URL is set to its default.
+   */
+  #baseURLOverridden(): boolean {
+    return this.baseURL !== environments[this._options.environment || 'demo'];
+  }
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
