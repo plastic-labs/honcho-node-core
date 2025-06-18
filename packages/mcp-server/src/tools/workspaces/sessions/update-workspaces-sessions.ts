@@ -31,9 +31,9 @@ export const tool: Tool = {
         title: 'Session Id',
         description: 'ID of the session to update',
       },
-      feature_flags: {
+      configuration: {
         type: 'object',
-        title: 'Feature Flags',
+        title: 'Configuration',
       },
       metadata: {
         type: 'object',

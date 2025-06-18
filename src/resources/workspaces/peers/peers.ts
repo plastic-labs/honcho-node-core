@@ -45,9 +45,9 @@ export class Peers extends APIResource {
     if (isRequestOptions(params)) {
       return this.list(workspaceId, {}, params);
     }
-    const { page, reverse, size, ...body } = params;
+    const { page, size, ...body } = params;
     return this._client.getAPIList(`/v1/workspaces/${workspaceId}/peers/list`, PeersPage, {
-      query: { page, reverse, size },
+      query: { page, size },
       body,
       method: 'post',
       ...options,
@@ -138,7 +138,7 @@ export interface Peer {
 
   workspace_id: string;
 
-  feature_flags?: Record<string, unknown>;
+  configuration?: Record<string, unknown>;
 
   metadata?: Record<string, unknown>;
 }
@@ -156,17 +156,12 @@ export interface PeerChatResponse {
 export type PeerWorkingRepresentationResponse = Record<string, unknown>;
 
 export interface PeerUpdateParams {
-  feature_flags?: Record<string, unknown> | null;
+  configuration?: Record<string, unknown> | null;
 
   metadata?: Record<string, unknown> | null;
 }
 
 export interface PeerListParams extends PageParams {
-  /**
-   * Query param: Whether to reverse the order of results
-   */
-  reverse?: boolean;
-
   /**
    * Body param:
    */
@@ -192,7 +187,7 @@ export interface PeerChatParams {
 export interface PeerGetOrCreateParams {
   id: string;
 
-  feature_flags?: Record<string, unknown> | null;
+  configuration?: Record<string, unknown> | null;
 
   metadata?: Record<string, unknown> | null;
 }

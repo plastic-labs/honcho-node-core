@@ -26,11 +26,6 @@ export const tool: Tool = {
         title: 'Page',
         description: 'Page number',
       },
-      reverse: {
-        type: 'boolean',
-        title: 'Reverse',
-        description: 'Whether to reverse the order of results',
-      },
       size: {
         type: 'integer',
         title: 'Size',

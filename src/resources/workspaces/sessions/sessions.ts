@@ -60,9 +60,9 @@ export class Sessions extends APIResource {
     if (isRequestOptions(params)) {
       return this.list(workspaceId, {}, params);
     }
-    const { page, reverse, size, ...body } = params;
+    const { page, size, ...body } = params;
     return this._client.getAPIList(`/v1/workspaces/${workspaceId}/sessions/list`, SessionsPage, {
-      query: { page, reverse, size },
+      query: { page, size },
       body,
       method: 'post',
       ...options,
@@ -178,7 +178,7 @@ export interface Session {
 
   workspace_id: string;
 
-  feature_flags?: Record<string, unknown>;
+  configuration?: Record<string, unknown>;
 
   metadata?: Record<string, unknown>;
 }
@@ -194,17 +194,12 @@ export interface SessionGetContextResponse {
 }
 
 export interface SessionUpdateParams {
-  feature_flags?: Record<string, unknown> | null;
+  configuration?: Record<string, unknown> | null;
 
   metadata?: Record<string, unknown> | null;
 }
 
 export interface SessionListParams extends PageParams {
-  /**
-   * Query param: Whether to reverse the order of results
-   */
-  reverse?: boolean | null;
-
   /**
    * Body param:
    */
@@ -238,7 +233,7 @@ export interface SessionGetContextParams {
 export interface SessionGetOrCreateParams {
   id: string;
 
-  feature_flags?: Record<string, unknown> | null;
+  configuration?: Record<string, unknown> | null;
 
   metadata?: Record<string, unknown> | null;
 

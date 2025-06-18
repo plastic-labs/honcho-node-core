@@ -26,9 +26,9 @@ export const tool: Tool = {
         type: 'string',
         title: 'Id',
       },
-      feature_flags: {
+      configuration: {
         type: 'object',
-        title: 'Feature Flags',
+        title: 'Configuration',
       },
       metadata: {
         type: 'object',
