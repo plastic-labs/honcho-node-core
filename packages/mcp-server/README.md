@@ -11,7 +11,7 @@ You can run the MCP Server directly via `npx`:
 ```sh
 export HONCHO_API_KEY="My API Key"
 export HONCHO_ENVIRONMENT="demo"
-npx -y honcho-ai-mcp@latest
+npx -y @honcho/mcp@latest
 ```
 
 ### Via MCP Client
@@ -24,9 +24,9 @@ For clients with a configuration JSON, it might look something like this:
 ```json
 {
   "mcpServers": {
-    "honcho_ai_api": {
+    "honcho_core_api": {
       "command": "npx",
-      "args": ["-y", "honcho-ai-mcp", "--client=claude", "--tools=dynamic"],
+      "args": ["-y", "@honcho/mcp", "--client=claude", "--tools=dynamic"],
       "env": {
         "HONCHO_API_KEY": "My API Key",
         "HONCHO_ENVIRONMENT": "demo"
@@ -132,10 +132,10 @@ over time, you can manually enable or disable certain capabilities:
 
 ```js
 // Import the server, generated endpoints, or the init function
-import { server, endpoints, init } from "honcho-ai-mcp/server";
+import { server, endpoints, init } from "@honcho/mcp/server";
 
 // import a specific tool
-import createApps from "honcho-ai-mcp/tools/apps/create-apps";
+import updateWorkspaces from "@honcho/mcp/tools/workspaces/update-workspaces";
 
 // initialize the server and all endpoints
 init({ server, endpoints });
@@ -160,96 +160,77 @@ const myCustomEndpoint = {
 };
 
 // initialize the server with your custom endpoints
-init({ server: myServer, endpoints: [createApps, myCustomEndpoint] });
+init({ server: myServer, endpoints: [updateWorkspaces, myCustomEndpoint] });
 ```
 
 ## Available Tools
 
 The following tools are available in this MCP server.
 
-### Resource `apps`:
+### Resource `workspaces`:
 
-- `create_apps` (`write`): Create a new App
-- `update_apps` (`write`): Update an App
-- `list_apps` (`write`): Get all Apps
-- `get_apps` (`read`): Get an App by ID.
+- `update_workspaces` (`write`): Update a Workspace
+- `list_workspaces` (`write`): Get all Workspaces
+- `get_or_create_workspaces` (`write`): Get a Workspace by ID.
 
-  If app_id is provided as a query parameter, it uses that (must match JWT app_id).
-  Otherwise, it uses the app_id from the JWT token.
+  If workspace_id is provided as a query parameter, it uses that (must match JWT workspace_id).
+  Otherwise, it uses the workspace_id from the JWT token.
 
-- `get_by_name_apps` (`read`): Get an App by Name
-- `get_or_create_apps` (`read`): Get or Create an App
+- `search_workspaces` (`write`): Search a Workspace
 
-### Resource `apps.users`:
+### Resource `workspaces.peers`:
 
-- `create_apps_users` (`write`): Create a new User
-- `update_apps_users` (`write`): Update a User's name and/or metadata
-- `list_apps_users` (`write`): Get All Users for an App
-- `get_apps_users` (`read`): Get a User by ID
+- `update_workspaces_peers` (`write`): Update a Peer's name and/or metadata
+- `list_workspaces_peers` (`write`): Get All Peers for a Workspace
+- `chat_workspaces_peers` (`write`): Chat
+- `get_or_create_workspaces_peers` (`write`): Get a Peer by ID
 
-  If user_id is provided as a query parameter, it uses that (must match JWT app_id).
-  Otherwise, it uses the user_id from the JWT token.
+  If peer_id is provided as a query parameter, it uses that (must match JWT workspace_id).
+  Otherwise, it uses the peer_id from the JWT token.
 
-- `get_by_name_apps_users` (`read`): Get a User by name
-- `get_or_create_apps_users` (`read`): Get a User or create a new one by the input name
+- `search_workspaces_peers` (`write`): Search a Peer
+- `working_representation_workspaces_peers` (`write`): Get a peer's working representation for a session.
 
-### Resource `apps.users.metamessages`:
+  If peer_id is provided in body, the representation is of that peer, from our perspective.
 
-- `create_users_apps_metamessages` (`write`): Create a new metamessage associated with a user.
-  Optionally link to a session and message by providing those IDs in the request body.
-- `update_users_apps_metamessages` (`write`): Update a metamessage's metadata, type, or relationships
-- `list_users_apps_metamessages` (`write`): Get metamessages with flexible filtering.
+### Resource `workspaces.peers.sessions`:
 
-  - Filter by user only: No additional parameters needed
-  - Filter by session: Provide session_id
-  - Filter by message: Provide message_id (and session_id)
-  - Filter by type: Provide label
-  - Filter by metadata: Provide filter object
+- `list_peers_workspaces_sessions` (`write`): Get All Sessions for a Peer
 
-- `get_users_apps_metamessages` (`read`): Get a specific Metamessage by ID
+### Resource `workspaces.peers.messages`:
 
-### Resource `apps.users.sessions`:
+- `create_peers_workspaces_messages` (`write`): Create messages for a peer
+- `list_peers_workspaces_messages` (`write`): Get all messages for a peer
 
-- `create_users_apps_sessions` (`write`): Create a Session for a User
-- `update_users_apps_sessions` (`write`): Update the metadata of a Session
-- `list_users_apps_sessions` (`write`): Get All Sessions for a User
-- `delete_users_apps_sessions` (`write`): Delete a session by marking it as inactive
-- `chat_users_apps_sessions` (`write`): Chat with the Dialectic API
-- `clone_users_apps_sessions` (`read`): Clone a session, optionally up to a specific message
-- `get_users_apps_sessions` (`read`): Get a specific session for a user.
+### Resource `workspaces.sessions`:
 
-  If session_id is provided as a query parameter, it uses that (must match JWT session_id).
-  Otherwise, it uses the session_id from the JWT token.
+- `update_workspaces_sessions` (`write`): Update the metadata of a Session
+- `list_workspaces_sessions` (`write`): Get All Sessions in a Workspace
+- `delete_workspaces_sessions` (`write`): Delete a session by marking it as inactive
+- `clone_workspaces_sessions` (`read`): Clone a session, optionally up to a specific message
+- `get_context_workspaces_sessions` (`read`): Get Session Context
+- `get_or_create_workspaces_sessions` (`write`): Get a specific session in a workspace.
 
-### Resource `apps.users.sessions.messages`:
+  If peer_id is provided as a query parameter, it verifies the peer is in the session.
+  Otherwise, it uses the peer_id from the JWT token for verification.
 
-- `create_sessions_users_apps_messages` (`write`): Adds a message to a session
-- `update_sessions_users_apps_messages` (`write`): Update the metadata of a Message
-- `list_sessions_users_apps_messages` (`write`): Get all messages for a session
-- `batch_sessions_users_apps_messages` (`write`): Bulk create messages for a session while maintaining order. Maximum 100 messages per batch.
-- `get_sessions_users_apps_messages` (`read`): Get a Message by ID
+- `search_workspaces_sessions` (`write`): Search a Session
 
-### Resource `apps.users.collections`:
+### Resource `workspaces.sessions.messages`:
 
-- `create_users_apps_collections` (`write`): Create a new Collection
-- `update_users_apps_collections` (`write`): Update a Collection's name or metadata
-- `list_users_apps_collections` (`write`): Get All Collections for a User
-- `delete_users_apps_collections` (`write`): Delete a Collection and its documents
-- `get_users_apps_collections` (`read`): Get a specific collection for a user.
+- `create_sessions_workspaces_messages` (`write`): Create Messages For Session
+- `retrieve_sessions_workspaces_messages` (`read`): Get a Message by ID
+- `update_sessions_workspaces_messages` (`write`): Update the metadata of a Message
+- `list_sessions_workspaces_messages` (`write`): Get all messages for a session
 
-  If collection_id is provided as a query parameter, it uses that (must match JWT collection_id).
-  Otherwise, it uses the collection_id from the JWT token.
+### Resource `workspaces.sessions.peers`:
 
-- `get_by_name_users_apps_collections` (`read`): Get a Collection by Name
-
-### Resource `apps.users.collections.documents`:
-
-- `create_collections_users_apps_documents` (`write`): Embed text as a vector and create a Document
-- `update_collections_users_apps_documents` (`write`): Update the content and/or the metadata of a Document
-- `list_collections_users_apps_documents` (`write`): Get all of the Documents in a Collection
-- `delete_collections_users_apps_documents` (`write`): Delete a Document by ID
-- `get_collections_users_apps_documents` (`read`): Get a document by ID
-- `query_collections_users_apps_documents` (`write`): Cosine Similarity Search for Documents
+- `list_sessions_workspaces_peers` (`read`): Get peers from a session
+- `add_sessions_workspaces_peers` (`write`): Add peers to a session
+- `get_config_sessions_workspaces_peers` (`read`): Get the configuration for a peer in a session
+- `remove_sessions_workspaces_peers` (`write`): Remove peers from a session
+- `set_sessions_workspaces_peers` (`write`): Set the peers in a session
+- `set_config_sessions_workspaces_peers` (`write`): Set the configuration for a peer in a session
 
 ### Resource `keys`:
 
