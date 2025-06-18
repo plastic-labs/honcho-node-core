@@ -9,15 +9,14 @@ import * as Uploads from './uploads';
 import * as API from './resources/index';
 import { KeyCreateParams, KeyCreateResponse, Keys } from './resources/keys';
 import {
-  App,
-  AppCreateParams,
-  AppGetParams,
-  AppListParams,
-  AppUpdateParams,
-  Apps,
-  AppsPage,
-  PageApp,
-} from './resources/apps/apps';
+  Workspace,
+  WorkspaceGetOrCreateParams,
+  WorkspaceListParams,
+  WorkspaceSearchParams,
+  WorkspaceUpdateParams,
+  Workspaces,
+  WorkspacesPage,
+} from './resources/workspaces/workspaces';
 
 const environments = {
   demo: 'https://demo.honcho.dev',
@@ -152,7 +151,7 @@ export class Honcho extends Core.APIClient {
     this.apiKey = apiKey;
   }
 
-  apps: API.Apps = new API.Apps(this);
+  workspaces: API.Workspaces = new API.Workspaces(this);
   keys: API.Keys = new API.Keys(this);
 
   /**
@@ -201,8 +200,8 @@ export class Honcho extends Core.APIClient {
   static fileFromPath = Uploads.fileFromPath;
 }
 
-Honcho.Apps = Apps;
-Honcho.AppsPage = AppsPage;
+Honcho.Workspaces = Workspaces;
+Honcho.WorkspacesPage = WorkspacesPage;
 Honcho.Keys = Keys;
 export declare namespace Honcho {
   export type RequestOptions = Core.RequestOptions;
@@ -211,14 +210,13 @@ export declare namespace Honcho {
   export { type PageParams as PageParams, type PageResponse as PageResponse };
 
   export {
-    Apps as Apps,
-    type App as App,
-    type PageApp as PageApp,
-    AppsPage as AppsPage,
-    type AppCreateParams as AppCreateParams,
-    type AppUpdateParams as AppUpdateParams,
-    type AppListParams as AppListParams,
-    type AppGetParams as AppGetParams,
+    Workspaces as Workspaces,
+    type Workspace as Workspace,
+    WorkspacesPage as WorkspacesPage,
+    type WorkspaceUpdateParams as WorkspaceUpdateParams,
+    type WorkspaceListParams as WorkspaceListParams,
+    type WorkspaceGetOrCreateParams as WorkspaceGetOrCreateParams,
+    type WorkspaceSearchParams as WorkspaceSearchParams,
   };
 
   export {

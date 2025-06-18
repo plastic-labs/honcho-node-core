@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { asTextContentResult } from 'honcho-ai-mcp/tools/types';
+import { asTextContentResult } from '@honcho/mcp/tools/types';
 
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import type { Metadata } from '../';
-import Honcho from 'honcho-ai';
+import Honcho from '@honcho/core';
 
 export const metadata: Metadata = {
   resource: 'keys',
@@ -21,30 +21,25 @@ export const tool: Tool = {
   inputSchema: {
     type: 'object',
     properties: {
-      app_id: {
-        type: 'string',
-        title: 'App Id',
-        description: 'ID of the app to scope the key to',
-      },
-      collection_id: {
-        type: 'string',
-        title: 'Collection Id',
-        description: 'ID of the collection to scope the key to',
-      },
       expires_at: {
         type: 'string',
         title: 'Expires At',
         format: 'date-time',
+      },
+      peer_id: {
+        type: 'string',
+        title: 'Peer Id',
+        description: 'ID of the peer to scope the key to',
       },
       session_id: {
         type: 'string',
         title: 'Session Id',
         description: 'ID of the session to scope the key to',
       },
-      user_id: {
+      workspace_id: {
         type: 'string',
-        title: 'User Id',
-        description: 'ID of the user to scope the key to',
+        title: 'Workspace Id',
+        description: 'ID of the workspace to scope the key to',
       },
     },
   },

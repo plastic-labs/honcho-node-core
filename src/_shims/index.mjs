@@ -2,7 +2,7 @@
  * Disclaimer: modules in _shims aren't intended to be imported by SDK users.
  */
 import * as shims from './registry.mjs';
-import * as auto from 'honcho-ai/_shims/auto/runtime';
+import * as auto from '@honcho/core/_shims/auto/runtime';
 export const init = () => {
   if (!shims.kind) shims.setShims(auto.getRuntime(), { auto: true });
 };

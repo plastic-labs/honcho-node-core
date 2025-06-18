@@ -1,5 +1,5 @@
 {
-  "name": "honcho-ai-mcp",
+  "name": "@honcho/mcp",
   "version": "0.2.0",
   "description": "The official MCP Server for the Honcho API",
   "author": "Honcho <hello@plasticlabs.ai>",
@@ -8,10 +8,10 @@
   "type": "commonjs",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/plastic-labs/honcho-node.git",
+    "url": "git+https://github.com/plastic-labs/honcho-node-core.git",
     "directory": "packages/mcp-server"
   },
-  "homepage": "https://github.com/plastic-labs/honcho-node/tree/main/packages/mcp-server#readme",
+  "homepage": "https://github.com/plastic-labs/honcho-node-core/tree/main/packages/mcp-server#readme",
   "license": "Apache-2.0",
   "packageManager": "yarn@1.22.22",
   "private": false,
@@ -27,7 +27,7 @@
     "fix": "eslint --fix --ext ts,js ."
   },
   "dependencies": {
-    "honcho-ai": "file:../../dist/",
+    "@honcho/core": "file:../../dist/",
     "@modelcontextprotocol/sdk": "^1.11.5",
     "yargs": "^17.7.2",
     "@cloudflare/cabidela": "^0.2.4",
@@ -54,8 +54,8 @@
     "typescript": "5.8.3"
   },
   "imports": {
-    "honcho-ai-mcp": ".",
-    "honcho-ai-mcp/*": "./src/*"
+    "@honcho/mcp": ".",
+    "@honcho/mcp/*": "./src/*"
   },
   "exports": {
     ".": {

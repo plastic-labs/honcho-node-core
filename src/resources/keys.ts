@@ -17,9 +17,9 @@ export class Keys extends APIResource {
     if (isRequestOptions(params)) {
       return this.create({}, params);
     }
-    const { app_id, collection_id, expires_at, session_id, user_id } = params;
+    const { expires_at, peer_id, session_id, workspace_id } = params;
     return this._client.post('/v1/keys', {
-      query: { app_id, collection_id, expires_at, session_id, user_id },
+      query: { expires_at, peer_id, session_id, workspace_id },
       ...options,
     });
   }
@@ -28,17 +28,12 @@ export class Keys extends APIResource {
 export type KeyCreateResponse = unknown;
 
 export interface KeyCreateParams {
-  /**
-   * ID of the app to scope the key to
-   */
-  app_id?: string | null;
-
-  /**
-   * ID of the collection to scope the key to
-   */
-  collection_id?: string | null;
-
   expires_at?: string | null;
+
+  /**
+   * ID of the peer to scope the key to
+   */
+  peer_id?: string | null;
 
   /**
    * ID of the session to scope the key to
@@ -46,9 +41,9 @@ export interface KeyCreateParams {
   session_id?: string | null;
 
   /**
-   * ID of the user to scope the key to
+   * ID of the workspace to scope the key to
    */
-  user_id?: string | null;
+  workspace_id?: string | null;
 }
 
 export declare namespace Keys {

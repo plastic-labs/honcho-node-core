@@ -42,25 +42,25 @@ If you’d like to use the repository from source, you can either install from g
 To install via git:
 
 ```sh
-$ npm install git+ssh://git@github.com:plastic-labs/honcho-node.git
+$ npm install git+ssh://git@github.com:plastic-labs/honcho-node-core.git
 ```
 
 Alternatively, to link a local copy of the repo:
 
 ```sh
 # Clone
-$ git clone https://www.github.com/plastic-labs/honcho-node
-$ cd honcho-node
+$ git clone https://www.github.com/plastic-labs/honcho-node-core
+$ cd honcho-node-core
 
 # With yarn
 $ yarn link
 $ cd ../my-package
-$ yarn link honcho-ai
+$ yarn link @honcho/core
 
 # With pnpm
 $ pnpm link --global
 $ cd ../my-package
-$ pnpm link -—global honcho-ai
+$ pnpm link -—global @honcho/core
 ```
 
 ## Running tests
@@ -99,7 +99,7 @@ the changes aren't made through the automated pipeline, you may want to make rel
 
 ### Publish with a GitHub workflow
 
-You can release to package managers by using [the `Publish NPM` GitHub action](https://www.github.com/plastic-labs/honcho-node/actions/workflows/publish-npm.yml). This requires a setup organization or repository secret to be set up.
+You can release to package managers by using [the `Publish NPM` GitHub action](https://www.github.com/plastic-labs/honcho-node-core/actions/workflows/publish-npm.yml). This requires a setup organization or repository secret to be set up.
 
 ### Publish manually
 
