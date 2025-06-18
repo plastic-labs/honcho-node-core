@@ -43,7 +43,7 @@ describe('resource sessions', () => {
     await expect(
       client.workspaces.sessions.list(
         'workspace_id',
-        { page: 1, reverse: true, size: 1, filter: { foo: 'bar' }, is_active: true },
+        { page: 1, size: 1, filter: { foo: 'bar' }, is_active: true },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Honcho.NotFoundError);
@@ -143,7 +143,7 @@ describe('resource sessions', () => {
   test('getOrCreate: required and optional params', async () => {
     const response = await client.workspaces.sessions.getOrCreate('workspace_id', {
       id: 'id',
-      feature_flags: { foo: 'bar' },
+      configuration: { foo: 'bar' },
       metadata: { foo: 'bar' },
       peers: { foo: { observe_me: true, observe_others: true } },
     });

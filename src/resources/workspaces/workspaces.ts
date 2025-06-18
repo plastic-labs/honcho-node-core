@@ -67,9 +67,9 @@ export class Workspaces extends APIResource {
     if (isRequestOptions(params)) {
       return this.list({}, params);
     }
-    const { page, reverse, size, ...body } = params;
+    const { page, size, ...body } = params;
     return this._client.getAPIList('/v1/workspaces/list', WorkspacesPage, {
-      query: { page, reverse, size },
+      query: { page, size },
       body,
       method: 'post',
       ...options,
@@ -111,23 +111,18 @@ export interface Workspace {
 
   created_at: string;
 
-  feature_flags?: Record<string, unknown>;
+  configuration?: Record<string, unknown>;
 
   metadata?: Record<string, unknown>;
 }
 
 export interface WorkspaceUpdateParams {
-  feature_flags?: Record<string, unknown> | null;
+  configuration?: Record<string, unknown> | null;
 
   metadata?: Record<string, unknown> | null;
 }
 
 export interface WorkspaceListParams extends PageParams {
-  /**
-   * Query param: Whether to reverse the order of results
-   */
-  reverse?: boolean | null;
-
   /**
    * Body param:
    */
@@ -137,7 +132,7 @@ export interface WorkspaceListParams extends PageParams {
 export interface WorkspaceGetOrCreateParams {
   id: string;
 
-  feature_flags?: Record<string, unknown>;
+  configuration?: Record<string, unknown>;
 
   metadata?: Record<string, unknown>;
 }

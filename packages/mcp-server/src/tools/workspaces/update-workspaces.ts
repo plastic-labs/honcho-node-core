@@ -26,9 +26,9 @@ export const tool: Tool = {
         title: 'Workspace Id',
         description: 'ID of the workspace to update',
       },
-      feature_flags: {
+      configuration: {
         type: 'object',
-        title: 'Feature Flags',
+        title: 'Configuration',
       },
       metadata: {
         type: 'object',

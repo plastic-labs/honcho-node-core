@@ -31,9 +31,9 @@ export class Sessions extends APIResource {
     if (isRequestOptions(params)) {
       return this.list(workspaceId, peerId, {}, params);
     }
-    const { page, reverse, size, ...body } = params;
+    const { page, size, ...body } = params;
     return this._client.getAPIList(`/v1/workspaces/${workspaceId}/peers/${peerId}/sessions`, SessionsPage, {
-      query: { page, reverse, size },
+      query: { page, size },
       body,
       method: 'post',
       ...options,
@@ -42,11 +42,6 @@ export class Sessions extends APIResource {
 }
 
 export interface SessionListParams extends PageParams {
-  /**
-   * Query param: Whether to reverse the order of results
-   */
-  reverse?: boolean;
-
   /**
    * Body param:
    */

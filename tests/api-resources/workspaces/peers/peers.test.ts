@@ -43,7 +43,7 @@ describe('resource peers', () => {
     await expect(
       client.workspaces.peers.list(
         'workspace_id',
-        { page: 1, reverse: true, size: 1, filter: { foo: 'bar' } },
+        { page: 1, size: 1, filter: { foo: 'bar' } },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Honcho.NotFoundError);
@@ -83,7 +83,7 @@ describe('resource peers', () => {
   test('getOrCreate: required and optional params', async () => {
     const response = await client.workspaces.peers.getOrCreate('workspace_id', {
       id: 'id',
-      feature_flags: { foo: 'bar' },
+      configuration: { foo: 'bar' },
       metadata: { foo: 'bar' },
     });
   });

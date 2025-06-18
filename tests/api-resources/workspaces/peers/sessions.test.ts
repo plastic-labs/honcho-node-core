@@ -33,7 +33,7 @@ describe('resource sessions', () => {
       client.workspaces.peers.sessions.list(
         'workspace_id',
         'peer_id',
-        { page: 1, reverse: true, size: 1, filter: { foo: 'bar' }, is_active: true },
+        { page: 1, size: 1, filter: { foo: 'bar' }, is_active: true },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Honcho.NotFoundError);
