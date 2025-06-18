@@ -1,5 +1,44 @@
 # Changelog
 
+## 1.0.0 (2025-06-18)
+
+Full Changelog: [v0.2.0...v1.0.0](https://github.com/plastic-labs/honcho-node-core/compare/v0.2.0...v1.0.0)
+
+### Features
+
+* **api:** manual updates ([6a0f7f0](https://github.com/plastic-labs/honcho-node-core/commit/6a0f7f0ac9eaa62caa05acd2de0b6a9800a506cb))
+* **api:** manual updates ([0f08f4f](https://github.com/plastic-labs/honcho-node-core/commit/0f08f4f303dd269c0d978e7f7431dfad3e4a71b3))
+* **api:** rewrite to peer paradigm ([9b92067](https://github.com/plastic-labs/honcho-node-core/commit/9b9206791d72157e3a8ec781b9f2629123380f3c))
+* **client:** add support for endpoint-specific base URLs ([efbfe3a](https://github.com/plastic-labs/honcho-node-core/commit/efbfe3a67035876bc6835baef0308bb3fb2cd0bd))
+* **mcp:** implement support for binary responses ([950efcd](https://github.com/plastic-labs/honcho-node-core/commit/950efcd61330acd2d313f9a0e3173a31e200c08c))
+* **mcp:** include http information in tools ([36055c5](https://github.com/plastic-labs/honcho-node-core/commit/36055c5bc1d567e87ff126cafbba903e7cc33830))
+* **mcp:** set X-Stainless-MCP header ([51478c1](https://github.com/plastic-labs/honcho-node-core/commit/51478c10423770a5d45ee5ac8fd876705f122d0f))
+* **mcp:** support initializing the server with an "environment" ([229ce6f](https://github.com/plastic-labs/honcho-node-core/commit/229ce6fb0c95805673fc35d8735147f644aee2bd))
+
+
+### Bug Fixes
+
+* **mcp:** fix cursor schema transformation issue with recursive references ([83e67c4](https://github.com/plastic-labs/honcho-node-core/commit/83e67c4b221ed77612b635ccfb84f5f4d23c2215))
+* **mcp:** include description in dynamic tool search ([db6193b](https://github.com/plastic-labs/honcho-node-core/commit/db6193bad9cd749734bc5f4e84a6fffee7902f39))
+* publish script — handle NPM errors correctly ([fc8a136](https://github.com/plastic-labs/honcho-node-core/commit/fc8a136c55f19406172169b575041ab7875ebfe4))
+
+
+### Chores
+
+* **ci:** enable for pull requests ([70f9ede](https://github.com/plastic-labs/honcho-node-core/commit/70f9ededd7a83bd7ec9e01b8611f5d37da9950bf))
+* **docs:** grammar improvements ([772c0eb](https://github.com/plastic-labs/honcho-node-core/commit/772c0eb1016d2eea2b8907bdec1fdc3b721f7c3a))
+* **docs:** use top-level-await in example snippets ([61a2eb5](https://github.com/plastic-labs/honcho-node-core/commit/61a2eb57cebabc15ea8426c74ff2a4e49fd7c14d))
+* improve docs for MCP servers ([6d0fe48](https://github.com/plastic-labs/honcho-node-core/commit/6d0fe48aa25c5a81df03e7e6fa13591859a8be4a))
+* improve publish-npm script --latest tag logic ([9b6d4e0](https://github.com/plastic-labs/honcho-node-core/commit/9b6d4e0cde9dc18418e827d549cb103e935aad58))
+* **internal:** make base APIResource abstract ([814f72a](https://github.com/plastic-labs/honcho-node-core/commit/814f72ae789b4301212c61ff34c96da336e464e2))
+* **mcp:** provides high-level initMcpServer function and exports known clients ([a3e3064](https://github.com/plastic-labs/honcho-node-core/commit/a3e30649027b46e9e36b96d6873619797307fcdc))
+* **mcp:** remove duplicate assignment ([014b55d](https://github.com/plastic-labs/honcho-node-core/commit/014b55dbec71a0703e3cb69fa3f4a4648db5b09f))
+
+
+### Documentation
+
+* **pagination:** improve naming ([2db86d4](https://github.com/plastic-labs/honcho-node-core/commit/2db86d4b038badeeeb25c65ce64968594db9c374))
+
 ## 0.2.0 (2025-05-15)
 
 Full Changelog: [v0.1.0...v0.2.0](https://github.com/plastic-labs/honcho-node/compare/v0.1.0...v0.2.0)
