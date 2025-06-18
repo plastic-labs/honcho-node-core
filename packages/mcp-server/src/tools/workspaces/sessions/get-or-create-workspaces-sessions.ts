@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'get_or_create_workspaces_sessions',
   description:
-    'Get a specific session in a workspace.\n\nIf peer_id is provided as a query parameter, it verifies the peer is in the session.\nOtherwise, it uses the peer_id from the JWT token for verification.',
+    'Get a specific session in a workspace.\n\nIf session_id is provided as a query parameter, it verifies the session is in the workspace.\nOtherwise, it uses the session_id from the JWT token for verification.',
   inputSchema: {
     type: 'object',
     properties: {
@@ -39,9 +39,9 @@ export const tool: Tool = {
         type: 'object',
         title: 'Metadata',
       },
-      peer_names: {
+      peers: {
         type: 'object',
-        title: 'Peer Names',
+        title: 'Peers',
       },
     },
   },

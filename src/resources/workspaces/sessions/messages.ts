@@ -93,13 +93,13 @@ export interface Message {
 
   created_at: string;
 
-  peer_name: string;
+  peer_id: string;
 
-  session_name: string | null;
+  session_id: string | null;
 
   token_count: number;
 
-  workspace_name: string;
+  workspace_id: string;
 
   metadata?: Record<string, unknown>;
 }
@@ -119,7 +119,7 @@ export interface MessageCreateParams {
 }
 
 export interface MessageUpdateParams {
-  metadata: Record<string, unknown>;
+  metadata?: Record<string, unknown> | null;
 }
 
 export interface MessageListParams extends PageParams {

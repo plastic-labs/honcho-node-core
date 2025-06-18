@@ -136,7 +136,7 @@ export interface Peer {
 
   created_at: string;
 
-  workspace_name: string;
+  workspace_id: string;
 
   feature_flags?: Record<string, unknown>;
 
@@ -192,9 +192,9 @@ export interface PeerChatParams {
 export interface PeerGetOrCreateParams {
   id: string;
 
-  feature_flags?: Record<string, unknown>;
+  feature_flags?: Record<string, unknown> | null;
 
-  metadata?: Record<string, unknown>;
+  metadata?: Record<string, unknown> | null;
 }
 
 export interface PeerSearchParams extends PageParams {

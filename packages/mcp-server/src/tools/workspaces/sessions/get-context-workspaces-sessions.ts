@@ -17,7 +17,8 @@ export const metadata: Metadata = {
 
 export const tool: Tool = {
   name: 'get_context_workspaces_sessions',
-  description: 'Get Session Context',
+  description:
+    'Produce a context object from the session. The caller provides a token limit which the entire context must fit into.\nTo do this, we allocate 40% of the token limit to the summary, and 60% to recent messages -- as many as can fit.\nIf the caller does not want a summary, we allocate all the tokens to recent messages.\nThe default token limit if not provided is 2048. (TODO: make this configurable)',
   inputSchema: {
     type: 'object',
     properties: {

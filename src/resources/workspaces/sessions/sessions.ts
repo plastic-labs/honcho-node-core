@@ -23,7 +23,7 @@ import {
   PeerSetConfigParams,
   PeerSetConfigResponse,
   PeerSetParams,
-  Peers,
+  Peers as PeersAPIPeers,
 } from './peers';
 import { Page, type PageParams } from '../../../pagination';
 
@@ -37,15 +37,10 @@ export class Sessions extends APIResource {
   update(
     workspaceId: string,
     sessionId: string,
-    params: SessionUpdateParams,
+    body: SessionUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Session> {
-    const { peer_id, ...body } = params;
-    return this._client.put(`/v1/workspaces/${workspaceId}/sessions/${sessionId}`, {
-      query: { peer_id },
-      body,
-      ...options,
-    });
+    return this._client.put(`/v1/workspaces/${workspaceId}/sessions/${sessionId}`, { body, ...options });
   }
 
   /**
@@ -107,7 +102,11 @@ export class Sessions extends APIResource {
   }
 
   /**
-   * Get Session Context
+   * Produce a context object from the session. The caller provides a token limit
+   * which the entire context must fit into. To do this, we allocate 40% of the token
+   * limit to the summary, and 60% to recent messages -- as many as can fit. If the
+   * caller does not want a summary, we allocate all the tokens to recent messages.
+   * The default token limit if not provided is 2048. (TODO: make this configurable)
    */
   getContext(
     workspaceId: string,
@@ -138,8 +137,9 @@ export class Sessions extends APIResource {
   /**
    * Get a specific session in a workspace.
    *
-   * If peer_id is provided as a query parameter, it verifies the peer is in the
-   * session. Otherwise, it uses the peer_id from the JWT token for verification.
+   * If session_id is provided as a query parameter, it verifies the session is in
+   * the workspace. Otherwise, it uses the session_id from the JWT token for
+   * verification.
    */
   getOrCreate(
     workspaceId: string,
@@ -176,7 +176,7 @@ export interface Session {
 
   is_active: boolean;
 
-  workspace_name: string;
+  workspace_id: string;
 
   feature_flags?: Record<string, unknown>;
 
@@ -194,20 +194,9 @@ export interface SessionGetContextResponse {
 }
 
 export interface SessionUpdateParams {
-  /**
-   * Body param:
-   */
-  metadata: Record<string, unknown>;
-
-  /**
-   * Query param: Peer ID to verify access
-   */
-  peer_id?: string | null;
-
-  /**
-   * Body param:
-   */
   feature_flags?: Record<string, unknown> | null;
+
+  metadata?: Record<string, unknown> | null;
 }
 
 export interface SessionListParams extends PageParams {
@@ -249,15 +238,15 @@ export interface SessionGetContextParams {
 export interface SessionGetOrCreateParams {
   id: string;
 
-  feature_flags?: Record<string, unknown>;
+  feature_flags?: Record<string, unknown> | null;
 
-  metadata?: Record<string, unknown>;
+  metadata?: Record<string, unknown> | null;
 
-  peer_names?: Record<string, SessionGetOrCreateParams.PeerNames> | null;
+  peers?: Record<string, SessionGetOrCreateParams.Peers> | null;
 }
 
 export namespace SessionGetOrCreateParams {
-  export interface PeerNames {
+  export interface Peers {
     /**
      * Whether other peers in this session should try to form a session-level
      * theory-of-mind representation of this peer
@@ -282,7 +271,7 @@ export interface SessionSearchParams extends PageParams {
 Sessions.SessionsPage = SessionsPage;
 Sessions.Messages = Messages;
 Sessions.MessagesPage = MessagesPage;
-Sessions.Peers = Peers;
+Sessions.Peers = PeersAPIPeers;
 
 export declare namespace Sessions {
   export {
@@ -310,7 +299,7 @@ export declare namespace Sessions {
   };
 
   export {
-    Peers as Peers,
+    PeersAPIPeers as Peers,
     type PeerGetConfigResponse as PeerGetConfigResponse,
     type PeerSetConfigResponse as PeerSetConfigResponse,
     type PeerListParams as PeerListParams,

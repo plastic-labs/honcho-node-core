@@ -27,7 +27,7 @@ const client = new Honcho({
   environment: 'local', // or 'demo' | 'production'; defaults to 'demo'
 });
 
-const workspace = await client.workspaces.getOrCreate({ id: 'x' });
+const workspace = await client.workspaces.getOrCreate({ id: 'id' });
 
 console.log(workspace.id);
 ```
@@ -45,7 +45,7 @@ const client = new Honcho({
   environment: 'local', // or 'demo' | 'production'; defaults to 'demo'
 });
 
-const params: Honcho.WorkspaceGetOrCreateParams = { id: 'x' };
+const params: Honcho.WorkspaceGetOrCreateParams = { id: 'id' };
 const workspace: Honcho.Workspace = await client.workspaces.getOrCreate(params);
 ```
 
@@ -59,7 +59,7 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-const workspace = await client.workspaces.getOrCreate({ id: 'x' }).catch(async (err) => {
+const workspace = await client.workspaces.getOrCreate({ id: 'id' }).catch(async (err) => {
   if (err instanceof Honcho.APIError) {
     console.log(err.status); // 400
     console.log(err.name); // BadRequestError
@@ -99,7 +99,7 @@ const client = new Honcho({
 });
 
 // Or, configure per-request:
-await client.workspaces.getOrCreate({ id: 'x' }, {
+await client.workspaces.getOrCreate({ id: 'id' }, {
   maxRetries: 5,
 });
 ```
@@ -116,7 +116,7 @@ const client = new Honcho({
 });
 
 // Override per-request:
-await client.workspaces.getOrCreate({ id: 'x' }, {
+await client.workspaces.getOrCreate({ id: 'id' }, {
   timeout: 5 * 1000,
 });
 ```
@@ -168,11 +168,11 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 ```ts
 const client = new Honcho();
 
-const response = await client.workspaces.getOrCreate({ id: 'x' }).asResponse();
+const response = await client.workspaces.getOrCreate({ id: 'id' }).asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: workspace, response: raw } = await client.workspaces.getOrCreate({ id: 'x' }).withResponse();
+const { data: workspace, response: raw } = await client.workspaces.getOrCreate({ id: 'id' }).withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(workspace.id);
 ```
@@ -279,7 +279,7 @@ const client = new Honcho({
 
 // Override per-request:
 await client.workspaces.getOrCreate(
-  { id: 'x' },
+  { id: 'id' },
   {
     httpAgent: new http.Agent({ keepAlive: false }),
   },

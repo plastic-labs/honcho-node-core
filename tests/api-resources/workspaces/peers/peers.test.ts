@@ -70,7 +70,7 @@ describe('resource peers', () => {
   });
 
   test('getOrCreate: only required params', async () => {
-    const responsePromise = client.workspaces.peers.getOrCreate('workspace_id', { id: 'x' });
+    const responsePromise = client.workspaces.peers.getOrCreate('workspace_id', { id: 'id' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -82,7 +82,7 @@ describe('resource peers', () => {
 
   test('getOrCreate: required and optional params', async () => {
     const response = await client.workspaces.peers.getOrCreate('workspace_id', {
-      id: 'x',
+      id: 'id',
       feature_flags: { foo: 'bar' },
       metadata: { foo: 'bar' },
     });
