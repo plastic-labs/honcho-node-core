@@ -208,11 +208,14 @@ The following tools are available in this MCP server.
 - `list_workspaces_sessions` (`write`): Get All Sessions in a Workspace
 - `delete_workspaces_sessions` (`write`): Delete a session by marking it as inactive
 - `clone_workspaces_sessions` (`read`): Clone a session, optionally up to a specific message
-- `get_context_workspaces_sessions` (`read`): Get Session Context
+- `get_context_workspaces_sessions` (`read`): Produce a context object from the session. The caller provides a token limit which the entire context must fit into.
+  To do this, we allocate 40% of the token limit to the summary, and 60% to recent messages -- as many as can fit.
+  If the caller does not want a summary, we allocate all the tokens to recent messages.
+  The default token limit if not provided is 2048. (TODO: make this configurable)
 - `get_or_create_workspaces_sessions` (`write`): Get a specific session in a workspace.
 
-  If peer_id is provided as a query parameter, it verifies the peer is in the session.
-  Otherwise, it uses the peer_id from the JWT token for verification.
+  If session_id is provided as a query parameter, it verifies the session is in the workspace.
+  Otherwise, it uses the session_id from the JWT token for verification.
 
 - `search_workspaces_sessions` (`write`): Search a Session
 

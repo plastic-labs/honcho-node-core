@@ -31,18 +31,13 @@ export const tool: Tool = {
         title: 'Session Id',
         description: 'ID of the session to update',
       },
-      metadata: {
-        type: 'object',
-        title: 'Metadata',
-      },
-      peer_id: {
-        type: 'string',
-        title: 'Peer Id',
-        description: 'Peer ID to verify access',
-      },
       feature_flags: {
         type: 'object',
         title: 'Feature Flags',
+      },
+      metadata: {
+        type: 'object',
+        title: 'Metadata',
       },
     },
   },

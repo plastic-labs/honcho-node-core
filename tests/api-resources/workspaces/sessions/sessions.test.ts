@@ -9,10 +9,8 @@ const client = new Honcho({
 });
 
 describe('resource sessions', () => {
-  test('update: only required params', async () => {
-    const responsePromise = client.workspaces.sessions.update('workspace_id', 'session_id', {
-      metadata: { foo: 'bar' },
-    });
+  test('update', async () => {
+    const responsePromise = client.workspaces.sessions.update('workspace_id', 'session_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -20,14 +18,6 @@ describe('resource sessions', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('update: required and optional params', async () => {
-    const response = await client.workspaces.sessions.update('workspace_id', 'session_id', {
-      metadata: { foo: 'bar' },
-      peer_id: 'peer_id',
-      feature_flags: { foo: 'bar' },
-    });
   });
 
   test('list', async () => {
@@ -140,7 +130,7 @@ describe('resource sessions', () => {
   });
 
   test('getOrCreate: only required params', async () => {
-    const responsePromise = client.workspaces.sessions.getOrCreate('workspace_id', { id: 'x' });
+    const responsePromise = client.workspaces.sessions.getOrCreate('workspace_id', { id: 'id' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -152,10 +142,10 @@ describe('resource sessions', () => {
 
   test('getOrCreate: required and optional params', async () => {
     const response = await client.workspaces.sessions.getOrCreate('workspace_id', {
-      id: 'x',
+      id: 'id',
       feature_flags: { foo: 'bar' },
       metadata: { foo: 'bar' },
-      peer_names: { foo: { observe_me: true, observe_others: true } },
+      peers: { foo: { observe_me: true, observe_others: true } },
     });
   });
 

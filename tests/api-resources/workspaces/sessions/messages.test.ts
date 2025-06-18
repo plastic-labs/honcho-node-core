@@ -52,12 +52,12 @@ describe('resource messages', () => {
     ).rejects.toThrow(Honcho.NotFoundError);
   });
 
-  test('update: only required params', async () => {
+  test('update', async () => {
     const responsePromise = client.workspaces.sessions.messages.update(
       'workspace_id',
       'session_id',
       'message_id',
-      { metadata: { foo: 'bar' } },
+      {},
     );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -66,15 +66,6 @@ describe('resource messages', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('update: required and optional params', async () => {
-    const response = await client.workspaces.sessions.messages.update(
-      'workspace_id',
-      'session_id',
-      'message_id',
-      { metadata: { foo: 'bar' } },
-    );
   });
 
   test('list', async () => {

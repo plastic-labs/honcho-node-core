@@ -49,7 +49,7 @@ describe('resource workspaces', () => {
   });
 
   test('getOrCreate: only required params', async () => {
-    const responsePromise = client.workspaces.getOrCreate({ id: 'x' });
+    const responsePromise = client.workspaces.getOrCreate({ id: 'id' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -61,7 +61,7 @@ describe('resource workspaces', () => {
 
   test('getOrCreate: required and optional params', async () => {
     const response = await client.workspaces.getOrCreate({
-      id: 'x',
+      id: 'id',
       feature_flags: { foo: 'bar' },
       metadata: { foo: 'bar' },
     });
