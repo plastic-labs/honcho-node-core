@@ -11,7 +11,7 @@ You can run the MCP Server directly via `npx`:
 ```sh
 export HONCHO_API_KEY="My API Key"
 export HONCHO_ENVIRONMENT="demo"
-npx -y @honcho/mcp@latest
+npx -y @honcho-ai/mcp@latest
 ```
 
 ### Via MCP Client
@@ -24,9 +24,9 @@ For clients with a configuration JSON, it might look something like this:
 ```json
 {
   "mcpServers": {
-    "honcho_core_api": {
+    "honcho_ai_core_api": {
       "command": "npx",
-      "args": ["-y", "@honcho/mcp", "--client=claude", "--tools=dynamic"],
+      "args": ["-y", "@honcho-ai/mcp", "--client=claude", "--tools=dynamic"],
       "env": {
         "HONCHO_API_KEY": "My API Key",
         "HONCHO_ENVIRONMENT": "demo"
@@ -132,10 +132,10 @@ over time, you can manually enable or disable certain capabilities:
 
 ```js
 // Import the server, generated endpoints, or the init function
-import { server, endpoints, init } from "@honcho/mcp/server";
+import { server, endpoints, init } from "@honcho-ai/mcp/server";
 
 // import a specific tool
-import updateWorkspaces from "@honcho/mcp/tools/workspaces/update-workspaces";
+import updateWorkspaces from "@honcho-ai/mcp/tools/workspaces/update-workspaces";
 
 // initialize the server and all endpoints
 init({ server, endpoints });

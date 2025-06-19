@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { asTextContentResult } from '@honcho/mcp/tools/types';
+import { asTextContentResult } from '@honcho-ai/mcp/tools/types';
 
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import type { Metadata } from '../../../';
-import Honcho from '@honcho/core';
+import Honcho from '@honcho-ai/core';
 
 export const metadata: Metadata = {
   resource: 'workspaces.peers.sessions',
