@@ -55,12 +55,12 @@ $ cd honcho-node-core
 # With yarn
 $ yarn link
 $ cd ../my-package
-$ yarn link @honcho/core
+$ yarn link @honcho-ai/core
 
 # With pnpm
 $ pnpm link --global
 $ cd ../my-package
-$ pnpm link -—global @honcho/core
+$ pnpm link -—global @honcho-ai/core
 ```
 
 ## Running tests

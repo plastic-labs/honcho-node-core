@@ -2,7 +2,7 @@
  * Disclaimer: modules in _shims aren't intended to be imported by SDK users.
  */
 const shims = require('./registry');
-const auto = require('@honcho/core/_shims/auto/runtime');
+const auto = require('@honcho-ai/core/_shims/auto/runtime');
 exports.init = () => {
   if (!shims.kind) shims.setShims(auto.getRuntime(), { auto: true });
 };

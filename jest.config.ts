@@ -7,9 +7,9 @@ const config: JestConfigWithTsJest = {
     '^.+\\.(t|j)sx?$': ['@swc/jest', { sourceMaps: 'inline' }],
   },
   moduleNameMapper: {
-    '^@honcho/core$': '<rootDir>/src/index.ts',
-    '^@honcho/core/_shims/auto/(.*)$': '<rootDir>/src/_shims/auto/$1-node',
-    '^@honcho/core/(.*)$': '<rootDir>/src/$1',
+    '^@honcho-ai/core$': '<rootDir>/src/index.ts',
+    '^@honcho-ai/core/_shims/auto/(.*)$': '<rootDir>/src/_shims/auto/$1-node',
+    '^@honcho-ai/core/(.*)$': '<rootDir>/src/$1',
   },
   modulePathIgnorePatterns: [
     '<rootDir>/ecosystem-tests/',

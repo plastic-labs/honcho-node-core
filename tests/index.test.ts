@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Honcho from '@honcho/core';
-import { APIUserAbortError } from '@honcho/core';
-import { Headers } from '@honcho/core/core';
+import Honcho from '@honcho-ai/core';
+import { APIUserAbortError } from '@honcho-ai/core';
+import { Headers } from '@honcho-ai/core/core';
 import defaultFetch, { Response, type RequestInit, type RequestInfo } from 'node-fetch';
 
 describe('instantiate client', () => {

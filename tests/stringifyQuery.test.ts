@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { Honcho } from '@honcho/core';
+import { Honcho } from '@honcho-ai/core';
 
 const { stringifyQuery } = Honcho.prototype as any;
 

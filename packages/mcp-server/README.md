@@ -24,7 +24,7 @@ For clients with a configuration JSON, it might look something like this:
 ```json
 {
   "mcpServers": {
-    "honcho_core_api": {
+    "honcho_ai_core_api": {
       "command": "npx",
       "args": ["-y", "@honcho/mcp", "--client=claude", "--tools=dynamic"],
       "env": {

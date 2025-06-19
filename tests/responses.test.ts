@@ -1,5 +1,5 @@
-import { createResponseHeaders } from '@honcho/core/core';
-import { Headers } from '@honcho/core/_shims/index';
+import { createResponseHeaders } from '@honcho-ai/core/core';
+import { Headers } from '@honcho-ai/core/_shims/index';
 
 describe('response parsing', () => {
   // TODO: test unicode characters
