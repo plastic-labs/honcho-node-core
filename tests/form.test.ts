@@ -1,6 +1,6 @@
-import { multipartFormRequestOptions, createForm } from '@honcho/core/core';
-import { Blob } from '@honcho/core/_shims/index';
-import { toFile } from '@honcho/core';
+import { multipartFormRequestOptions, createForm } from '@honcho-ai/core/core';
+import { Blob } from '@honcho-ai/core/_shims/index';
+import { toFile } from '@honcho-ai/core';
 
 describe('form data validation', () => {
   test('valid values do not error', async () => {

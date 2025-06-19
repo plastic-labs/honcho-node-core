@@ -1,6 +1,6 @@
 # honcho-ai API Library
 
-[![NPM version](https://img.shields.io/npm/v/@honcho/core.svg)](https://npmjs.org/package/@honcho/core) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/@honcho/core)
+[![NPM version](https://img.shields.io/npm/v/@honcho-ai/core.svg)](https://npmjs.org/package/@honcho-ai/core) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/@honcho-ai/core)
 
 This library provides convenient access to the Honcho REST API from server-side TypeScript or JavaScript.
 
@@ -11,7 +11,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 ## Installation
 
 ```sh
-npm install @honcho/core
+npm install @honcho-ai/core
 ```
 
 ## Usage
@@ -20,7 +20,7 @@ The full API of this library can be found in [api.md](api.md).
 
 <!-- prettier-ignore -->
 ```js
-import Honcho from '@honcho/core';
+import Honcho from '@honcho-ai/core';
 
 const client = new Honcho({
   apiKey: process.env['HONCHO_API_KEY'], // This is the default and can be omitted
@@ -38,7 +38,7 @@ This library includes TypeScript definitions for all request params and response
 
 <!-- prettier-ignore -->
 ```ts
-import Honcho from '@honcho/core';
+import Honcho from '@honcho-ai/core';
 
 const client = new Honcho({
   apiKey: process.env['HONCHO_API_KEY'], // This is the default and can be omitted
@@ -232,11 +232,11 @@ add the following import before your first import `from "Honcho"`:
 ```ts
 // Tell TypeScript and the package to use the global web fetch instead of node-fetch.
 // Note, despite the name, this does not add any polyfills, but expects them to be provided if needed.
-import '@honcho/core/shims/web';
-import Honcho from '@honcho/core';
+import '@honcho-ai/core/shims/web';
+import Honcho from '@honcho-ai/core';
 ```
 
-To do the inverse, add `import "@honcho/core/shims/node"` (which does import polyfills).
+To do the inverse, add `import "@honcho-ai/core/shims/node"` (which does import polyfills).
 This can also be useful if you are getting the wrong TypeScript types for `Response` ([more details](https://github.com/plastic-labs/honcho-node-core/tree/main/src/_shims#readme)).
 
 ### Logging and middleware
@@ -246,7 +246,7 @@ which can be used to inspect or alter the `Request` or `Response` before/after e
 
 ```ts
 import { fetch } from 'undici'; // as one example
-import Honcho from '@honcho/core';
+import Honcho from '@honcho-ai/core';
 
 const client = new Honcho({
   fetch: async (url: RequestInfo, init?: RequestInit): Promise<Response> => {
