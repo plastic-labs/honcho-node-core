@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Honcho from 'honcho-ai';
+import Honcho from '@honcho/core';
 import { Response } from 'node-fetch';
 
 const client = new Honcho({
@@ -32,11 +32,10 @@ describe('resource keys', () => {
     await expect(
       client.keys.create(
         {
-          app_id: 'app_id',
-          collection_id: 'collection_id',
           expires_at: '2019-12-27T18:11:19.117Z',
+          peer_id: 'peer_id',
           session_id: 'session_id',
-          user_id: 'user_id',
+          workspace_id: 'workspace_id',
         },
         { path: '/_stainless_unknown_path' },
       ),

@@ -1,6 +1,6 @@
 import fs from 'fs';
-import { toFile, type ResponseLike } from 'honcho-ai/uploads';
-import { File } from 'honcho-ai/_shims/index';
+import { toFile, type ResponseLike } from '@honcho/core/uploads';
+import { File } from '@honcho/core/_shims/index';
 
 class MyClass {
   name: string = 'foo';

@@ -7,8 +7,8 @@ const config: JestConfigWithTsJest = {
     '^.+\\.(t|j)sx?$': ['@swc/jest', { sourceMaps: 'inline' }],
   },
   moduleNameMapper: {
-    '^honcho-ai-mcp$': '<rootDir>/src/index.ts',
-    '^honcho-ai-mcp/(.*)$': '<rootDir>/src/$1',
+    '^@honcho/mcp$': '<rootDir>/src/index.ts',
+    '^@honcho/mcp/(.*)$': '<rootDir>/src/$1',
   },
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
   testPathIgnorePatterns: ['scripts'],

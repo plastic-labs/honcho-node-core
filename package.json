@@ -1,12 +1,12 @@
 {
-  "name": "honcho-ai",
-  "version": "0.2.0",
+  "name": "@honcho/core",
+  "version": "1.0.0",
   "description": "The official TypeScript library for the Honcho API",
   "author": "Honcho <hello@plasticlabs.ai>",
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
   "type": "commonjs",
-  "repository": "github:plastic-labs/honcho-node",
+  "repository": "github:plastic-labs/honcho-node-core",
   "license": "Apache-2.0",
   "packageManager": "yarn@1.22.22",
   "files": [
@@ -59,8 +59,8 @@
     "./shims/web.mjs"
   ],
   "imports": {
-    "honcho-ai": ".",
-    "honcho-ai/*": "./src/*"
+    "@honcho/core": ".",
+    "@honcho/core/*": "./src/*"
   },
   "exports": {
     "./_shims/auto/*": {

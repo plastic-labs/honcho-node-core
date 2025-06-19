@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Honcho from 'honcho-ai';
-import { APIUserAbortError } from 'honcho-ai';
-import { Headers } from 'honcho-ai/core';
+import Honcho from '@honcho/core';
+import { APIUserAbortError } from '@honcho/core';
+import { Headers } from '@honcho/core/core';
 import defaultFetch, { Response, type RequestInit, type RequestInfo } from 'node-fetch';
 
 describe('instantiate client', () => {
@@ -193,6 +193,28 @@ describe('instantiate client', () => {
 
       const client = new Honcho({ apiKey: 'My API Key', baseURL: null, environment: 'demo' });
       expect(client.baseURL).toEqual('https://demo.honcho.dev');
+    });
+
+    test('in request options', () => {
+      const client = new Honcho({ apiKey: 'My API Key' });
+      expect(client.buildURL('/foo', null, 'http://localhost:5000/option')).toEqual(
+        'http://localhost:5000/option/foo',
+      );
+    });
+
+    test('in request options overridden by client options', () => {
+      const client = new Honcho({ apiKey: 'My API Key', baseURL: 'http://localhost:5000/client' });
+      expect(client.buildURL('/foo', null, 'http://localhost:5000/option')).toEqual(
+        'http://localhost:5000/client/foo',
+      );
+    });
+
+    test('in request options overridden by env variable', () => {
+      process.env['HONCHO_BASE_URL'] = 'http://localhost:5000/env';
+      const client = new Honcho({ apiKey: 'My API Key' });
+      expect(client.buildURL('/foo', null, 'http://localhost:5000/option')).toEqual(
+        'http://localhost:5000/env/foo',
+      );
     });
   });
 

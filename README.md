@@ -1,6 +1,6 @@
 # honcho-ai API Library
 
-[![NPM version](https://img.shields.io/npm/v/honcho-ai.svg)](https://npmjs.org/package/honcho-ai) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/honcho-ai)
+[![NPM version](https://img.shields.io/npm/v/@honcho/core.svg)](https://npmjs.org/package/@honcho/core) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/@honcho/core)
 
 This library provides convenient access to the Honcho REST API from server-side TypeScript or JavaScript.
 
@@ -11,7 +11,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 ## Installation
 
 ```sh
-npm install honcho-ai
+npm install @honcho/core
 ```
 
 ## Usage
@@ -20,20 +20,16 @@ The full API of this library can be found in [api.md](api.md).
 
 <!-- prettier-ignore -->
 ```js
-import Honcho from 'honcho-ai';
+import Honcho from '@honcho/core';
 
 const client = new Honcho({
   apiKey: process.env['HONCHO_API_KEY'], // This is the default and can be omitted
   environment: 'local', // or 'demo' | 'production'; defaults to 'demo'
 });
 
-async function main() {
-  const app = await client.apps.create({ name: 'x' });
+const workspace = await client.workspaces.getOrCreate({ id: 'id' });
 
-  console.log(app.id);
-}
-
-main();
+console.log(workspace.id);
 ```
 
 ### Request & Response types
@@ -42,19 +38,15 @@ This library includes TypeScript definitions for all request params and response
 
 <!-- prettier-ignore -->
 ```ts
-import Honcho from 'honcho-ai';
+import Honcho from '@honcho/core';
 
 const client = new Honcho({
   apiKey: process.env['HONCHO_API_KEY'], // This is the default and can be omitted
   environment: 'local', // or 'demo' | 'production'; defaults to 'demo'
 });
 
-async function main() {
-  const params: Honcho.AppCreateParams = { name: 'x' };
-  const app: Honcho.App = await client.apps.create(params);
-}
-
-main();
+const params: Honcho.WorkspaceGetOrCreateParams = { id: 'id' };
+const workspace: Honcho.Workspace = await client.workspaces.getOrCreate(params);
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -67,19 +59,15 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-async function main() {
-  const app = await client.apps.create({ name: 'x' }).catch(async (err) => {
-    if (err instanceof Honcho.APIError) {
-      console.log(err.status); // 400
-      console.log(err.name); // BadRequestError
-      console.log(err.headers); // {server: 'nginx', ...}
-    } else {
-      throw err;
-    }
-  });
-}
-
-main();
+const workspace = await client.workspaces.getOrCreate({ id: 'id' }).catch(async (err) => {
+  if (err instanceof Honcho.APIError) {
+    console.log(err.status); // 400
+    console.log(err.name); // BadRequestError
+    console.log(err.headers); // {server: 'nginx', ...}
+  } else {
+    throw err;
+  }
+});
 ```
 
 Error codes are as follows:
@@ -111,7 +99,7 @@ const client = new Honcho({
 });
 
 // Or, configure per-request:
-await client.apps.create({ name: 'x' }, {
+await client.workspaces.getOrCreate({ id: 'id' }, {
   maxRetries: 5,
 });
 ```
@@ -128,7 +116,7 @@ const client = new Honcho({
 });
 
 // Override per-request:
-await client.apps.create({ name: 'x' }, {
+await client.workspaces.getOrCreate({ id: 'id' }, {
   timeout: 5 * 1000,
 });
 ```
@@ -143,22 +131,22 @@ List methods in the Honcho API are paginated.
 You can use the `for await … of` syntax to iterate through items across all pages:
 
 ```ts
-async function fetchAllAppsUsers(params) {
-  const allAppsUsers = [];
+async function fetchAllPeers(params) {
+  const allPeers = [];
   // Automatically fetches more pages as needed.
-  for await (const user of client.apps.users.list('REPLACE_ME')) {
-    allAppsUsers.push(user);
+  for await (const peer of client.workspaces.peers.list('REPLACE_ME')) {
+    allPeers.push(peer);
   }
-  return allAppsUsers;
+  return allPeers;
 }
 ```
 
 Alternatively, you can request a single page at a time:
 
 ```ts
-let page = await client.apps.users.list('REPLACE_ME');
-for (const user of page.items) {
-  console.log(user);
+let page = await client.workspaces.peers.list('REPLACE_ME');
+for (const peer of page.items) {
+  console.log(peer);
 }
 
 // Convenience methods are provided for manually paginating:
@@ -180,13 +168,13 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 ```ts
 const client = new Honcho();
 
-const response = await client.apps.create({ name: 'x' }).asResponse();
+const response = await client.workspaces.getOrCreate({ id: 'id' }).asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: app, response: raw } = await client.apps.create({ name: 'x' }).withResponse();
+const { data: workspace, response: raw } = await client.workspaces.getOrCreate({ id: 'id' }).withResponse();
 console.log(raw.headers.get('X-My-Header'));
-console.log(app.id);
+console.log(workspace.id);
 ```
 
 ### Making custom/undocumented requests
@@ -244,12 +232,12 @@ add the following import before your first import `from "Honcho"`:
 ```ts
 // Tell TypeScript and the package to use the global web fetch instead of node-fetch.
 // Note, despite the name, this does not add any polyfills, but expects them to be provided if needed.
-import 'honcho-ai/shims/web';
-import Honcho from 'honcho-ai';
+import '@honcho/core/shims/web';
+import Honcho from '@honcho/core';
 ```
 
-To do the inverse, add `import "honcho-ai/shims/node"` (which does import polyfills).
-This can also be useful if you are getting the wrong TypeScript types for `Response` ([more details](https://github.com/plastic-labs/honcho-node/tree/main/src/_shims#readme)).
+To do the inverse, add `import "@honcho/core/shims/node"` (which does import polyfills).
+This can also be useful if you are getting the wrong TypeScript types for `Response` ([more details](https://github.com/plastic-labs/honcho-node-core/tree/main/src/_shims#readme)).
 
 ### Logging and middleware
 
@@ -258,7 +246,7 @@ which can be used to inspect or alter the `Request` or `Response` before/after e
 
 ```ts
 import { fetch } from 'undici'; // as one example
-import Honcho from 'honcho-ai';
+import Honcho from '@honcho/core';
 
 const client = new Honcho({
   fetch: async (url: RequestInfo, init?: RequestInit): Promise<Response> => {
@@ -290,8 +278,8 @@ const client = new Honcho({
 });
 
 // Override per-request:
-await client.apps.create(
-  { name: 'x' },
+await client.workspaces.getOrCreate(
+  { id: 'id' },
   {
     httpAgent: new http.Agent({ keepAlive: false }),
   },
@@ -308,7 +296,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/plastic-labs/honcho-node/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/plastic-labs/honcho-node-core/issues) with questions, bugs, or suggestions.
 
 ## Requirements
 

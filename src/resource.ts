@@ -2,7 +2,7 @@
 
 import type { Honcho } from './index';
 
-export class APIResource {
+export abstract class APIResource {
   protected _client: Honcho;
 
   constructor(client: Honcho) {
