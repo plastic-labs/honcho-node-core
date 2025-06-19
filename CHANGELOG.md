@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.0.0 (2025-06-19)
+
+Full Changelog: [v1.0.0...v1.0.0](https://github.com/plastic-labs/honcho-node-core/compare/v1.0.0...v1.0.0)
+
+### Features
+
+* **api:** change mcp package name ([b45f917](https://github.com/plastic-labs/honcho-node-core/commit/b45f917e6b0a03ab2b5f4dead2227d7a476af461))
+
+
+### Chores
+
+* update SDK settings ([84023c2](https://github.com/plastic-labs/honcho-node-core/commit/84023c2f5abdd4777fc97836240727262a12f233))
+
 ## 1.0.0 (2025-06-18)
 
 Full Changelog: [v0.2.0...v1.0.0](https://github.com/plastic-labs/honcho-node-core/compare/v0.2.0...v1.0.0)
