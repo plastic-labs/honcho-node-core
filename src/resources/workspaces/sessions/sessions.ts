@@ -178,9 +178,9 @@ export interface Session {
 
   workspace_id: string;
 
-  configuration?: Record<string, unknown>;
+  configuration?: { [key: string]: unknown };
 
-  metadata?: Record<string, unknown>;
+  metadata?: { [key: string]: unknown };
 }
 
 export type SessionDeleteResponse = unknown;
@@ -194,16 +194,16 @@ export interface SessionGetContextResponse {
 }
 
 export interface SessionUpdateParams {
-  configuration?: Record<string, unknown> | null;
+  configuration?: { [key: string]: unknown } | null;
 
-  metadata?: Record<string, unknown> | null;
+  metadata?: { [key: string]: unknown } | null;
 }
 
 export interface SessionListParams extends PageParams {
   /**
    * Body param:
    */
-  filter?: Record<string, unknown> | null;
+  filter?: { [key: string]: unknown } | null;
 
   /**
    * Body param:
@@ -233,11 +233,11 @@ export interface SessionGetContextParams {
 export interface SessionGetOrCreateParams {
   id: string;
 
-  configuration?: Record<string, unknown> | null;
+  configuration?: { [key: string]: unknown } | null;
 
-  metadata?: Record<string, unknown> | null;
+  metadata?: { [key: string]: unknown } | null;
 
-  peers?: Record<string, SessionGetOrCreateParams.Peers> | null;
+  peers?: { [key: string]: SessionGetOrCreateParams.Peers } | null;
 }
 
 export namespace SessionGetOrCreateParams {
