@@ -133,7 +133,7 @@ export type PeerSetConfigResponse = unknown;
 
 export interface PeerListParams extends PageParams {}
 
-export type PeerAddParams = Record<string, PeerAddParams.Body>;
+export type PeerAddParams = { [key: string]: PeerAddParams.Body };
 
 export namespace PeerAddParams {
   export interface Body {
@@ -153,7 +153,7 @@ export namespace PeerAddParams {
 
 export type PeerRemoveParams = Array<string>;
 
-export type PeerSetParams = Record<string, PeerSetParams.Body>;
+export type PeerSetParams = { [key: string]: PeerSetParams.Body };
 
 export namespace PeerSetParams {
   export interface Body {

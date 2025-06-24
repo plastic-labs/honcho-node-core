@@ -101,7 +101,7 @@ export interface Message {
 
   workspace_id: string;
 
-  metadata?: Record<string, unknown>;
+  metadata?: { [key: string]: unknown };
 }
 
 export interface MessageCreate {
@@ -109,7 +109,7 @@ export interface MessageCreate {
 
   peer_id: string;
 
-  metadata?: Record<string, unknown> | null;
+  metadata?: { [key: string]: unknown } | null;
 }
 
 export type MessageCreateResponse = Array<Message>;
@@ -119,7 +119,7 @@ export interface MessageCreateParams {
 }
 
 export interface MessageUpdateParams {
-  metadata?: Record<string, unknown> | null;
+  metadata?: { [key: string]: unknown } | null;
 }
 
 export interface MessageListParams extends PageParams {
@@ -131,7 +131,7 @@ export interface MessageListParams extends PageParams {
   /**
    * Body param:
    */
-  filter?: Record<string, unknown> | null;
+  filter?: { [key: string]: unknown } | null;
 }
 
 Messages.MessagesPage = MessagesPage;

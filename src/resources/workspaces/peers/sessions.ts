@@ -45,7 +45,7 @@ export interface SessionListParams extends PageParams {
   /**
    * Body param:
    */
-  filter?: Record<string, unknown> | null;
+  filter?: { [key: string]: unknown } | null;
 
   /**
    * Body param:

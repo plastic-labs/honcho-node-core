@@ -67,7 +67,7 @@ export interface MessageListParams extends PageParams {
   /**
    * Body param:
    */
-  filter?: Record<string, unknown> | null;
+  filter?: { [key: string]: unknown } | null;
 }
 
 export declare namespace Messages {

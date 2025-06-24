@@ -111,30 +111,30 @@ export interface Workspace {
 
   created_at: string;
 
-  configuration?: Record<string, unknown>;
+  configuration?: { [key: string]: unknown };
 
-  metadata?: Record<string, unknown>;
+  metadata?: { [key: string]: unknown };
 }
 
 export interface WorkspaceUpdateParams {
-  configuration?: Record<string, unknown> | null;
+  configuration?: { [key: string]: unknown } | null;
 
-  metadata?: Record<string, unknown> | null;
+  metadata?: { [key: string]: unknown } | null;
 }
 
 export interface WorkspaceListParams extends PageParams {
   /**
    * Body param:
    */
-  filter?: Record<string, unknown> | null;
+  filter?: { [key: string]: unknown } | null;
 }
 
 export interface WorkspaceGetOrCreateParams {
   id: string;
 
-  configuration?: Record<string, unknown>;
+  configuration?: { [key: string]: unknown };
 
-  metadata?: Record<string, unknown>;
+  metadata?: { [key: string]: unknown };
 }
 
 export interface WorkspaceSearchParams extends PageParams {

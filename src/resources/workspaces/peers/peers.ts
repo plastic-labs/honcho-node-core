@@ -138,13 +138,13 @@ export interface Peer {
 
   workspace_id: string;
 
-  configuration?: Record<string, unknown>;
+  configuration?: { [key: string]: unknown };
 
-  metadata?: Record<string, unknown>;
+  metadata?: { [key: string]: unknown };
 }
 
 export interface SessionGet {
-  filter?: Record<string, unknown> | null;
+  filter?: { [key: string]: unknown } | null;
 
   is_active?: boolean;
 }
@@ -153,19 +153,19 @@ export interface PeerChatResponse {
   content: string;
 }
 
-export type PeerWorkingRepresentationResponse = Record<string, unknown>;
+export type PeerWorkingRepresentationResponse = { [key: string]: unknown };
 
 export interface PeerUpdateParams {
-  configuration?: Record<string, unknown> | null;
+  configuration?: { [key: string]: unknown } | null;
 
-  metadata?: Record<string, unknown> | null;
+  metadata?: { [key: string]: unknown } | null;
 }
 
 export interface PeerListParams extends PageParams {
   /**
    * Body param:
    */
-  filter?: Record<string, unknown> | null;
+  filter?: { [key: string]: unknown } | null;
 }
 
 export interface PeerChatParams {
@@ -187,9 +187,9 @@ export interface PeerChatParams {
 export interface PeerGetOrCreateParams {
   id: string;
 
-  configuration?: Record<string, unknown> | null;
+  configuration?: { [key: string]: unknown } | null;
 
-  metadata?: Record<string, unknown> | null;
+  metadata?: { [key: string]: unknown } | null;
 }
 
 export interface PeerSearchParams extends PageParams {
