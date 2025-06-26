@@ -6,6 +6,7 @@ export { Metadata, Endpoint, HandlerFunction };
 
 import update_workspaces from './workspaces/update-workspaces';
 import list_workspaces from './workspaces/list-workspaces';
+import deriver_status_workspaces from './workspaces/deriver-status-workspaces';
 import get_or_create_workspaces from './workspaces/get-or-create-workspaces';
 import search_workspaces from './workspaces/search-workspaces';
 import update_workspaces_peers from './workspaces/peers/update-workspaces-peers';
@@ -44,6 +45,7 @@ function addEndpoint(endpoint: Endpoint) {
 
 addEndpoint(update_workspaces);
 addEndpoint(list_workspaces);
+addEndpoint(deriver_status_workspaces);
 addEndpoint(get_or_create_workspaces);
 addEndpoint(search_workspaces);
 addEndpoint(update_workspaces_peers);

@@ -49,7 +49,7 @@ export class Workspaces extends APIResource {
     body: WorkspaceUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Workspace> {
-    return this._client.put(`/v1/workspaces/${workspaceId}`, { body, ...options });
+    return this._client.put(`/v2/workspaces/${workspaceId}`, { body, ...options });
   }
 
   /**
@@ -68,12 +68,32 @@ export class Workspaces extends APIResource {
       return this.list({}, params);
     }
     const { page, size, ...body } = params;
-    return this._client.getAPIList('/v1/workspaces/list', WorkspacesPage, {
+    return this._client.getAPIList('/v2/workspaces/list', WorkspacesPage, {
       query: { page, size },
       body,
       method: 'post',
       ...options,
     });
+  }
+
+  /**
+   * Get the deriver processing status, optionally scoped to a peer and/or session
+   */
+  deriverStatus(
+    workspaceId: string,
+    query?: WorkspaceDeriverStatusParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<DeriverStatus>;
+  deriverStatus(workspaceId: string, options?: Core.RequestOptions): Core.APIPromise<DeriverStatus>;
+  deriverStatus(
+    workspaceId: string,
+    query: WorkspaceDeriverStatusParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<DeriverStatus> {
+    if (isRequestOptions(query)) {
+      return this.deriverStatus(workspaceId, {}, query);
+    }
+    return this._client.get(`/v2/workspaces/${workspaceId}/deriver/status`, { query, ...options });
   }
 
   /**
@@ -83,7 +103,7 @@ export class Workspaces extends APIResource {
    * workspace_id). Otherwise, it uses the workspace_id from the JWT token.
    */
   getOrCreate(body: WorkspaceGetOrCreateParams, options?: Core.RequestOptions): Core.APIPromise<Workspace> {
-    return this._client.post('/v1/workspaces', { body, ...options });
+    return this._client.post('/v2/workspaces', { body, ...options });
   }
 
   /**
@@ -95,7 +115,7 @@ export class Workspaces extends APIResource {
     options?: Core.RequestOptions,
   ): Core.PagePromise<MessagesPage, MessagesAPI.Message> {
     const { body, page, size } = params;
-    return this._client.getAPIList(`/v1/workspaces/${workspaceId}/search`, MessagesPage, {
+    return this._client.getAPIList(`/v2/workspaces/${workspaceId}/search`, MessagesPage, {
       query: { page, size },
       body: body,
       method: 'post',
@@ -105,6 +125,43 @@ export class Workspaces extends APIResource {
 }
 
 export class WorkspacesPage extends Page<Workspace> {}
+
+export interface DeriverStatus {
+  /**
+   * Completed work units
+   */
+  completed_work_units: number;
+
+  /**
+   * Work units currently being processed
+   */
+  in_progress_work_units: number;
+
+  /**
+   * Work units waiting to be processed
+   */
+  pending_work_units: number;
+
+  /**
+   * Total work units
+   */
+  total_work_units: number;
+
+  /**
+   * ID of the peer (optional when filtering by session only)
+   */
+  peer_id?: string | null;
+
+  /**
+   * Session ID if filtered by session
+   */
+  session_id?: string | null;
+
+  /**
+   * Per-session status when not filtered by session
+   */
+  sessions?: { [key: string]: DeriverStatus } | null;
+}
 
 export interface Workspace {
   id: string;
@@ -127,6 +184,23 @@ export interface WorkspaceListParams extends PageParams {
    * Body param:
    */
   filter?: { [key: string]: unknown } | null;
+}
+
+export interface WorkspaceDeriverStatusParams {
+  /**
+   * Include work units triggered by this peer
+   */
+  include_sender?: boolean;
+
+  /**
+   * Optional peer ID to filter by
+   */
+  peer_id?: string | null;
+
+  /**
+   * Optional session ID to filter by
+   */
+  session_id?: string | null;
 }
 
 export interface WorkspaceGetOrCreateParams {
@@ -152,10 +226,12 @@ Workspaces.SessionsPage = SessionsPage;
 
 export declare namespace Workspaces {
   export {
+    type DeriverStatus as DeriverStatus,
     type Workspace as Workspace,
     WorkspacesPage as WorkspacesPage,
     type WorkspaceUpdateParams as WorkspaceUpdateParams,
     type WorkspaceListParams as WorkspaceListParams,
+    type WorkspaceDeriverStatusParams as WorkspaceDeriverStatusParams,
     type WorkspaceGetOrCreateParams as WorkspaceGetOrCreateParams,
     type WorkspaceSearchParams as WorkspaceSearchParams,
   };

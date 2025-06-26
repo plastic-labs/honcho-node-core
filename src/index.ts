@@ -9,7 +9,9 @@ import * as Uploads from './uploads';
 import * as API from './resources/index';
 import { KeyCreateParams, KeyCreateResponse, Keys } from './resources/keys';
 import {
+  DeriverStatus,
   Workspace,
+  WorkspaceDeriverStatusParams,
   WorkspaceGetOrCreateParams,
   WorkspaceListParams,
   WorkspaceSearchParams,
@@ -211,10 +213,12 @@ export declare namespace Honcho {
 
   export {
     Workspaces as Workspaces,
+    type DeriverStatus as DeriverStatus,
     type Workspace as Workspace,
     WorkspacesPage as WorkspacesPage,
     type WorkspaceUpdateParams as WorkspaceUpdateParams,
     type WorkspaceListParams as WorkspaceListParams,
+    type WorkspaceDeriverStatusParams as WorkspaceDeriverStatusParams,
     type WorkspaceGetOrCreateParams as WorkspaceGetOrCreateParams,
     type WorkspaceSearchParams as WorkspaceSearchParams,
   };

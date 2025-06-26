@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   operation: 'write',
   tags: [],
   httpMethod: 'post',
-  httpPath: '/v1/workspaces',
-  operationId: 'get_or_create_workspace_v1_workspaces_post',
+  httpPath: '/v2/workspaces',
+  operationId: 'get_or_create_workspace_v2_workspaces_post',
 };
 
 export const tool: Tool = {

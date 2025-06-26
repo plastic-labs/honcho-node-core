@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   operation: 'read',
   tags: [],
   httpMethod: 'get',
-  httpPath: '/v1/workspaces/{workspace_id}/sessions/{session_id}/messages/{message_id}',
-  operationId: 'get_message_v1_workspaces__workspace_id__sessions__session_id__messages__message_id__get',
+  httpPath: '/v2/workspaces/{workspace_id}/sessions/{session_id}/messages/{message_id}',
+  operationId: 'get_message_v2_workspaces__workspace_id__sessions__session_id__messages__message_id__get',
 };
 
 export const tool: Tool = {

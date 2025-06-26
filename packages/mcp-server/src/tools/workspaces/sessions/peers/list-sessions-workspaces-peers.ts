@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   operation: 'read',
   tags: [],
   httpMethod: 'get',
-  httpPath: '/v1/workspaces/{workspace_id}/sessions/{session_id}/peers',
-  operationId: 'get_session_peers_v1_workspaces__workspace_id__sessions__session_id__peers_get',
+  httpPath: '/v2/workspaces/{workspace_id}/sessions/{session_id}/peers',
+  operationId: 'get_session_peers_v2_workspaces__workspace_id__sessions__session_id__peers_get',
 };
 
 export const tool: Tool = {

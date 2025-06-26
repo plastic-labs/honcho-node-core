@@ -89,7 +89,7 @@ describe('resource peers', () => {
   });
 
   test('search: only required params', async () => {
-    const responsePromise = client.workspaces.peers.search('workspace_id', 'peer_id', { body: 'body' });
+    const responsePromise = client.workspaces.peers.search('workspace_id', 'peer_id', { query: 'query' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -101,9 +101,10 @@ describe('resource peers', () => {
 
   test('search: required and optional params', async () => {
     const response = await client.workspaces.peers.search('workspace_id', 'peer_id', {
-      body: 'body',
+      query: 'query',
       page: 1,
       size: 1,
+      semantic: true,
     });
   });
 
