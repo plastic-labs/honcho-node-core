@@ -15,7 +15,7 @@ export class Messages extends APIResource {
     body: MessageCreateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<MessageCreateResponse> {
-    return this._client.post(`/v1/workspaces/${workspaceId}/sessions/${sessionId}/messages/`, {
+    return this._client.post(`/v2/workspaces/${workspaceId}/sessions/${sessionId}/messages/`, {
       body,
       ...options,
     });
@@ -31,7 +31,7 @@ export class Messages extends APIResource {
     options?: Core.RequestOptions,
   ): Core.APIPromise<Message> {
     return this._client.get(
-      `/v1/workspaces/${workspaceId}/sessions/${sessionId}/messages/${messageId}`,
+      `/v2/workspaces/${workspaceId}/sessions/${sessionId}/messages/${messageId}`,
       options,
     );
   }
@@ -46,7 +46,7 @@ export class Messages extends APIResource {
     body: MessageUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Message> {
-    return this._client.put(`/v1/workspaces/${workspaceId}/sessions/${sessionId}/messages/${messageId}`, {
+    return this._client.put(`/v2/workspaces/${workspaceId}/sessions/${sessionId}/messages/${messageId}`, {
       body,
       ...options,
     });
@@ -77,7 +77,7 @@ export class Messages extends APIResource {
     }
     const { page, reverse, size, ...body } = params;
     return this._client.getAPIList(
-      `/v1/workspaces/${workspaceId}/sessions/${sessionId}/messages/list`,
+      `/v2/workspaces/${workspaceId}/sessions/${sessionId}/messages/list`,
       MessagesPage,
       { query: { page, reverse, size }, body, method: 'post', ...options },
     );
@@ -101,7 +101,7 @@ export interface Message {
 
   workspace_id: string;
 
-  metadata?: Record<string, unknown>;
+  metadata?: { [key: string]: unknown };
 }
 
 export interface MessageCreate {
@@ -109,7 +109,7 @@ export interface MessageCreate {
 
   peer_id: string;
 
-  metadata?: Record<string, unknown> | null;
+  metadata?: { [key: string]: unknown } | null;
 }
 
 export type MessageCreateResponse = Array<Message>;
@@ -119,7 +119,7 @@ export interface MessageCreateParams {
 }
 
 export interface MessageUpdateParams {
-  metadata?: Record<string, unknown> | null;
+  metadata?: { [key: string]: unknown } | null;
 }
 
 export interface MessageListParams extends PageParams {
@@ -131,7 +131,7 @@ export interface MessageListParams extends PageParams {
   /**
    * Body param:
    */
-  filter?: Record<string, unknown> | null;
+  filter?: { [key: string]: unknown } | null;
 }
 
 Messages.MessagesPage = MessagesPage;

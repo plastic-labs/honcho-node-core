@@ -40,7 +40,7 @@ export class Sessions extends APIResource {
     body: SessionUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Session> {
-    return this._client.put(`/v1/workspaces/${workspaceId}/sessions/${sessionId}`, { body, ...options });
+    return this._client.put(`/v2/workspaces/${workspaceId}/sessions/${sessionId}`, { body, ...options });
   }
 
   /**
@@ -61,7 +61,7 @@ export class Sessions extends APIResource {
       return this.list(workspaceId, {}, params);
     }
     const { page, size, ...body } = params;
-    return this._client.getAPIList(`/v1/workspaces/${workspaceId}/sessions/list`, SessionsPage, {
+    return this._client.getAPIList(`/v2/workspaces/${workspaceId}/sessions/list`, SessionsPage, {
       query: { page, size },
       body,
       method: 'post',
@@ -73,7 +73,7 @@ export class Sessions extends APIResource {
    * Delete a session by marking it as inactive
    */
   delete(workspaceId: string, sessionId: string, options?: Core.RequestOptions): Core.APIPromise<unknown> {
-    return this._client.delete(`/v1/workspaces/${workspaceId}/sessions/${sessionId}`, options);
+    return this._client.delete(`/v2/workspaces/${workspaceId}/sessions/${sessionId}`, options);
   }
 
   /**
@@ -95,7 +95,7 @@ export class Sessions extends APIResource {
     if (isRequestOptions(query)) {
       return this.clone(workspaceId, sessionId, {}, query);
     }
-    return this._client.get(`/v1/workspaces/${workspaceId}/sessions/${sessionId}/clone`, {
+    return this._client.get(`/v2/workspaces/${workspaceId}/sessions/${sessionId}/clone`, {
       query,
       ...options,
     });
@@ -128,7 +128,7 @@ export class Sessions extends APIResource {
     if (isRequestOptions(query)) {
       return this.getContext(workspaceId, sessionId, {}, query);
     }
-    return this._client.get(`/v1/workspaces/${workspaceId}/sessions/${sessionId}/context`, {
+    return this._client.get(`/v2/workspaces/${workspaceId}/sessions/${sessionId}/context`, {
       query,
       ...options,
     });
@@ -146,7 +146,7 @@ export class Sessions extends APIResource {
     body: SessionGetOrCreateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Session> {
-    return this._client.post(`/v1/workspaces/${workspaceId}/sessions`, { body, ...options });
+    return this._client.post(`/v2/workspaces/${workspaceId}/sessions`, { body, ...options });
   }
 
   /**
@@ -158,11 +158,11 @@ export class Sessions extends APIResource {
     params: SessionSearchParams,
     options?: Core.RequestOptions,
   ): Core.PagePromise<MessagesPage, MessagesAPI.Message> {
-    const { body, page, size } = params;
+    const { page, size, ...body } = params;
     return this._client.getAPIList(
-      `/v1/workspaces/${workspaceId}/sessions/${sessionId}/search`,
+      `/v2/workspaces/${workspaceId}/sessions/${sessionId}/search`,
       MessagesPage,
-      { query: { page, size }, body: body, method: 'post', ...options },
+      { query: { page, size }, body, method: 'post', ...options },
     );
   }
 }
@@ -178,9 +178,9 @@ export interface Session {
 
   workspace_id: string;
 
-  configuration?: Record<string, unknown>;
+  configuration?: { [key: string]: unknown };
 
-  metadata?: Record<string, unknown>;
+  metadata?: { [key: string]: unknown };
 }
 
 export type SessionDeleteResponse = unknown;
@@ -194,21 +194,16 @@ export interface SessionGetContextResponse {
 }
 
 export interface SessionUpdateParams {
-  configuration?: Record<string, unknown> | null;
+  configuration?: { [key: string]: unknown } | null;
 
-  metadata?: Record<string, unknown> | null;
+  metadata?: { [key: string]: unknown } | null;
 }
 
 export interface SessionListParams extends PageParams {
   /**
    * Body param:
    */
-  filter?: Record<string, unknown> | null;
-
-  /**
-   * Body param:
-   */
-  is_active?: boolean;
+  filter?: { [key: string]: unknown } | null;
 }
 
 export interface SessionCloneParams {
@@ -233,11 +228,11 @@ export interface SessionGetContextParams {
 export interface SessionGetOrCreateParams {
   id: string;
 
-  configuration?: Record<string, unknown> | null;
+  configuration?: { [key: string]: unknown } | null;
 
-  metadata?: Record<string, unknown> | null;
+  metadata?: { [key: string]: unknown } | null;
 
-  peers?: Record<string, SessionGetOrCreateParams.Peers> | null;
+  peers?: { [key: string]: SessionGetOrCreateParams.Peers } | null;
 }
 
 export namespace SessionGetOrCreateParams {
@@ -246,7 +241,7 @@ export namespace SessionGetOrCreateParams {
      * Whether other peers in this session should try to form a session-level
      * theory-of-mind representation of this peer
      */
-    observe_me?: boolean;
+    observe_me?: boolean | null;
 
     /**
      * Whether this peer should form a session-level theory-of-mind representation of
@@ -260,7 +255,12 @@ export interface SessionSearchParams extends PageParams {
   /**
    * Body param: Search query
    */
-  body: string;
+  query: string;
+
+  /**
+   * Body param: Whether to explicitly use semantic search to filter the results
+   */
+  semantic?: boolean | null;
 }
 
 Sessions.SessionsPage = SessionsPage;

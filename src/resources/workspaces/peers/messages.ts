@@ -17,7 +17,7 @@ export class Messages extends APIResource {
     body: MessageCreateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<MessageCreateResponse> {
-    return this._client.post(`/v1/workspaces/${workspaceId}/peers/${peerId}/messages`, { body, ...options });
+    return this._client.post(`/v2/workspaces/${workspaceId}/peers/${peerId}/messages`, { body, ...options });
   }
 
   /**
@@ -45,7 +45,7 @@ export class Messages extends APIResource {
     }
     const { page, reverse, size, ...body } = params;
     return this._client.getAPIList(
-      `/v1/workspaces/${workspaceId}/peers/${peerId}/messages/list`,
+      `/v2/workspaces/${workspaceId}/peers/${peerId}/messages/list`,
       MessagesPage,
       { query: { page, reverse, size }, body, method: 'post', ...options },
     );
@@ -67,7 +67,7 @@ export interface MessageListParams extends PageParams {
   /**
    * Body param:
    */
-  filter?: Record<string, unknown> | null;
+  filter?: { [key: string]: unknown } | null;
 }
 
 export declare namespace Messages {

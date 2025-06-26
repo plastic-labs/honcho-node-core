@@ -11,14 +11,14 @@ export const metadata: Metadata = {
   operation: 'write',
   tags: [],
   httpMethod: 'post',
-  httpPath: '/v1/workspaces/{workspace_id}/peers/{peer_id}/representation',
-  operationId: 'get_working_representation_v1_workspaces__workspace_id__peers__peer_id__representation_post',
+  httpPath: '/v2/workspaces/{workspace_id}/peers/{peer_id}/representation',
+  operationId: 'get_working_representation_v2_workspaces__workspace_id__peers__peer_id__representation_post',
 };
 
 export const tool: Tool = {
   name: 'working_representation_workspaces_peers',
   description:
-    "Get a peer's working representation for a session.\n\nIf peer_id is provided in body, the representation is of that peer, from our perspective.",
+    "Get a peer's working representation for a session.\n\nIf a session_id is provided in the body, we get the working representation of the peer in that session.\n\nIn the current implementation, we don't offer representations of `target` so that parameter is ignored.\nFuture releases will allow for this.",
   inputSchema: {
     type: 'object',
     properties: {

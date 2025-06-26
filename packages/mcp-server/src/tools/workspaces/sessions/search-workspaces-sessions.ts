@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   operation: 'write',
   tags: [],
   httpMethod: 'post',
-  httpPath: '/v1/workspaces/{workspace_id}/sessions/{session_id}/search',
-  operationId: 'search_session_v1_workspaces__workspace_id__sessions__session_id__search_post',
+  httpPath: '/v2/workspaces/{workspace_id}/sessions/{session_id}/search',
+  operationId: 'search_session_v2_workspaces__workspace_id__sessions__session_id__search_post',
 };
 
 export const tool: Tool = {
@@ -31,7 +31,7 @@ export const tool: Tool = {
         title: 'Session Id',
         description: 'ID of the session',
       },
-      body: {
+      query: {
         type: 'string',
         title: 'Query',
         description: 'Search query',
@@ -45,6 +45,11 @@ export const tool: Tool = {
         type: 'integer',
         title: 'Size',
         description: 'Page size',
+      },
+      semantic: {
+        type: 'boolean',
+        title: 'Semantic',
+        description: 'Whether to explicitly use semantic search to filter the results',
       },
     },
   },

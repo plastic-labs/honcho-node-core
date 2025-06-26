@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.1.0 (2025-06-26)
+
+Full Changelog: [v1.0.1...v1.1.0](https://github.com/plastic-labs/honcho-node-core/compare/v1.0.1...v1.1.0)
+
+### Features
+
+* **api:** manual updates ([59190aa](https://github.com/plastic-labs/honcho-node-core/commit/59190aa70374b91ef1a4b0be04dbf425f457ec8f))
+* **api:** manual updates ([6e4765d](https://github.com/plastic-labs/honcho-node-core/commit/6e4765d5fd6bfdc1298928b53cc563cefa894661))
+
+
+### Refactors
+
+* **types:** replace Record with mapped types ([2e4cf99](https://github.com/plastic-labs/honcho-node-core/commit/2e4cf9930af24d2f5108e03839a95142b44d7954))
+
 ## 1.0.1 (2025-06-19)
 
 Full Changelog: [v1.0.0...v1.0.1](https://github.com/plastic-labs/honcho-node-core/compare/v1.0.0...v1.0.1)

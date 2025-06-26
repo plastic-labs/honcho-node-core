@@ -31,9 +31,11 @@ export {
 export {
   WorkspacesPage,
   Workspaces,
+  type DeriverStatus,
   type Workspace,
   type WorkspaceUpdateParams,
   type WorkspaceListParams,
+  type WorkspaceDeriverStatusParams,
   type WorkspaceGetOrCreateParams,
   type WorkspaceSearchParams,
 } from './workspaces';

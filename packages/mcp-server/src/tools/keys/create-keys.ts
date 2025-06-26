@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   operation: 'write',
   tags: [],
   httpMethod: 'post',
-  httpPath: '/v1/keys',
-  operationId: 'create_key_v1_keys_post',
+  httpPath: '/v2/keys',
+  operationId: 'create_key_v2_keys_post',
 };
 
 export const tool: Tool = {

@@ -171,6 +171,7 @@ The following tools are available in this MCP server.
 
 - `update_workspaces` (`write`): Update a Workspace
 - `list_workspaces` (`write`): Get all Workspaces
+- `deriver_status_workspaces` (`read`): Get the deriver processing status, optionally scoped to a peer and/or session
 - `get_or_create_workspaces` (`write`): Get a Workspace by ID.
 
   If workspace_id is provided as a query parameter, it uses that (must match JWT workspace_id).
@@ -191,7 +192,10 @@ The following tools are available in this MCP server.
 - `search_workspaces_peers` (`write`): Search a Peer
 - `working_representation_workspaces_peers` (`write`): Get a peer's working representation for a session.
 
-  If peer_id is provided in body, the representation is of that peer, from our perspective.
+  If a session_id is provided in the body, we get the working representation of the peer in that session.
+
+  In the current implementation, we don't offer representations of `target` so that parameter is ignored.
+  Future releases will allow for this.
 
 ### Resource `workspaces.peers.sessions`:
 

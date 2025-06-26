@@ -43,7 +43,7 @@ describe('resource sessions', () => {
     await expect(
       client.workspaces.sessions.list(
         'workspace_id',
-        { page: 1, size: 1, filter: { foo: 'bar' }, is_active: true },
+        { page: 1, size: 1, filter: { foo: 'bar' } },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Honcho.NotFoundError);
@@ -150,7 +150,9 @@ describe('resource sessions', () => {
   });
 
   test('search: only required params', async () => {
-    const responsePromise = client.workspaces.sessions.search('workspace_id', 'session_id', { body: 'body' });
+    const responsePromise = client.workspaces.sessions.search('workspace_id', 'session_id', {
+      query: 'query',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -162,9 +164,10 @@ describe('resource sessions', () => {
 
   test('search: required and optional params', async () => {
     const response = await client.workspaces.sessions.search('workspace_id', 'session_id', {
-      body: 'body',
+      query: 'query',
       page: 1,
       size: 1,
+      semantic: true,
     });
   });
 });
