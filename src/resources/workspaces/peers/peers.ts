@@ -25,7 +25,7 @@ export class Peers extends APIResource {
     body: PeerUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Peer> {
-    return this._client.put(`/v1/workspaces/${workspaceId}/peers/${peerId}`, { body, ...options });
+    return this._client.put(`/v2/workspaces/${workspaceId}/peers/${peerId}`, { body, ...options });
   }
 
   /**
@@ -46,7 +46,7 @@ export class Peers extends APIResource {
       return this.list(workspaceId, {}, params);
     }
     const { page, size, ...body } = params;
-    return this._client.getAPIList(`/v1/workspaces/${workspaceId}/peers/list`, PeersPage, {
+    return this._client.getAPIList(`/v2/workspaces/${workspaceId}/peers/list`, PeersPage, {
       query: { page, size },
       body,
       method: 'post',
@@ -63,7 +63,7 @@ export class Peers extends APIResource {
     body: PeerChatParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<PeerChatResponse> {
-    return this._client.post(`/v1/workspaces/${workspaceId}/peers/${peerId}/chat`, { body, ...options });
+    return this._client.post(`/v2/workspaces/${workspaceId}/peers/${peerId}/chat`, { body, ...options });
   }
 
   /**
@@ -77,7 +77,7 @@ export class Peers extends APIResource {
     body: PeerGetOrCreateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Peer> {
-    return this._client.post(`/v1/workspaces/${workspaceId}/peers`, { body, ...options });
+    return this._client.post(`/v2/workspaces/${workspaceId}/peers`, { body, ...options });
   }
 
   /**
@@ -89,10 +89,10 @@ export class Peers extends APIResource {
     params: PeerSearchParams,
     options?: Core.RequestOptions,
   ): Core.PagePromise<MessagesPage, SessionsMessagesAPI.Message> {
-    const { body, page, size } = params;
-    return this._client.getAPIList(`/v1/workspaces/${workspaceId}/peers/${peerId}/search`, MessagesPage, {
+    const { page, size, ...body } = params;
+    return this._client.getAPIList(`/v2/workspaces/${workspaceId}/peers/${peerId}/search`, MessagesPage, {
       query: { page, size },
-      body: body,
+      body,
       method: 'post',
       ...options,
     });
@@ -101,8 +101,11 @@ export class Peers extends APIResource {
   /**
    * Get a peer's working representation for a session.
    *
-   * If peer_id is provided in body, the representation is of that peer, from our
-   * perspective.
+   * If a session_id is provided in the body, we get the working representation of
+   * the peer in that session.
+   *
+   * In the current implementation, we don't offer representations of `target` so
+   * that parameter is ignored. Future releases will allow for this.
    */
   workingRepresentation(
     workspaceId: string,
@@ -110,7 +113,7 @@ export class Peers extends APIResource {
     body: PeerWorkingRepresentationParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<PeerWorkingRepresentationResponse> {
-    return this._client.post(`/v1/workspaces/${workspaceId}/peers/${peerId}/representation`, {
+    return this._client.post(`/v2/workspaces/${workspaceId}/peers/${peerId}/representation`, {
       body,
       ...options,
     });
@@ -126,9 +129,9 @@ export interface PageSession {
 
   size: number;
 
-  total: number;
-
   pages?: number;
+
+  total?: number;
 }
 
 export interface Peer {
@@ -145,8 +148,6 @@ export interface Peer {
 
 export interface SessionGet {
   filter?: { [key: string]: unknown } | null;
-
-  is_active?: boolean;
 }
 
 export interface PeerChatResponse {
@@ -196,7 +197,12 @@ export interface PeerSearchParams extends PageParams {
   /**
    * Body param: Search query
    */
-  body: string;
+  query: string;
+
+  /**
+   * Body param: Whether to explicitly use semantic search to filter the results
+   */
+  semantic?: boolean | null;
 }
 
 export interface PeerWorkingRepresentationParams {

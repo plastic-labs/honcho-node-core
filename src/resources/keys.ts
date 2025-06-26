@@ -18,7 +18,7 @@ export class Keys extends APIResource {
       return this.create({}, params);
     }
     const { expires_at, peer_id, session_id, workspace_id } = params;
-    return this._client.post('/v1/keys', {
+    return this._client.post('/v2/keys', {
       query: { expires_at, peer_id, session_id, workspace_id },
       ...options,
     });

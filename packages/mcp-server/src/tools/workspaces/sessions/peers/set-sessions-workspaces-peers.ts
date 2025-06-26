@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   operation: 'write',
   tags: [],
   httpMethod: 'put',
-  httpPath: '/v1/workspaces/{workspace_id}/sessions/{session_id}/peers',
-  operationId: 'set_session_peers_v1_workspaces__workspace_id__sessions__session_id__peers_put',
+  httpPath: '/v2/workspaces/{workspace_id}/sessions/{session_id}/peers',
+  operationId: 'set_session_peers_v2_workspaces__workspace_id__sessions__session_id__peers_put',
 };
 
 export const tool: Tool = {

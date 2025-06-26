@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   operation: 'write',
   tags: [],
   httpMethod: 'delete',
-  httpPath: '/v1/workspaces/{workspace_id}/sessions/{session_id}',
-  operationId: 'delete_session_v1_workspaces__workspace_id__sessions__session_id__delete',
+  httpPath: '/v2/workspaces/{workspace_id}/sessions/{session_id}',
+  operationId: 'delete_session_v2_workspaces__workspace_id__sessions__session_id__delete',
 };
 
 export const tool: Tool = {

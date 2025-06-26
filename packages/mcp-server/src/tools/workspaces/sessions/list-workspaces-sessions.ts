@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   operation: 'write',
   tags: [],
   httpMethod: 'post',
-  httpPath: '/v1/workspaces/{workspace_id}/sessions/list',
-  operationId: 'get_sessions_v1_workspaces__workspace_id__sessions_list_post',
+  httpPath: '/v2/workspaces/{workspace_id}/sessions/list',
+  operationId: 'get_sessions_v2_workspaces__workspace_id__sessions_list_post',
 };
 
 export const tool: Tool = {
@@ -39,10 +39,6 @@ export const tool: Tool = {
       filter: {
         type: 'object',
         title: 'Filter',
-      },
-      is_active: {
-        type: 'boolean',
-        title: 'Is Active',
       },
     },
   },

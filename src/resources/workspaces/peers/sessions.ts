@@ -32,7 +32,7 @@ export class Sessions extends APIResource {
       return this.list(workspaceId, peerId, {}, params);
     }
     const { page, size, ...body } = params;
-    return this._client.getAPIList(`/v1/workspaces/${workspaceId}/peers/${peerId}/sessions`, SessionsPage, {
+    return this._client.getAPIList(`/v2/workspaces/${workspaceId}/peers/${peerId}/sessions`, SessionsPage, {
       query: { page, size },
       body,
       method: 'post',
@@ -46,11 +46,6 @@ export interface SessionListParams extends PageParams {
    * Body param:
    */
   filter?: { [key: string]: unknown } | null;
-
-  /**
-   * Body param:
-   */
-  is_active?: boolean;
 }
 
 export declare namespace Sessions {

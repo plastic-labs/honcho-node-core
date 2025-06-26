@@ -32,7 +32,7 @@ export class Peers extends APIResource {
     if (isRequestOptions(query)) {
       return this.list(workspaceId, sessionId, {}, query);
     }
-    return this._client.getAPIList(`/v1/workspaces/${workspaceId}/sessions/${sessionId}/peers`, PeersPage, {
+    return this._client.getAPIList(`/v2/workspaces/${workspaceId}/sessions/${sessionId}/peers`, PeersPage, {
       query,
       ...options,
     });
@@ -47,7 +47,7 @@ export class Peers extends APIResource {
     body: PeerAddParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<SessionsAPI.Session> {
-    return this._client.post(`/v1/workspaces/${workspaceId}/sessions/${sessionId}/peers`, {
+    return this._client.post(`/v2/workspaces/${workspaceId}/sessions/${sessionId}/peers`, {
       body,
       ...options,
     });
@@ -63,7 +63,7 @@ export class Peers extends APIResource {
     options?: Core.RequestOptions,
   ): Core.APIPromise<PeerGetConfigResponse> {
     return this._client.get(
-      `/v1/workspaces/${workspaceId}/sessions/${sessionId}/peers/${peerId}/config`,
+      `/v2/workspaces/${workspaceId}/sessions/${sessionId}/peers/${peerId}/config`,
       options,
     );
   }
@@ -77,7 +77,7 @@ export class Peers extends APIResource {
     body: PeerRemoveParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<SessionsAPI.Session> {
-    return this._client.delete(`/v1/workspaces/${workspaceId}/sessions/${sessionId}/peers`, {
+    return this._client.delete(`/v2/workspaces/${workspaceId}/sessions/${sessionId}/peers`, {
       body,
       ...options,
     });
@@ -92,7 +92,7 @@ export class Peers extends APIResource {
     body: PeerSetParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<SessionsAPI.Session> {
-    return this._client.put(`/v1/workspaces/${workspaceId}/sessions/${sessionId}/peers`, {
+    return this._client.put(`/v2/workspaces/${workspaceId}/sessions/${sessionId}/peers`, {
       body,
       ...options,
     });
@@ -108,7 +108,7 @@ export class Peers extends APIResource {
     body: PeerSetConfigParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<unknown> {
-    return this._client.post(`/v1/workspaces/${workspaceId}/sessions/${sessionId}/peers/${peerId}/config`, {
+    return this._client.post(`/v2/workspaces/${workspaceId}/sessions/${sessionId}/peers/${peerId}/config`, {
       body,
       ...options,
     });
@@ -120,7 +120,7 @@ export interface PeerGetConfigResponse {
    * Whether other peers in this session should try to form a session-level
    * theory-of-mind representation of this peer
    */
-  observe_me?: boolean;
+  observe_me?: boolean | null;
 
   /**
    * Whether this peer should form a session-level theory-of-mind representation of
@@ -141,7 +141,7 @@ export namespace PeerAddParams {
      * Whether other peers in this session should try to form a session-level
      * theory-of-mind representation of this peer
      */
-    observe_me?: boolean;
+    observe_me?: boolean | null;
 
     /**
      * Whether this peer should form a session-level theory-of-mind representation of
@@ -161,7 +161,7 @@ export namespace PeerSetParams {
      * Whether other peers in this session should try to form a session-level
      * theory-of-mind representation of this peer
      */
-    observe_me?: boolean;
+    observe_me?: boolean | null;
 
     /**
      * Whether this peer should form a session-level theory-of-mind representation of
@@ -176,7 +176,7 @@ export interface PeerSetConfigParams {
    * Whether other peers in this session should try to form a session-level
    * theory-of-mind representation of this peer
    */
-  observe_me?: boolean;
+  observe_me?: boolean | null;
 
   /**
    * Whether this peer should form a session-level theory-of-mind representation of

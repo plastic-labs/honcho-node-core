@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   operation: 'write',
   tags: [],
   httpMethod: 'post',
-  httpPath: '/v1/workspaces/{workspace_id}/peers/{peer_id}/search',
-  operationId: 'search_peer_v1_workspaces__workspace_id__peers__peer_id__search_post',
+  httpPath: '/v2/workspaces/{workspace_id}/peers/{peer_id}/search',
+  operationId: 'search_peer_v2_workspaces__workspace_id__peers__peer_id__search_post',
 };
 
 export const tool: Tool = {
@@ -31,7 +31,7 @@ export const tool: Tool = {
         title: 'Peer Id',
         description: 'ID of the peer',
       },
-      body: {
+      query: {
         type: 'string',
         title: 'Query',
         description: 'Search query',
@@ -45,6 +45,11 @@ export const tool: Tool = {
         type: 'integer',
         title: 'Size',
         description: 'Page size',
+      },
+      semantic: {
+        type: 'boolean',
+        title: 'Semantic',
+        description: 'Whether to explicitly use semantic search to filter the results',
       },
     },
   },
