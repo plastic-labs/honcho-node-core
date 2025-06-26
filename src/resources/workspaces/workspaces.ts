@@ -32,7 +32,7 @@ import {
   SessionListParams,
   SessionSearchParams,
   SessionUpdateParams,
-  Sessions,
+  Sessions as SessionsAPISessions,
   SessionsPage,
 } from './sessions/sessions';
 import { Page, type PageParams } from '../../pagination';
@@ -160,7 +160,41 @@ export interface DeriverStatus {
   /**
    * Per-session status when not filtered by session
    */
-  sessions?: { [key: string]: DeriverStatus } | null;
+  sessions?: { [key: string]: DeriverStatus.Sessions } | null;
+}
+
+export namespace DeriverStatus {
+  export interface Sessions {
+    /**
+     * Completed work units
+     */
+    completed_work_units: number;
+
+    /**
+     * Work units currently being processed
+     */
+    in_progress_work_units: number;
+
+    /**
+     * Work units waiting to be processed
+     */
+    pending_work_units: number;
+
+    /**
+     * Total work units
+     */
+    total_work_units: number;
+
+    /**
+     * ID of the peer (optional when filtering by session only)
+     */
+    peer_id?: string | null;
+
+    /**
+     * Session ID if filtered by session
+     */
+    session_id?: string | null;
+  }
 }
 
 export interface Workspace {
@@ -221,7 +255,7 @@ export interface WorkspaceSearchParams extends PageParams {
 Workspaces.WorkspacesPage = WorkspacesPage;
 Workspaces.Peers = Peers;
 Workspaces.PeersPage = PeersPage;
-Workspaces.Sessions = Sessions;
+Workspaces.Sessions = SessionsAPISessions;
 Workspaces.SessionsPage = SessionsPage;
 
 export declare namespace Workspaces {
@@ -253,7 +287,7 @@ export declare namespace Workspaces {
   };
 
   export {
-    Sessions as Sessions,
+    SessionsAPISessions as Sessions,
     type Session as Session,
     type SessionDeleteResponse as SessionDeleteResponse,
     type SessionGetContextResponse as SessionGetContextResponse,
