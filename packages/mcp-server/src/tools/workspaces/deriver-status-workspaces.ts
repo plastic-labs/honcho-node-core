@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 export const tool: Tool = {
   name: 'deriver_status_workspaces',
-  description: 'Get the deriver processing status, optionally scoped to a peer and/or session',
+  description: 'Get the deriver processing status, optionally scoped to an observer, sender, and/or session',
   inputSchema: {
     type: 'object',
     properties: {
@@ -26,15 +26,15 @@ export const tool: Tool = {
         title: 'Workspace Id',
         description: 'ID of the workspace',
       },
-      include_sender: {
-        type: 'boolean',
-        title: 'Include Sender',
-        description: 'Include work units triggered by this peer',
-      },
-      peer_id: {
+      observer_id: {
         type: 'string',
-        title: 'Peer Id',
-        description: 'Optional peer ID to filter by',
+        title: 'Observer Id',
+        description: 'Optional observer ID to filter by',
+      },
+      sender_id: {
+        type: 'string',
+        title: 'Sender Id',
+        description: 'Optional sender ID to filter by',
       },
       session_id: {
         type: 'string',

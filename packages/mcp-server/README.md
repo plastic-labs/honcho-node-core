@@ -171,7 +171,7 @@ The following tools are available in this MCP server.
 
 - `update_workspaces` (`write`): Update a Workspace
 - `list_workspaces` (`write`): Get all Workspaces
-- `deriver_status_workspaces` (`read`): Get the deriver processing status, optionally scoped to a peer and/or session
+- `deriver_status_workspaces` (`read`): Get the deriver processing status, optionally scoped to an observer, sender, and/or session
 - `get_or_create_workspaces` (`write`): Get a Workspace by ID.
 
   If workspace_id is provided as a query parameter, it uses that (must match JWT workspace_id).

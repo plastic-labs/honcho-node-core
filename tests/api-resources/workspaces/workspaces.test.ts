@@ -71,7 +71,7 @@ describe('resource workspaces', () => {
     await expect(
       client.workspaces.deriverStatus(
         'workspace_id',
-        { include_sender: true, peer_id: 'peer_id', session_id: 'session_id' },
+        { observer_id: 'observer_id', sender_id: 'sender_id', session_id: 'session_id' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Honcho.NotFoundError);
