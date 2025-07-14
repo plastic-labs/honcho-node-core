@@ -50,9 +50,27 @@ export class Messages extends APIResource {
       { query: { page, reverse, size }, body, method: 'post', ...options },
     );
   }
+
+  /**
+   * Create messages from uploaded files for a peer. Files are converted to text and
+   * split into multiple messages.
+   */
+  upload(
+    workspaceId: string,
+    peerId: string,
+    body: MessageUploadParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<MessageUploadResponse> {
+    return this._client.post(
+      `/v2/workspaces/${workspaceId}/peers/${peerId}/messages/upload`,
+      Core.multipartFormRequestOptions({ body, ...options }),
+    );
+  }
 }
 
 export type MessageCreateResponse = Array<SessionsMessagesAPI.Message>;
+
+export type MessageUploadResponse = Array<SessionsMessagesAPI.Message>;
 
 export interface MessageCreateParams {
   messages: Array<SessionsMessagesAPI.MessageCreate>;
@@ -70,11 +88,17 @@ export interface MessageListParams extends PageParams {
   filter?: { [key: string]: unknown } | null;
 }
 
+export interface MessageUploadParams {
+  file: Core.Uploadable;
+}
+
 export declare namespace Messages {
   export {
     type MessageCreateResponse as MessageCreateResponse,
+    type MessageUploadResponse as MessageUploadResponse,
     type MessageCreateParams as MessageCreateParams,
     type MessageListParams as MessageListParams,
+    type MessageUploadParams as MessageUploadParams,
   };
 }
 
