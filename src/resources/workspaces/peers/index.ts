@@ -3,8 +3,10 @@
 export {
   Messages,
   type MessageCreateResponse,
+  type MessageUploadResponse,
   type MessageCreateParams,
   type MessageListParams,
+  type MessageUploadParams,
 } from './messages';
 export {
   PeersPage,

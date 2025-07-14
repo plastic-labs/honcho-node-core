@@ -4,7 +4,14 @@ import { APIResource } from '../../../resource';
 import { isRequestOptions } from '../../../core';
 import * as Core from '../../../core';
 import * as MessagesAPI from './messages';
-import { MessageCreateParams, MessageCreateResponse, MessageListParams, Messages } from './messages';
+import {
+  MessageCreateParams,
+  MessageCreateResponse,
+  MessageListParams,
+  MessageUploadParams,
+  MessageUploadResponse,
+  Messages,
+} from './messages';
 import * as SessionsAPI from './sessions';
 import { SessionListParams, Sessions } from './sessions';
 import * as SessionsMessagesAPI from '../sessions/messages';
@@ -243,8 +250,10 @@ export declare namespace Peers {
   export {
     Messages as Messages,
     type MessageCreateResponse as MessageCreateResponse,
+    type MessageUploadResponse as MessageUploadResponse,
     type MessageCreateParams as MessageCreateParams,
     type MessageListParams as MessageListParams,
+    type MessageUploadParams as MessageUploadParams,
   };
 }
 
