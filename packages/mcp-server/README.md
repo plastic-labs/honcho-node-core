@@ -219,10 +219,11 @@ The following tools are available in this MCP server.
 
 ### Resource `workspaces.sessions.messages`:
 
-- `create_sessions_workspaces_messages` (`write`): Create Messages For Session
+- `create_sessions_workspaces_messages` (`write`): Create messages for a session with JSON data (original functionality).
 - `retrieve_sessions_workspaces_messages` (`read`): Get a Message by ID
 - `update_sessions_workspaces_messages` (`write`): Update the metadata of a Message
 - `list_sessions_workspaces_messages` (`write`): Get all messages for a session
+- `upload_sessions_workspaces_messages` (`write`): Create messages from uploaded files. Files are converted to text and split into multiple messages.
 
 ### Resource `workspaces.sessions.peers`:
 

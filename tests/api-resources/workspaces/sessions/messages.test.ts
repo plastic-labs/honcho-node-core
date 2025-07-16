@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Honcho from '@honcho-ai/core';
+import Honcho, { toFile } from '@honcho-ai/core';
 import { Response } from 'node-fetch';
 
 const client = new Honcho({
@@ -98,5 +98,26 @@ describe('resource messages', () => {
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Honcho.NotFoundError);
+  });
+
+  test('upload: only required params', async () => {
+    const responsePromise = client.workspaces.sessions.messages.upload('workspace_id', 'session_id', {
+      file: await toFile(Buffer.from('# my file contents'), 'README.md'),
+      peer_id: 'peer_id',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('upload: required and optional params', async () => {
+    const response = await client.workspaces.sessions.messages.upload('workspace_id', 'session_id', {
+      file: await toFile(Buffer.from('# my file contents'), 'README.md'),
+      peer_id: 'peer_id',
+    });
   });
 });
