@@ -1,5 +1,34 @@
 # Changelog
 
+## 1.2.0 (2025-07-16)
+
+Full Changelog: [v1.1.0...v1.2.0](https://github.com/plastic-labs/honcho-node-core/compare/v1.1.0...v1.2.0)
+
+### Features
+
+* **api:** manual updates ([f0abcce](https://github.com/plastic-labs/honcho-node-core/commit/f0abccef4cce82cfc938d1f2628c1be3133f3257))
+* **api:** manual updates ([9058bd2](https://github.com/plastic-labs/honcho-node-core/commit/9058bd223a3c0cc6462741bf6fe69a77a6b25b3a))
+* **api:** manual updates -- add file upload endpoints ([97aae16](https://github.com/plastic-labs/honcho-node-core/commit/97aae162ce2f5102bb5fffe699b0cbbee2c49ab6))
+* **api:** manual updates: add file uploads ([51e754c](https://github.com/plastic-labs/honcho-node-core/commit/51e754c1ac2a0d452e1319c1f686912b7a7c592a))
+* **mcp:** support filtering tool results by a jq expression ([e858c20](https://github.com/plastic-labs/honcho-node-core/commit/e858c209209410dceeb606f95249905a78c517b0))
+
+
+### Bug Fixes
+
+* **build:** bump node version in CI build to 20 to be compatible with MCP package ([31ec10d](https://github.com/plastic-labs/honcho-node-core/commit/31ec10da06bd4752aed3d0ca36442b5d4a8624ea))
+* **ci:** release-doctor — report correct token name ([05c1d65](https://github.com/plastic-labs/honcho-node-core/commit/05c1d654e240b278cff59e2a87f0d8bc668335e2))
+* **client:** don't send `Content-Type` for bodyless methods ([b49bd37](https://github.com/plastic-labs/honcho-node-core/commit/b49bd371e76f5421ba8e7534766c7d6599329f71))
+* **mcp:** relax input type for asTextContextResult ([2c3728e](https://github.com/plastic-labs/honcho-node-core/commit/2c3728eaad5ffe1f38352144dbfe83ff7d2f7ba6))
+* **mcp:** support jq filtering on cloudflare workers ([3d0b7ad](https://github.com/plastic-labs/honcho-node-core/commit/3d0b7adbbd409da90b4e7cfbe5806a95f303927f))
+
+
+### Chores
+
+* **ci:** only run for pushes and fork pull requests ([c9ea2fe](https://github.com/plastic-labs/honcho-node-core/commit/c9ea2fe665c1fda65afc5120d579e633272a5f17))
+* make some internal functions async ([307b2b6](https://github.com/plastic-labs/honcho-node-core/commit/307b2b6a42f15391b55dc0e04a0ea3e46439367a))
+* **mcp:** rework imports in tools ([d8d957a](https://github.com/plastic-labs/honcho-node-core/commit/d8d957a5d840ca197ff5a84d7d4f718602ff2d79))
+* mention unit type in timeout docs ([0f32e52](https://github.com/plastic-labs/honcho-node-core/commit/0f32e52678ed6f9f353d1eda709865fe2ec7c701))
+
 ## 1.1.0 (2025-06-26)
 
 Full Changelog: [v1.0.1...v1.1.0](https://github.com/plastic-labs/honcho-node-core/compare/v1.0.1...v1.1.0)
