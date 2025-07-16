@@ -50,7 +50,7 @@ describe('resource peers', () => {
   });
 
   test('chat: only required params', async () => {
-    const responsePromise = client.workspaces.peers.chat('workspace_id', 'peer_id', { queries: 'string' });
+    const responsePromise = client.workspaces.peers.chat('workspace_id', 'peer_id', { query: 'x' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -62,7 +62,7 @@ describe('resource peers', () => {
 
   test('chat: required and optional params', async () => {
     const response = await client.workspaces.peers.chat('workspace_id', 'peer_id', {
-      queries: 'string',
+      query: 'x',
       session_id: 'session_id',
       stream: true,
       target: 'target',

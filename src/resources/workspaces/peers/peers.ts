@@ -3,25 +3,15 @@
 import { APIResource } from '../../../resource';
 import { isRequestOptions } from '../../../core';
 import * as Core from '../../../core';
-import * as MessagesAPI from './messages';
-import {
-  MessageCreateParams,
-  MessageCreateResponse,
-  MessageListParams,
-  MessageUploadParams,
-  MessageUploadResponse,
-  Messages,
-} from './messages';
 import * as SessionsAPI from './sessions';
 import { SessionListParams, Sessions } from './sessions';
-import * as SessionsMessagesAPI from '../sessions/messages';
+import * as MessagesAPI from '../sessions/messages';
 import { MessagesPage } from '../sessions/messages';
 import * as SessionsSessionsAPI from '../sessions/sessions';
 import { Page, type PageParams } from '../../../pagination';
 
 export class Peers extends APIResource {
   sessions: SessionsAPI.Sessions = new SessionsAPI.Sessions(this._client);
-  messages: MessagesAPI.Messages = new MessagesAPI.Messages(this._client);
 
   /**
    * Update a Peer's name and/or metadata
@@ -95,7 +85,7 @@ export class Peers extends APIResource {
     peerId: string,
     params: PeerSearchParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<MessagesPage, SessionsMessagesAPI.Message> {
+  ): Core.PagePromise<MessagesPage, MessagesAPI.Message> {
     const { page, size, ...body } = params;
     return this._client.getAPIList(`/v2/workspaces/${workspaceId}/peers/${peerId}/search`, MessagesPage, {
       query: { page, size },
@@ -109,10 +99,9 @@ export class Peers extends APIResource {
    * Get a peer's working representation for a session.
    *
    * If a session_id is provided in the body, we get the working representation of
-   * the peer in that session.
-   *
-   * In the current implementation, we don't offer representations of `target` so
-   * that parameter is ignored. Future releases will allow for this.
+   * the peer in that session. If a target is provided, we get the representation of
+   * the target from the perspective of the peer. If no target is provided, we get
+   * the global representation of the peer.
    */
   workingRepresentation(
     workspaceId: string,
@@ -177,7 +166,10 @@ export interface PeerListParams extends PageParams {
 }
 
 export interface PeerChatParams {
-  queries: string | Array<string>;
+  /**
+   * Dialectic API Prompt
+   */
+  query: string;
 
   /**
    * ID of the session to scope the representation to
@@ -227,7 +219,6 @@ export interface PeerWorkingRepresentationParams {
 
 Peers.PeersPage = PeersPage;
 Peers.Sessions = Sessions;
-Peers.Messages = Messages;
 
 export declare namespace Peers {
   export {
@@ -246,15 +237,6 @@ export declare namespace Peers {
   };
 
   export { Sessions as Sessions, type SessionListParams as SessionListParams };
-
-  export {
-    Messages as Messages,
-    type MessageCreateResponse as MessageCreateResponse,
-    type MessageUploadResponse as MessageUploadResponse,
-    type MessageCreateParams as MessageCreateParams,
-    type MessageListParams as MessageListParams,
-    type MessageUploadParams as MessageUploadParams,
-  };
 }
 
 export { MessagesPage };

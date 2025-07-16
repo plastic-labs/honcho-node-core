@@ -32,19 +32,10 @@ export const tool: Tool = {
         title: 'Peer Id',
         description: 'ID of the peer',
       },
-      queries: {
-        anyOf: [
-          {
-            type: 'string',
-          },
-          {
-            type: 'array',
-            items: {
-              type: 'string',
-            },
-          },
-        ],
-        title: 'Queries',
+      query: {
+        type: 'string',
+        title: 'Query',
+        description: 'Dialectic API Prompt',
       },
       session_id: {
         type: 'string',
