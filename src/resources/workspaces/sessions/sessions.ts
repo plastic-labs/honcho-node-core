@@ -11,8 +11,6 @@ import {
   MessageCreateResponse,
   MessageListParams,
   MessageUpdateParams,
-  MessageUploadParams,
-  MessageUploadResponse,
   Messages,
   MessagesPage,
 } from './messages';
@@ -289,12 +287,10 @@ export declare namespace Sessions {
     type Message as Message,
     type MessageCreate as MessageCreate,
     type MessageCreateResponse as MessageCreateResponse,
-    type MessageUploadResponse as MessageUploadResponse,
     MessagesPage as MessagesPage,
     type MessageCreateParams as MessageCreateParams,
     type MessageUpdateParams as MessageUpdateParams,
     type MessageListParams as MessageListParams,
-    type MessageUploadParams as MessageUploadParams,
   };
 
   export {

@@ -6,11 +6,9 @@ export {
   type Message,
   type MessageCreate,
   type MessageCreateResponse,
-  type MessageUploadResponse,
   type MessageCreateParams,
   type MessageUpdateParams,
   type MessageListParams,
-  type MessageUploadParams,
 } from './messages';
 export {
   Peers,

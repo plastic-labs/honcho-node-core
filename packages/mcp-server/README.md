@@ -171,7 +171,7 @@ The following tools are available in this MCP server.
 
 - `update_workspaces` (`write`): Update a Workspace
 - `list_workspaces` (`write`): Get all Workspaces
-- `deriver_status_workspaces` (`read`): Get the deriver processing status, optionally scoped to a peer and/or session
+- `deriver_status_workspaces` (`read`): Get the deriver processing status, optionally scoped to an observer, sender, and/or session
 - `get_or_create_workspaces` (`write`): Get a Workspace by ID.
 
   If workspace_id is provided as a query parameter, it uses that (must match JWT workspace_id).
@@ -193,19 +193,12 @@ The following tools are available in this MCP server.
 - `working_representation_workspaces_peers` (`write`): Get a peer's working representation for a session.
 
   If a session_id is provided in the body, we get the working representation of the peer in that session.
-
-  In the current implementation, we don't offer representations of `target` so that parameter is ignored.
-  Future releases will allow for this.
+  If a target is provided, we get the representation of the target from the perspective of the peer.
+  If no target is provided, we get the global representation of the peer.
 
 ### Resource `workspaces.peers.sessions`:
 
 - `list_peers_workspaces_sessions` (`write`): Get All Sessions for a Peer
-
-### Resource `workspaces.peers.messages`:
-
-- `create_peers_workspaces_messages` (`write`): Create messages for a peer
-- `list_peers_workspaces_messages` (`write`): Get all messages for a peer
-- `upload_peers_workspaces_messages` (`write`): Create messages from uploaded files for a peer. Files are converted to text and split into multiple messages.
 
 ### Resource `workspaces.sessions`:
 
@@ -226,11 +219,10 @@ The following tools are available in this MCP server.
 
 ### Resource `workspaces.sessions.messages`:
 
-- `create_sessions_workspaces_messages` (`write`): Create messages for a session with JSON data (original functionality).
+- `create_sessions_workspaces_messages` (`write`): Create Messages For Session
 - `retrieve_sessions_workspaces_messages` (`read`): Get a Message by ID
 - `update_sessions_workspaces_messages` (`write`): Update the metadata of a Message
 - `list_sessions_workspaces_messages` (`write`): Get all messages for a session
-- `upload_sessions_workspaces_messages` (`write`): Create messages from uploaded files. Files are converted to text and split into multiple messages.
 
 ### Resource `workspaces.sessions.peers`:
 

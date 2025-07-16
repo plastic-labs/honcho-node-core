@@ -7,7 +7,7 @@ import { Page, type PageParams } from '../../../pagination';
 
 export class Messages extends APIResource {
   /**
-   * Create messages for a session with JSON data (original functionality).
+   * Create Messages For Session
    */
   create(
     workspaceId: string,
@@ -82,22 +82,6 @@ export class Messages extends APIResource {
       { query: { page, reverse, size }, body, method: 'post', ...options },
     );
   }
-
-  /**
-   * Create messages from uploaded files. Files are converted to text and split into
-   * multiple messages.
-   */
-  upload(
-    workspaceId: string,
-    sessionId: string,
-    body: MessageUploadParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<MessageUploadResponse> {
-    return this._client.post(
-      `/v2/workspaces/${workspaceId}/sessions/${sessionId}/messages/upload`,
-      Core.multipartFormRequestOptions({ body, ...options }),
-    );
-  }
 }
 
 export class MessagesPage extends Page<Message> {}
@@ -130,8 +114,6 @@ export interface MessageCreate {
 
 export type MessageCreateResponse = Array<Message>;
 
-export type MessageUploadResponse = Array<Message>;
-
 export interface MessageCreateParams {
   messages: Array<MessageCreate>;
 }
@@ -152,12 +134,6 @@ export interface MessageListParams extends PageParams {
   filter?: { [key: string]: unknown } | null;
 }
 
-export interface MessageUploadParams {
-  file: Core.Uploadable;
-
-  peer_id: string;
-}
-
 Messages.MessagesPage = MessagesPage;
 
 export declare namespace Messages {
@@ -165,11 +141,9 @@ export declare namespace Messages {
     type Message as Message,
     type MessageCreate as MessageCreate,
     type MessageCreateResponse as MessageCreateResponse,
-    type MessageUploadResponse as MessageUploadResponse,
     MessagesPage as MessagesPage,
     type MessageCreateParams as MessageCreateParams,
     type MessageUpdateParams as MessageUpdateParams,
     type MessageListParams as MessageListParams,
-    type MessageUploadParams as MessageUploadParams,
   };
 }
