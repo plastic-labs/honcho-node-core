@@ -27,6 +27,7 @@ import create_sessions_workspaces_messages from './workspaces/sessions/messages/
 import retrieve_sessions_workspaces_messages from './workspaces/sessions/messages/retrieve-sessions-workspaces-messages';
 import update_sessions_workspaces_messages from './workspaces/sessions/messages/update-sessions-workspaces-messages';
 import list_sessions_workspaces_messages from './workspaces/sessions/messages/list-sessions-workspaces-messages';
+import upload_sessions_workspaces_messages from './workspaces/sessions/messages/upload-sessions-workspaces-messages';
 import list_sessions_workspaces_peers from './workspaces/sessions/peers/list-sessions-workspaces-peers';
 import add_sessions_workspaces_peers from './workspaces/sessions/peers/add-sessions-workspaces-peers';
 import get_config_sessions_workspaces_peers from './workspaces/sessions/peers/get-config-sessions-workspaces-peers';
@@ -64,6 +65,7 @@ addEndpoint(create_sessions_workspaces_messages);
 addEndpoint(retrieve_sessions_workspaces_messages);
 addEndpoint(update_sessions_workspaces_messages);
 addEndpoint(list_sessions_workspaces_messages);
+addEndpoint(upload_sessions_workspaces_messages);
 addEndpoint(list_sessions_workspaces_peers);
 addEndpoint(add_sessions_workspaces_peers);
 addEndpoint(get_config_sessions_workspaces_peers);
