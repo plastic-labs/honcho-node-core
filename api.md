@@ -38,17 +38,6 @@ Methods:
 
 - <code title="post /v2/workspaces/{workspace_id}/peers/{peer_id}/sessions">client.workspaces.peers.sessions.<a href="./src/resources/workspaces/peers/sessions.ts">list</a>(workspaceId, peerId, { ...params }) -> SessionsPage</code>
 
-### Messages
-
-Types:
-
-- <code><a href="./src/resources/workspaces/peers/messages.ts">MessageCreateResponse</a></code>
-
-Methods:
-
-- <code title="post /v2/workspaces/{workspace_id}/peers/{peer_id}/messages">client.workspaces.peers.messages.<a href="./src/resources/workspaces/peers/messages.ts">create</a>(workspaceId, peerId, { ...params }) -> MessageCreateResponse</code>
-- <code title="post /v2/workspaces/{workspace_id}/peers/{peer_id}/messages/list">client.workspaces.peers.messages.<a href="./src/resources/workspaces/peers/messages.ts">list</a>(workspaceId, peerId, { ...params }) -> MessagesPage</code>
-
 ## Sessions
 
 Types:
@@ -74,6 +63,7 @@ Types:
 - <code><a href="./src/resources/workspaces/sessions/messages.ts">Message</a></code>
 - <code><a href="./src/resources/workspaces/sessions/messages.ts">MessageCreate</a></code>
 - <code><a href="./src/resources/workspaces/sessions/messages.ts">MessageCreateResponse</a></code>
+- <code><a href="./src/resources/workspaces/sessions/messages.ts">MessageUploadResponse</a></code>
 
 Methods:
 
@@ -81,6 +71,7 @@ Methods:
 - <code title="get /v2/workspaces/{workspace_id}/sessions/{session_id}/messages/{message_id}">client.workspaces.sessions.messages.<a href="./src/resources/workspaces/sessions/messages.ts">retrieve</a>(workspaceId, sessionId, messageId) -> Message</code>
 - <code title="put /v2/workspaces/{workspace_id}/sessions/{session_id}/messages/{message_id}">client.workspaces.sessions.messages.<a href="./src/resources/workspaces/sessions/messages.ts">update</a>(workspaceId, sessionId, messageId, { ...params }) -> Message</code>
 - <code title="post /v2/workspaces/{workspace_id}/sessions/{session_id}/messages/list">client.workspaces.sessions.messages.<a href="./src/resources/workspaces/sessions/messages.ts">list</a>(workspaceId, sessionId, { ...params }) -> MessagesPage</code>
+- <code title="post /v2/workspaces/{workspace_id}/sessions/{session_id}/messages/upload">client.workspaces.sessions.messages.<a href="./src/resources/workspaces/sessions/messages.ts">upload</a>(workspaceId, sessionId, { ...params }) -> MessageUploadResponse</code>
 
 ### Peers
 

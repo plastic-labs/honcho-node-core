@@ -77,7 +77,8 @@ export class Workspaces extends APIResource {
   }
 
   /**
-   * Get the deriver processing status, optionally scoped to a peer and/or session
+   * Get the deriver processing status, optionally scoped to an observer, sender,
+   * and/or session
    */
   deriverStatus(
     workspaceId: string,
@@ -148,16 +149,6 @@ export interface DeriverStatus {
   total_work_units: number;
 
   /**
-   * ID of the peer (optional when filtering by session only)
-   */
-  peer_id?: string | null;
-
-  /**
-   * Session ID if filtered by session
-   */
-  session_id?: string | null;
-
-  /**
    * Per-session status when not filtered by session
    */
   sessions?: { [key: string]: DeriverStatus.Sessions } | null;
@@ -184,11 +175,6 @@ export namespace DeriverStatus {
      * Total work units
      */
     total_work_units: number;
-
-    /**
-     * ID of the peer (optional when filtering by session only)
-     */
-    peer_id?: string | null;
 
     /**
      * Session ID if filtered by session
@@ -222,14 +208,14 @@ export interface WorkspaceListParams extends PageParams {
 
 export interface WorkspaceDeriverStatusParams {
   /**
-   * Include work units triggered by this peer
+   * Optional observer ID to filter by
    */
-  include_sender?: boolean;
+  observer_id?: string | null;
 
   /**
-   * Optional peer ID to filter by
+   * Optional sender ID to filter by
    */
-  peer_id?: string | null;
+  sender_id?: string | null;
 
   /**
    * Optional session ID to filter by
