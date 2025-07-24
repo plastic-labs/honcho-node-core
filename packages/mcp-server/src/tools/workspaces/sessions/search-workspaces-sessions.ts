@@ -61,6 +61,7 @@ export const tool: Tool = {
     },
     required: ['workspace_id', 'session_id', 'query'],
   },
+  annotations: {},
 };
 
 export const handler = async (client: Honcho, args: Record<string, unknown> | undefined) => {
