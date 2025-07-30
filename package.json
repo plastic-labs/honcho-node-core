@@ -58,10 +58,6 @@
     "./shims/web.js",
     "./shims/web.mjs"
   ],
-  "imports": {
-    "@honcho-ai/core": ".",
-    "@honcho-ai/core/*": "./src/*"
-  },
   "exports": {
     "./_shims/auto/*": {
       "deno": {
