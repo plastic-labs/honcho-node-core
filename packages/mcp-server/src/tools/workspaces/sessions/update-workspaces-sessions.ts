@@ -55,9 +55,9 @@ export const tool: Tool = {
 };
 
 export const handler = async (client: Honcho, args: Record<string, unknown> | undefined) => {
-  const { workspace_id, session_id, ...body } = args as any;
+  const { workspace_id, session_id, jq_filter, ...body } = args as any;
   return asTextContentResult(
-    await maybeFilter(args, await client.workspaces.sessions.update(workspace_id, session_id, body)),
+    await maybeFilter(jq_filter, await client.workspaces.sessions.update(workspace_id, session_id, body)),
   );
 };
 

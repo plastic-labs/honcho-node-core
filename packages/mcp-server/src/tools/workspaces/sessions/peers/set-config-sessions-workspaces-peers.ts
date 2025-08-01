@@ -17,8 +17,7 @@ export const metadata: Metadata = {
 
 export const tool: Tool = {
   name: 'set_config_sessions_workspaces_peers',
-  description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nSet the configuration for a peer in a session\n\n# Response Schema\n```json\n{\n  type: 'object'\n}\n```",
+  description: 'Set the configuration for a peer in a session',
   inputSchema: {
     type: 'object',
     properties: {
@@ -48,12 +47,6 @@ export const tool: Tool = {
         title: 'Observe Others',
         description:
           'Whether this peer should form a session-level theory-of-mind representation of other peers in the session',
-      },
-      jq_filter: {
-        type: 'string',
-        title: 'jq Filter',
-        description:
-          'A jq filter to apply to the response to include certain fields. Consult the output schema in the tool description to see the fields that are available.\n\nFor example: to include only the `name` field in every object of a results array, you can provide ".results[].name".\n\nFor more information, see the [jq documentation](https://jqlang.org/manual/).',
       },
     },
     required: ['workspace_id', 'session_id', 'peer_id'],
