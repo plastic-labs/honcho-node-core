@@ -54,9 +54,9 @@ export const tool: Tool = {
 };
 
 export const handler = async (client: Honcho, args: Record<string, unknown> | undefined) => {
-  const { workspace_id, ...body } = args as any;
+  const { workspace_id, jq_filter, ...body } = args as any;
   const response = await client.workspaces.sessions.list(workspace_id, body).asResponse();
-  return asTextContentResult(await maybeFilter(args, await response.json()));
+  return asTextContentResult(await maybeFilter(jq_filter, await response.json()));
 };
 
 export default { metadata, tool, handler };
