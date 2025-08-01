@@ -47,8 +47,8 @@ export const tool: Tool = {
 };
 
 export const handler = async (client: Honcho, args: Record<string, unknown> | undefined) => {
-  const body = args as any;
-  return asTextContentResult(await maybeFilter(args, await client.workspaces.getOrCreate(body)));
+  const { jq_filter, ...body } = args as any;
+  return asTextContentResult(await maybeFilter(jq_filter, await client.workspaces.getOrCreate(body)));
 };
 
 export default { metadata, tool, handler };

@@ -50,10 +50,10 @@ export const tool: Tool = {
 };
 
 export const handler = async (client: Honcho, args: Record<string, unknown> | undefined) => {
-  const { workspace_id, session_id, ...body } = args as any;
+  const { workspace_id, session_id, jq_filter, ...body } = args as any;
   return asTextContentResult(
     await maybeFilter(
-      args,
+      jq_filter,
       await client.workspaces.sessions.peers.add(workspace_id, session_id, body['body']),
     ),
   );
