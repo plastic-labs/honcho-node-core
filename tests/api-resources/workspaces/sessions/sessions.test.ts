@@ -123,7 +123,7 @@ describe('resource sessions', () => {
       client.workspaces.sessions.getContext(
         'workspace_id',
         'session_id',
-        { summary: true, tokens: 0 },
+        { summary: true, tokens: 100000 },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Honcho.NotFoundError);
@@ -165,9 +165,7 @@ describe('resource sessions', () => {
   test('search: required and optional params', async () => {
     const response = await client.workspaces.sessions.search('workspace_id', 'session_id', {
       query: 'query',
-      page: 1,
-      size: 1,
-      semantic: true,
+      limit: 1,
     });
   });
 });

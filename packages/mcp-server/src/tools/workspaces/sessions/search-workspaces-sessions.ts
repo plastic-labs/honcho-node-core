@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'search_workspaces_sessions',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nSearch a Session\n\n# Response Schema\n```json\n{\n  type: 'object',\n  title: 'Page[Message]',\n  properties: {\n    items: {\n      type: 'array',\n      title: 'Items',\n      items: {\n        $ref: '#/$defs/message'\n      }\n    },\n    page: {\n      type: 'integer',\n      title: 'Page'\n    },\n    size: {\n      type: 'integer',\n      title: 'Size'\n    },\n    pages: {\n      type: 'integer',\n      title: 'Pages'\n    },\n    total: {\n      type: 'integer',\n      title: 'Total'\n    }\n  },\n  required: [    'items',\n    'page',\n    'size'\n  ],\n  $defs: {\n    message: {\n      type: 'object',\n      title: 'Message',\n      properties: {\n        id: {\n          type: 'string',\n          title: 'Id'\n        },\n        content: {\n          type: 'string',\n          title: 'Content'\n        },\n        created_at: {\n          type: 'string',\n          title: 'Created At',\n          format: 'date-time'\n        },\n        peer_id: {\n          type: 'string',\n          title: 'Peer Id'\n        },\n        session_id: {\n          type: 'string',\n          title: 'Session Id'\n        },\n        token_count: {\n          type: 'integer',\n          title: 'Token Count'\n        },\n        workspace_id: {\n          type: 'string',\n          title: 'Workspace Id'\n        },\n        metadata: {\n          type: 'object',\n          title: 'Metadata'\n        }\n      },\n      required: [        'id',\n        'content',\n        'created_at',\n        'peer_id',\n        'session_id',\n        'token_count',\n        'workspace_id'\n      ]\n    }\n  }\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nSearch a Session\n\n# Response Schema\n```json\n{\n  type: 'array',\n  title: 'Response Search Session V2 Workspaces  Workspace Id  Sessions  Session Id  Search Post',\n  items: {\n    $ref: '#/$defs/message'\n  },\n  $defs: {\n    message: {\n      type: 'object',\n      title: 'Message',\n      properties: {\n        id: {\n          type: 'string',\n          title: 'Id'\n        },\n        content: {\n          type: 'string',\n          title: 'Content'\n        },\n        created_at: {\n          type: 'string',\n          title: 'Created At',\n          format: 'date-time'\n        },\n        peer_id: {\n          type: 'string',\n          title: 'Peer Id'\n        },\n        session_id: {\n          type: 'string',\n          title: 'Session Id'\n        },\n        token_count: {\n          type: 'integer',\n          title: 'Token Count'\n        },\n        workspace_id: {\n          type: 'string',\n          title: 'Workspace Id'\n        },\n        metadata: {\n          type: 'object',\n          title: 'Metadata'\n        }\n      },\n      required: [        'id',\n        'content',\n        'created_at',\n        'peer_id',\n        'session_id',\n        'token_count',\n        'workspace_id'\n      ]\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {
@@ -37,20 +37,10 @@ export const tool: Tool = {
         title: 'Query',
         description: 'Search query',
       },
-      page: {
+      limit: {
         type: 'integer',
-        title: 'Page',
-        description: 'Page number',
-      },
-      size: {
-        type: 'integer',
-        title: 'Size',
-        description: 'Page size',
-      },
-      semantic: {
-        type: 'boolean',
-        title: 'Semantic',
-        description: 'Whether to explicitly use semantic search to filter the results',
+        title: 'Limit',
+        description: 'Number of results to return',
       },
       jq_filter: {
         type: 'string',
@@ -66,8 +56,9 @@ export const tool: Tool = {
 
 export const handler = async (client: Honcho, args: Record<string, unknown> | undefined) => {
   const { workspace_id, session_id, jq_filter, ...body } = args as any;
-  const response = await client.workspaces.sessions.search(workspace_id, session_id, body).asResponse();
-  return asTextContentResult(await maybeFilter(jq_filter, await response.json()));
+  return asTextContentResult(
+    await maybeFilter(jq_filter, await client.workspaces.sessions.search(workspace_id, session_id, body)),
+  );
 };
 
 export default { metadata, tool, handler };

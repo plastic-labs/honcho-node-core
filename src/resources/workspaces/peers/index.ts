@@ -7,6 +7,7 @@ export {
   type Peer,
   type SessionGet,
   type PeerChatResponse,
+  type PeerSearchResponse,
   type PeerWorkingRepresentationResponse,
   type PeerUpdateParams,
   type PeerListParams,

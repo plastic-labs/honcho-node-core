@@ -111,7 +111,7 @@ export interface Message {
 
   peer_id: string;
 
-  session_id: string | null;
+  session_id: string;
 
   token_count: number;
 

@@ -6,6 +6,7 @@ export {
   Workspaces,
   type DeriverStatus,
   type Workspace,
+  type WorkspaceSearchResponse,
   type WorkspaceUpdateParams,
   type WorkspaceListParams,
   type WorkspaceDeriverStatusParams,

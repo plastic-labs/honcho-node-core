@@ -104,11 +104,12 @@ export class Sessions extends APIResource {
   }
 
   /**
-   * Produce a context object from the session. The caller provides a token limit
-   * which the entire context must fit into. To do this, we allocate 40% of the token
-   * limit to the summary, and 60% to recent messages -- as many as can fit. If the
-   * caller does not want a summary, we allocate all the tokens to recent messages.
-   * The default token limit if not provided is 2048. (TODO: make this configurable)
+   * Produce a context object from the session. The caller provides an optional token
+   * limit which the entire context must fit into. If not provided, the context will
+   * be exhaustive (within configured max tokens). To do this, we allocate 40% of the
+   * token limit to the summary, and 60% to recent messages -- as many as can fit.
+   * Note that the summary will usually take up less space than this. If the caller
+   * does not want a summary, we allocate all the tokens to recent messages.
    */
   getContext(
     workspaceId: string,
@@ -157,15 +158,13 @@ export class Sessions extends APIResource {
   search(
     workspaceId: string,
     sessionId: string,
-    params: SessionSearchParams,
+    body: SessionSearchParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<MessagesPage, MessagesAPI.Message> {
-    const { page, size, ...body } = params;
-    return this._client.getAPIList(
-      `/v2/workspaces/${workspaceId}/sessions/${sessionId}/search`,
-      MessagesPage,
-      { query: { page, size }, body, method: 'post', ...options },
-    );
+  ): Core.APIPromise<SessionSearchResponse> {
+    return this._client.post(`/v2/workspaces/${workspaceId}/sessions/${sessionId}/search`, {
+      body,
+      ...options,
+    });
   }
 }
 
@@ -195,6 +194,8 @@ export interface SessionGetContextResponse {
   summary: string;
 }
 
+export type SessionSearchResponse = Array<MessagesAPI.Message>;
+
 export interface SessionUpdateParams {
   configuration?: { [key: string]: unknown } | null;
 
@@ -217,12 +218,13 @@ export interface SessionCloneParams {
 
 export interface SessionGetContextParams {
   /**
-   * Whether to summarize the session history prior to the cutoff message
+   * Whether or not to include a summary _if_ one is available for the session
    */
   summary?: boolean;
 
   /**
-   * Number of tokens to use for the context. Includes summary if set to true
+   * Number of tokens to use for the context. Includes summary if set to true. If not
+   * provided, the context will be exhaustive (within 100000 tokens)
    */
   tokens?: number | null;
 }
@@ -253,16 +255,16 @@ export namespace SessionGetOrCreateParams {
   }
 }
 
-export interface SessionSearchParams extends PageParams {
+export interface SessionSearchParams {
   /**
-   * Body param: Search query
+   * Search query
    */
   query: string;
 
   /**
-   * Body param: Whether to explicitly use semantic search to filter the results
+   * Number of results to return
    */
-  semantic?: boolean | null;
+  limit?: number;
 }
 
 Sessions.SessionsPage = SessionsPage;
@@ -275,6 +277,7 @@ export declare namespace Sessions {
     type Session as Session,
     type SessionDeleteResponse as SessionDeleteResponse,
     type SessionGetContextResponse as SessionGetContextResponse,
+    type SessionSearchResponse as SessionSearchResponse,
     SessionsPage as SessionsPage,
     type SessionUpdateParams as SessionUpdateParams,
     type SessionListParams as SessionListParams,
@@ -308,5 +311,3 @@ export declare namespace Sessions {
     type PeerSetConfigParams as PeerSetConfigParams,
   };
 }
-
-export { MessagesPage };
