@@ -6,7 +6,6 @@ import * as Core from '../../../core';
 import * as SessionsAPI from './sessions';
 import { SessionListParams, Sessions } from './sessions';
 import * as MessagesAPI from '../sessions/messages';
-import { MessagesPage } from '../sessions/messages';
 import * as SessionsSessionsAPI from '../sessions/sessions';
 import { Page, type PageParams } from '../../../pagination';
 
@@ -83,16 +82,10 @@ export class Peers extends APIResource {
   search(
     workspaceId: string,
     peerId: string,
-    params: PeerSearchParams,
+    body: PeerSearchParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<MessagesPage, MessagesAPI.Message> {
-    const { page, size, ...body } = params;
-    return this._client.getAPIList(`/v2/workspaces/${workspaceId}/peers/${peerId}/search`, MessagesPage, {
-      query: { page, size },
-      body,
-      method: 'post',
-      ...options,
-    });
+  ): Core.APIPromise<PeerSearchResponse> {
+    return this._client.post(`/v2/workspaces/${workspaceId}/peers/${peerId}/search`, { body, ...options });
   }
 
   /**
@@ -150,6 +143,8 @@ export interface PeerChatResponse {
   content: string;
 }
 
+export type PeerSearchResponse = Array<MessagesAPI.Message>;
+
 export type PeerWorkingRepresentationResponse = { [key: string]: unknown };
 
 export interface PeerUpdateParams {
@@ -192,16 +187,16 @@ export interface PeerGetOrCreateParams {
   metadata?: { [key: string]: unknown } | null;
 }
 
-export interface PeerSearchParams extends PageParams {
+export interface PeerSearchParams {
   /**
-   * Body param: Search query
+   * Search query
    */
   query: string;
 
   /**
-   * Body param: Whether to explicitly use semantic search to filter the results
+   * Number of results to return
    */
-  semantic?: boolean | null;
+  limit?: number;
 }
 
 export interface PeerWorkingRepresentationParams {
@@ -226,6 +221,7 @@ export declare namespace Peers {
     type Peer as Peer,
     type SessionGet as SessionGet,
     type PeerChatResponse as PeerChatResponse,
+    type PeerSearchResponse as PeerSearchResponse,
     type PeerWorkingRepresentationResponse as PeerWorkingRepresentationResponse,
     PeersPage as PeersPage,
     type PeerUpdateParams as PeerUpdateParams,
@@ -238,5 +234,3 @@ export declare namespace Peers {
 
   export { Sessions as Sessions, type SessionListParams as SessionListParams };
 }
-
-export { MessagesPage };
