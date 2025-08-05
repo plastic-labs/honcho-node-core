@@ -4,6 +4,7 @@ Types:
 
 - <code><a href="./src/resources/workspaces/workspaces.ts">DeriverStatus</a></code>
 - <code><a href="./src/resources/workspaces/workspaces.ts">Workspace</a></code>
+- <code><a href="./src/resources/workspaces/workspaces.ts">WorkspaceSearchResponse</a></code>
 
 Methods:
 
@@ -11,7 +12,7 @@ Methods:
 - <code title="post /v2/workspaces/list">client.workspaces.<a href="./src/resources/workspaces/workspaces.ts">list</a>({ ...params }) -> WorkspacesPage</code>
 - <code title="get /v2/workspaces/{workspace_id}/deriver/status">client.workspaces.<a href="./src/resources/workspaces/workspaces.ts">deriverStatus</a>(workspaceId, { ...params }) -> DeriverStatus</code>
 - <code title="post /v2/workspaces">client.workspaces.<a href="./src/resources/workspaces/workspaces.ts">getOrCreate</a>({ ...params }) -> Workspace</code>
-- <code title="post /v2/workspaces/{workspace_id}/search">client.workspaces.<a href="./src/resources/workspaces/workspaces.ts">search</a>(workspaceId, { ...params }) -> MessagesPage</code>
+- <code title="post /v2/workspaces/{workspace_id}/search">client.workspaces.<a href="./src/resources/workspaces/workspaces.ts">search</a>(workspaceId, { ...params }) -> WorkspaceSearchResponse</code>
 
 ## Peers
 
@@ -21,6 +22,7 @@ Types:
 - <code><a href="./src/resources/workspaces/peers/peers.ts">Peer</a></code>
 - <code><a href="./src/resources/workspaces/peers/peers.ts">SessionGet</a></code>
 - <code><a href="./src/resources/workspaces/peers/peers.ts">PeerChatResponse</a></code>
+- <code><a href="./src/resources/workspaces/peers/peers.ts">PeerSearchResponse</a></code>
 - <code><a href="./src/resources/workspaces/peers/peers.ts">PeerWorkingRepresentationResponse</a></code>
 
 Methods:
@@ -29,7 +31,7 @@ Methods:
 - <code title="post /v2/workspaces/{workspace_id}/peers/list">client.workspaces.peers.<a href="./src/resources/workspaces/peers/peers.ts">list</a>(workspaceId, { ...params }) -> PeersPage</code>
 - <code title="post /v2/workspaces/{workspace_id}/peers/{peer_id}/chat">client.workspaces.peers.<a href="./src/resources/workspaces/peers/peers.ts">chat</a>(workspaceId, peerId, { ...params }) -> PeerChatResponse</code>
 - <code title="post /v2/workspaces/{workspace_id}/peers">client.workspaces.peers.<a href="./src/resources/workspaces/peers/peers.ts">getOrCreate</a>(workspaceId, { ...params }) -> Peer</code>
-- <code title="post /v2/workspaces/{workspace_id}/peers/{peer_id}/search">client.workspaces.peers.<a href="./src/resources/workspaces/peers/peers.ts">search</a>(workspaceId, peerId, { ...params }) -> MessagesPage</code>
+- <code title="post /v2/workspaces/{workspace_id}/peers/{peer_id}/search">client.workspaces.peers.<a href="./src/resources/workspaces/peers/peers.ts">search</a>(workspaceId, peerId, { ...params }) -> PeerSearchResponse</code>
 - <code title="post /v2/workspaces/{workspace_id}/peers/{peer_id}/representation">client.workspaces.peers.<a href="./src/resources/workspaces/peers/peers.ts">workingRepresentation</a>(workspaceId, peerId, { ...params }) -> PeerWorkingRepresentationResponse</code>
 
 ### Sessions
@@ -45,6 +47,7 @@ Types:
 - <code><a href="./src/resources/workspaces/sessions/sessions.ts">Session</a></code>
 - <code><a href="./src/resources/workspaces/sessions/sessions.ts">SessionDeleteResponse</a></code>
 - <code><a href="./src/resources/workspaces/sessions/sessions.ts">SessionGetContextResponse</a></code>
+- <code><a href="./src/resources/workspaces/sessions/sessions.ts">SessionSearchResponse</a></code>
 
 Methods:
 
@@ -54,7 +57,7 @@ Methods:
 - <code title="get /v2/workspaces/{workspace_id}/sessions/{session_id}/clone">client.workspaces.sessions.<a href="./src/resources/workspaces/sessions/sessions.ts">clone</a>(workspaceId, sessionId, { ...params }) -> Session</code>
 - <code title="get /v2/workspaces/{workspace_id}/sessions/{session_id}/context">client.workspaces.sessions.<a href="./src/resources/workspaces/sessions/sessions.ts">getContext</a>(workspaceId, sessionId, { ...params }) -> SessionGetContextResponse</code>
 - <code title="post /v2/workspaces/{workspace_id}/sessions">client.workspaces.sessions.<a href="./src/resources/workspaces/sessions/sessions.ts">getOrCreate</a>(workspaceId, { ...params }) -> Session</code>
-- <code title="post /v2/workspaces/{workspace_id}/sessions/{session_id}/search">client.workspaces.sessions.<a href="./src/resources/workspaces/sessions/sessions.ts">search</a>(workspaceId, sessionId, { ...params }) -> MessagesPage</code>
+- <code title="post /v2/workspaces/{workspace_id}/sessions/{session_id}/search">client.workspaces.sessions.<a href="./src/resources/workspaces/sessions/sessions.ts">search</a>(workspaceId, sessionId, { ...params }) -> SessionSearchResponse</code>
 
 ### Messages
 

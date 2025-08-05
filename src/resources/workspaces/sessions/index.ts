@@ -28,6 +28,7 @@ export {
   type Session,
   type SessionDeleteResponse,
   type SessionGetContextResponse,
+  type SessionSearchResponse,
   type SessionUpdateParams,
   type SessionListParams,
   type SessionCloneParams,

@@ -12,6 +12,7 @@ import {
   PeerGetOrCreateParams,
   PeerListParams,
   PeerSearchParams,
+  PeerSearchResponse,
   PeerUpdateParams,
   PeerWorkingRepresentationParams,
   PeerWorkingRepresentationResponse,
@@ -20,7 +21,6 @@ import {
   SessionGet,
 } from './peers/peers';
 import * as MessagesAPI from './sessions/messages';
-import { MessagesPage } from './sessions/messages';
 import * as SessionsAPI from './sessions/sessions';
 import {
   Session,
@@ -31,6 +31,7 @@ import {
   SessionGetOrCreateParams,
   SessionListParams,
   SessionSearchParams,
+  SessionSearchResponse,
   SessionUpdateParams,
   Sessions as SessionsAPISessions,
   SessionsPage,
@@ -112,16 +113,10 @@ export class Workspaces extends APIResource {
    */
   search(
     workspaceId: string,
-    params: WorkspaceSearchParams,
+    body: WorkspaceSearchParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<MessagesPage, MessagesAPI.Message> {
-    const { body, page, size } = params;
-    return this._client.getAPIList(`/v2/workspaces/${workspaceId}/search`, MessagesPage, {
-      query: { page, size },
-      body: body,
-      method: 'post',
-      ...options,
-    });
+  ): Core.APIPromise<WorkspaceSearchResponse> {
+    return this._client.post(`/v2/workspaces/${workspaceId}/search`, { body, ...options });
   }
 }
 
@@ -193,6 +188,8 @@ export interface Workspace {
   metadata?: { [key: string]: unknown };
 }
 
+export type WorkspaceSearchResponse = Array<MessagesAPI.Message>;
+
 export interface WorkspaceUpdateParams {
   configuration?: { [key: string]: unknown } | null;
 
@@ -231,11 +228,16 @@ export interface WorkspaceGetOrCreateParams {
   metadata?: { [key: string]: unknown };
 }
 
-export interface WorkspaceSearchParams extends PageParams {
+export interface WorkspaceSearchParams {
   /**
-   * Body param: Search query
+   * Search query
    */
-  body: string;
+  query: string;
+
+  /**
+   * Number of results to return
+   */
+  limit?: number;
 }
 
 Workspaces.WorkspacesPage = WorkspacesPage;
@@ -248,6 +250,7 @@ export declare namespace Workspaces {
   export {
     type DeriverStatus as DeriverStatus,
     type Workspace as Workspace,
+    type WorkspaceSearchResponse as WorkspaceSearchResponse,
     WorkspacesPage as WorkspacesPage,
     type WorkspaceUpdateParams as WorkspaceUpdateParams,
     type WorkspaceListParams as WorkspaceListParams,
@@ -262,6 +265,7 @@ export declare namespace Workspaces {
     type Peer as Peer,
     type SessionGet as SessionGet,
     type PeerChatResponse as PeerChatResponse,
+    type PeerSearchResponse as PeerSearchResponse,
     type PeerWorkingRepresentationResponse as PeerWorkingRepresentationResponse,
     PeersPage as PeersPage,
     type PeerUpdateParams as PeerUpdateParams,
@@ -277,6 +281,7 @@ export declare namespace Workspaces {
     type Session as Session,
     type SessionDeleteResponse as SessionDeleteResponse,
     type SessionGetContextResponse as SessionGetContextResponse,
+    type SessionSearchResponse as SessionSearchResponse,
     SessionsPage as SessionsPage,
     type SessionUpdateParams as SessionUpdateParams,
     type SessionListParams as SessionListParams,
@@ -286,5 +291,3 @@ export declare namespace Workspaces {
     type SessionSearchParams as SessionSearchParams,
   };
 }
-
-export { MessagesPage };
