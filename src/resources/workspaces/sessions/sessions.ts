@@ -19,13 +19,13 @@ import {
 import * as PeersAPI from './peers';
 import {
   PeerAddParams,
-  PeerGetConfigResponse,
   PeerListParams,
   PeerRemoveParams,
   PeerSetConfigParams,
   PeerSetConfigResponse,
   PeerSetParams,
-  Peers as PeersAPIPeers,
+  Peers,
+  SessionPeerConfig,
 } from './peers';
 import { Page, type PageParams } from '../../../pagination';
 
@@ -236,23 +236,7 @@ export interface SessionGetOrCreateParams {
 
   metadata?: { [key: string]: unknown } | null;
 
-  peers?: { [key: string]: SessionGetOrCreateParams.Peers } | null;
-}
-
-export namespace SessionGetOrCreateParams {
-  export interface Peers {
-    /**
-     * Whether other peers in this session should try to form a session-level
-     * theory-of-mind representation of this peer
-     */
-    observe_me?: boolean | null;
-
-    /**
-     * Whether this peer should form a session-level theory-of-mind representation of
-     * other peers in the session
-     */
-    observe_others?: boolean;
-  }
+  peers?: { [key: string]: PeersAPI.SessionPeerConfig } | null;
 }
 
 export interface SessionSearchParams {
@@ -260,6 +244,11 @@ export interface SessionSearchParams {
    * Search query
    */
   query: string;
+
+  /**
+   * Filters to scope the search
+   */
+  filters?: { [key: string]: unknown } | null;
 
   /**
    * Number of results to return
@@ -270,7 +259,7 @@ export interface SessionSearchParams {
 Sessions.SessionsPage = SessionsPage;
 Sessions.Messages = Messages;
 Sessions.MessagesPage = MessagesPage;
-Sessions.Peers = PeersAPIPeers;
+Sessions.Peers = Peers;
 
 export declare namespace Sessions {
   export {
@@ -301,8 +290,8 @@ export declare namespace Sessions {
   };
 
   export {
-    PeersAPIPeers as Peers,
-    type PeerGetConfigResponse as PeerGetConfigResponse,
+    Peers as Peers,
+    type SessionPeerConfig as SessionPeerConfig,
     type PeerSetConfigResponse as PeerSetConfigResponse,
     type PeerListParams as PeerListParams,
     type PeerAddParams as PeerAddParams,

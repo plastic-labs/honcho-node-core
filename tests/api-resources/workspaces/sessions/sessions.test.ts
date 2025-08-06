@@ -165,6 +165,7 @@ describe('resource sessions', () => {
   test('search: required and optional params', async () => {
     const response = await client.workspaces.sessions.search('workspace_id', 'session_id', {
       query: 'query',
+      filters: { foo: 'bar' },
       limit: 1,
     });
   });

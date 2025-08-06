@@ -14,7 +14,7 @@ export {
 } from './messages';
 export {
   Peers,
-  type PeerGetConfigResponse,
+  type SessionPeerConfig,
   type PeerSetConfigResponse,
   type PeerListParams,
   type PeerAddParams,
