@@ -1,5 +1,32 @@
 # Changelog
 
+## 1.3.0 (2025-08-06)
+
+Full Changelog: [v1.2.0...v1.3.0](https://github.com/plastic-labs/honcho-node-core/compare/v1.2.0...v1.3.0)
+
+### Features
+
+* **api:** manual updates ([33d69ad](https://github.com/plastic-labs/honcho-node-core/commit/33d69ad2d9f807dc8a03358c58f9d02b3b616331))
+* **api:** manual updates ([8d9ade0](https://github.com/plastic-labs/honcho-node-core/commit/8d9ade036965d3dbbf3fe4f1617b9c64a999d652))
+* **api:** pluralize filter*s* everywhere for consistency ([85bba69](https://github.com/plastic-labs/honcho-node-core/commit/85bba69e127ac28c045a81f3410123d982291cc8))
+* **mcp:** add logging when environment variable is set ([762a6ed](https://github.com/plastic-labs/honcho-node-core/commit/762a6ed1d16aea80aae5005609d340a8f0b72a40))
+* **mcp:** remote server with passthru auth ([863aba7](https://github.com/plastic-labs/honcho-node-core/commit/863aba773f135c468e99bdad1b63f4fcec62825c))
+
+
+### Bug Fixes
+
+* **mcp:** avoid sending `jq_filter` to base API ([e3facf7](https://github.com/plastic-labs/honcho-node-core/commit/e3facf7eabb7f29b777e8a9b08cba46442248a52))
+* **mcp:** fix bug in header handling ([1df946a](https://github.com/plastic-labs/honcho-node-core/commit/1df946a8bc75a3a70c0c07a5e98cb46540df1e6a))
+* **mcp:** include required section for top-level properties and support naming transformations ([f84262b](https://github.com/plastic-labs/honcho-node-core/commit/f84262b10c15e9d1c651052a96300606cc00d5ca))
+* **mcp:** reverse validJson capability option and limit scope ([a0a223c](https://github.com/plastic-labs/honcho-node-core/commit/a0a223c4fddde4a0ff1b8a0d00f619fa508fe7ea))
+
+
+### Chores
+
+* **internal:** codegen related update ([15273d8](https://github.com/plastic-labs/honcho-node-core/commit/15273d87960be85a6f1f2e6b8b22adac387d0052))
+* **internal:** remove redundant imports config ([994c6fe](https://github.com/plastic-labs/honcho-node-core/commit/994c6fe3cb9d923220f4b021e569600d07e19517))
+* **mcp:** formatting ([c43f297](https://github.com/plastic-labs/honcho-node-core/commit/c43f2974e3b51d409d30d4e7ff2b4658dee3bf40))
+
 ## 1.2.0 (2025-07-16)
 
 Full Changelog: [v1.1.0...v1.2.0](https://github.com/plastic-labs/honcho-node-core/compare/v1.1.0...v1.2.0)
