@@ -149,7 +149,7 @@ export interface MessageListParams extends PageParams {
   /**
    * Body param:
    */
-  filter?: { [key: string]: unknown } | null;
+  filters?: { [key: string]: unknown } | null;
 }
 
 export interface MessageUploadParams {

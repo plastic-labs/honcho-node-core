@@ -42,7 +42,7 @@ describe('resource workspaces', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.workspaces.list(
-        { page: 1, size: 1, filter: { foo: 'bar' } },
+        { page: 1, size: 1, filters: { foo: 'bar' } },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Honcho.NotFoundError);

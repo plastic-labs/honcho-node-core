@@ -43,7 +43,7 @@ describe('resource peers', () => {
     await expect(
       client.workspaces.peers.list(
         'workspace_id',
-        { page: 1, size: 1, filter: { foo: 'bar' } },
+        { page: 1, size: 1, filters: { foo: 'bar' } },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Honcho.NotFoundError);
