@@ -108,6 +108,10 @@ describe('resource workspaces', () => {
   });
 
   test('search: required and optional params', async () => {
-    const response = await client.workspaces.search('workspace_id', { query: 'query', limit: 1 });
+    const response = await client.workspaces.search('workspace_id', {
+      query: 'query',
+      filters: { foo: 'bar' },
+      limit: 1,
+    });
   });
 });

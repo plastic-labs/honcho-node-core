@@ -102,6 +102,7 @@ describe('resource peers', () => {
   test('search: required and optional params', async () => {
     const response = await client.workspaces.peers.search('workspace_id', 'peer_id', {
       query: 'query',
+      filters: { foo: 'bar' },
       limit: 1,
     });
   });

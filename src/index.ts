@@ -10,6 +10,7 @@ import * as API from './resources/index';
 import { KeyCreateParams, KeyCreateResponse, Keys } from './resources/keys';
 import {
   DeriverStatus,
+  MessageSearchOptions,
   Workspace,
   WorkspaceDeriverStatusParams,
   WorkspaceGetOrCreateParams,
@@ -217,6 +218,7 @@ export declare namespace Honcho {
   export {
     Workspaces as Workspaces,
     type DeriverStatus as DeriverStatus,
+    type MessageSearchOptions as MessageSearchOptions,
     type Workspace as Workspace,
     type WorkspaceSearchResponse as WorkspaceSearchResponse,
     WorkspacesPage as WorkspacesPage,
