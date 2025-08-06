@@ -3,6 +3,7 @@
 export {
   PeersPage,
   Peers,
+  type PagePeer,
   type PageSession,
   type Peer,
   type SessionGet,

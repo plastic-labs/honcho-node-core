@@ -32,6 +32,11 @@ export const tool: Tool = {
         title: 'Query',
         description: 'Search query',
       },
+      filters: {
+        type: 'object',
+        title: 'Filters',
+        description: 'Filters to scope the search',
+      },
       limit: {
         type: 'integer',
         title: 'Limit',

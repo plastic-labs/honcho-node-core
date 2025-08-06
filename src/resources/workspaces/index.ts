@@ -3,6 +3,7 @@
 export {
   PeersPage,
   Peers,
+  type PagePeer,
   type PageSession,
   type Peer,
   type SessionGet,
@@ -34,6 +35,7 @@ export {
   WorkspacesPage,
   Workspaces,
   type DeriverStatus,
+  type MessageSearchOptions,
   type Workspace,
   type WorkspaceSearchResponse,
   type WorkspaceUpdateParams,

@@ -3,6 +3,7 @@
 Types:
 
 - <code><a href="./src/resources/workspaces/workspaces.ts">DeriverStatus</a></code>
+- <code><a href="./src/resources/workspaces/workspaces.ts">MessageSearchOptions</a></code>
 - <code><a href="./src/resources/workspaces/workspaces.ts">Workspace</a></code>
 - <code><a href="./src/resources/workspaces/workspaces.ts">WorkspaceSearchResponse</a></code>
 
@@ -18,6 +19,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/workspaces/peers/peers.ts">PagePeer</a></code>
 - <code><a href="./src/resources/workspaces/peers/peers.ts">PageSession</a></code>
 - <code><a href="./src/resources/workspaces/peers/peers.ts">Peer</a></code>
 - <code><a href="./src/resources/workspaces/peers/peers.ts">SessionGet</a></code>
@@ -80,14 +82,14 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/workspaces/sessions/peers.ts">PeerGetConfigResponse</a></code>
+- <code><a href="./src/resources/workspaces/sessions/peers.ts">SessionPeerConfig</a></code>
 - <code><a href="./src/resources/workspaces/sessions/peers.ts">PeerSetConfigResponse</a></code>
 
 Methods:
 
 - <code title="get /v2/workspaces/{workspace_id}/sessions/{session_id}/peers">client.workspaces.sessions.peers.<a href="./src/resources/workspaces/sessions/peers.ts">list</a>(workspaceId, sessionId, { ...params }) -> PeersPage</code>
 - <code title="post /v2/workspaces/{workspace_id}/sessions/{session_id}/peers">client.workspaces.sessions.peers.<a href="./src/resources/workspaces/sessions/peers.ts">add</a>(workspaceId, sessionId, { ...params }) -> Session</code>
-- <code title="get /v2/workspaces/{workspace_id}/sessions/{session_id}/peers/{peer_id}/config">client.workspaces.sessions.peers.<a href="./src/resources/workspaces/sessions/peers.ts">getConfig</a>(workspaceId, sessionId, peerId) -> PeerGetConfigResponse</code>
+- <code title="get /v2/workspaces/{workspace_id}/sessions/{session_id}/peers/{peer_id}/config">client.workspaces.sessions.peers.<a href="./src/resources/workspaces/sessions/peers.ts">getConfig</a>(workspaceId, sessionId, peerId) -> SessionPeerConfig</code>
 - <code title="delete /v2/workspaces/{workspace_id}/sessions/{session_id}/peers">client.workspaces.sessions.peers.<a href="./src/resources/workspaces/sessions/peers.ts">remove</a>(workspaceId, sessionId, [ ...body ]) -> Session</code>
 - <code title="put /v2/workspaces/{workspace_id}/sessions/{session_id}/peers">client.workspaces.sessions.peers.<a href="./src/resources/workspaces/sessions/peers.ts">set</a>(workspaceId, sessionId, { ...params }) -> Session</code>
 - <code title="post /v2/workspaces/{workspace_id}/sessions/{session_id}/peers/{peer_id}/config">client.workspaces.sessions.peers.<a href="./src/resources/workspaces/sessions/peers.ts">setConfig</a>(workspaceId, sessionId, peerId, { ...params }) -> unknown</code>

@@ -5,6 +5,7 @@ export {
   WorkspacesPage,
   Workspaces,
   type DeriverStatus,
+  type MessageSearchOptions,
   type Workspace,
   type WorkspaceSearchResponse,
   type WorkspaceUpdateParams,

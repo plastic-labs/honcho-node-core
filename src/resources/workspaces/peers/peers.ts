@@ -111,6 +111,18 @@ export class Peers extends APIResource {
 
 export class PeersPage extends Page<Peer> {}
 
+export interface PagePeer {
+  items: Array<Peer>;
+
+  page: number;
+
+  size: number;
+
+  pages?: number;
+
+  total?: number;
+}
+
 export interface PageSession {
   items: Array<SessionsSessionsAPI.Session>;
 
@@ -194,6 +206,11 @@ export interface PeerSearchParams {
   query: string;
 
   /**
+   * Filters to scope the search
+   */
+  filters?: { [key: string]: unknown } | null;
+
+  /**
    * Number of results to return
    */
   limit?: number;
@@ -217,6 +234,7 @@ Peers.Sessions = Sessions;
 
 export declare namespace Peers {
   export {
+    type PagePeer as PagePeer,
     type PageSession as PageSession,
     type Peer as Peer,
     type SessionGet as SessionGet,

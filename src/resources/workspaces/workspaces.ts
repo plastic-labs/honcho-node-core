@@ -5,6 +5,7 @@ import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
 import * as PeersAPI from './peers/peers';
 import {
+  PagePeer,
   PageSession,
   Peer,
   PeerChatParams,
@@ -178,6 +179,23 @@ export namespace DeriverStatus {
   }
 }
 
+export interface MessageSearchOptions {
+  /**
+   * Search query
+   */
+  query: string;
+
+  /**
+   * Filters to scope the search
+   */
+  filters?: { [key: string]: unknown } | null;
+
+  /**
+   * Number of results to return
+   */
+  limit?: number;
+}
+
 export interface Workspace {
   id: string;
 
@@ -235,6 +253,11 @@ export interface WorkspaceSearchParams {
   query: string;
 
   /**
+   * Filters to scope the search
+   */
+  filters?: { [key: string]: unknown } | null;
+
+  /**
    * Number of results to return
    */
   limit?: number;
@@ -249,6 +272,7 @@ Workspaces.SessionsPage = SessionsPage;
 export declare namespace Workspaces {
   export {
     type DeriverStatus as DeriverStatus,
+    type MessageSearchOptions as MessageSearchOptions,
     type Workspace as Workspace,
     type WorkspaceSearchResponse as WorkspaceSearchResponse,
     WorkspacesPage as WorkspacesPage,
@@ -261,6 +285,7 @@ export declare namespace Workspaces {
 
   export {
     Peers as Peers,
+    type PagePeer as PagePeer,
     type PageSession as PageSession,
     type Peer as Peer,
     type SessionGet as SessionGet,

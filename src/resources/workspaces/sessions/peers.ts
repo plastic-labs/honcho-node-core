@@ -61,7 +61,7 @@ export class Peers extends APIResource {
     sessionId: string,
     peerId: string,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<PeerGetConfigResponse> {
+  ): Core.APIPromise<SessionPeerConfig> {
     return this._client.get(
       `/v2/workspaces/${workspaceId}/sessions/${sessionId}/peers/${peerId}/config`,
       options,
@@ -115,7 +115,7 @@ export class Peers extends APIResource {
   }
 }
 
-export interface PeerGetConfigResponse {
+export interface SessionPeerConfig {
   /**
    * Whether other peers in this session should try to form a session-level
    * theory-of-mind representation of this peer
@@ -133,43 +133,11 @@ export type PeerSetConfigResponse = unknown;
 
 export interface PeerListParams extends PageParams {}
 
-export type PeerAddParams = { [key: string]: PeerAddParams.Body };
-
-export namespace PeerAddParams {
-  export interface Body {
-    /**
-     * Whether other peers in this session should try to form a session-level
-     * theory-of-mind representation of this peer
-     */
-    observe_me?: boolean | null;
-
-    /**
-     * Whether this peer should form a session-level theory-of-mind representation of
-     * other peers in the session
-     */
-    observe_others?: boolean;
-  }
-}
+export type PeerAddParams = { [key: string]: SessionPeerConfig };
 
 export type PeerRemoveParams = Array<string>;
 
-export type PeerSetParams = { [key: string]: PeerSetParams.Body };
-
-export namespace PeerSetParams {
-  export interface Body {
-    /**
-     * Whether other peers in this session should try to form a session-level
-     * theory-of-mind representation of this peer
-     */
-    observe_me?: boolean | null;
-
-    /**
-     * Whether this peer should form a session-level theory-of-mind representation of
-     * other peers in the session
-     */
-    observe_others?: boolean;
-  }
-}
+export type PeerSetParams = { [key: string]: SessionPeerConfig };
 
 export interface PeerSetConfigParams {
   /**
@@ -187,7 +155,7 @@ export interface PeerSetConfigParams {
 
 export declare namespace Peers {
   export {
-    type PeerGetConfigResponse as PeerGetConfigResponse,
+    type SessionPeerConfig as SessionPeerConfig,
     type PeerSetConfigResponse as PeerSetConfigResponse,
     type PeerListParams as PeerListParams,
     type PeerAddParams as PeerAddParams,
