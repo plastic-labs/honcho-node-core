@@ -141,8 +141,7 @@ export class Sessions extends APIResource {
    * Get a specific session in a workspace.
    *
    * If session_id is provided as a query parameter, it verifies the session is in
-   * the workspace. Otherwise, it uses the session_id from the JWT token for
-   * verification.
+   * the workspace. Otherwise, it uses the session_id from the JWT for verification.
    */
   getOrCreate(
     workspaceId: string,
@@ -206,7 +205,7 @@ export interface SessionListParams extends PageParams {
   /**
    * Body param:
    */
-  filter?: { [key: string]: unknown } | null;
+  filters?: { [key: string]: unknown } | null;
 }
 
 export interface SessionCloneParams {

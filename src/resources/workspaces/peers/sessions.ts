@@ -45,7 +45,7 @@ export interface SessionListParams extends PageParams {
   /**
    * Body param:
    */
-  filter?: { [key: string]: unknown } | null;
+  filters?: { [key: string]: unknown } | null;
 }
 
 export declare namespace Sessions {

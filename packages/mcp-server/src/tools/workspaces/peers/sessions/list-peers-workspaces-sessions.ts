@@ -42,9 +42,9 @@ export const tool: Tool = {
         title: 'Size',
         description: 'Page size',
       },
-      filter: {
+      filters: {
         type: 'object',
-        title: 'Filter',
+        title: 'Filters',
       },
       jq_filter: {
         type: 'string',
