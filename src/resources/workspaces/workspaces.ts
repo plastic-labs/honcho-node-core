@@ -103,7 +103,7 @@ export class Workspaces extends APIResource {
    * Get a Workspace by ID.
    *
    * If workspace_id is provided as a query parameter, it uses that (must match JWT
-   * workspace_id). Otherwise, it uses the workspace_id from the JWT token.
+   * workspace_id). Otherwise, it uses the workspace_id from the JWT.
    */
   getOrCreate(body: WorkspaceGetOrCreateParams, options?: Core.RequestOptions): Core.APIPromise<Workspace> {
     return this._client.post('/v2/workspaces', { body, ...options });
@@ -218,7 +218,7 @@ export interface WorkspaceListParams extends PageParams {
   /**
    * Body param:
    */
-  filter?: { [key: string]: unknown } | null;
+  filters?: { [key: string]: unknown } | null;
 }
 
 export interface WorkspaceDeriverStatusParams {

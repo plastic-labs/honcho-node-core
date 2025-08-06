@@ -66,7 +66,7 @@ export class Peers extends APIResource {
    * Get a Peer by ID
    *
    * If peer_id is provided as a query parameter, it uses that (must match JWT
-   * workspace_id). Otherwise, it uses the peer_id from the JWT token.
+   * workspace_id). Otherwise, it uses the peer_id from the JWT.
    */
   getOrCreate(
     workspaceId: string,
@@ -148,7 +148,7 @@ export interface Peer {
 }
 
 export interface SessionGet {
-  filter?: { [key: string]: unknown } | null;
+  filters?: { [key: string]: unknown } | null;
 }
 
 export interface PeerChatResponse {
@@ -169,7 +169,7 @@ export interface PeerListParams extends PageParams {
   /**
    * Body param:
    */
-  filter?: { [key: string]: unknown } | null;
+  filters?: { [key: string]: unknown } | null;
 }
 
 export interface PeerChatParams {

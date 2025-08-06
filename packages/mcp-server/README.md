@@ -175,7 +175,7 @@ The following tools are available in this MCP server.
 - `get_or_create_workspaces` (`write`): Get a Workspace by ID.
 
   If workspace_id is provided as a query parameter, it uses that (must match JWT workspace_id).
-  Otherwise, it uses the workspace_id from the JWT token.
+  Otherwise, it uses the workspace_id from the JWT.
 
 - `search_workspaces` (`write`): Search a Workspace
 
@@ -187,7 +187,7 @@ The following tools are available in this MCP server.
 - `get_or_create_workspaces_peers` (`write`): Get a Peer by ID
 
   If peer_id is provided as a query parameter, it uses that (must match JWT workspace_id).
-  Otherwise, it uses the peer_id from the JWT token.
+  Otherwise, it uses the peer_id from the JWT.
 
 - `search_workspaces_peers` (`write`): Search a Peer
 - `working_representation_workspaces_peers` (`write`): Get a peer's working representation for a session.
@@ -213,7 +213,7 @@ The following tools are available in this MCP server.
 - `get_or_create_workspaces_sessions` (`write`): Get a specific session in a workspace.
 
   If session_id is provided as a query parameter, it verifies the session is in the workspace.
-  Otherwise, it uses the session_id from the JWT token for verification.
+  Otherwise, it uses the session_id from the JWT for verification.
 
 - `search_workspaces_sessions` (`write`): Search a Session
 
