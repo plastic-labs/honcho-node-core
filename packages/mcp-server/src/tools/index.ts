@@ -34,6 +34,10 @@ import get_config_sessions_workspaces_peers from './workspaces/sessions/peers/ge
 import remove_sessions_workspaces_peers from './workspaces/sessions/peers/remove-sessions-workspaces-peers';
 import set_sessions_workspaces_peers from './workspaces/sessions/peers/set-sessions-workspaces-peers';
 import set_config_sessions_workspaces_peers from './workspaces/sessions/peers/set-config-sessions-workspaces-peers';
+import list_workspaces_webhooks from './workspaces/webhooks/list-workspaces-webhooks';
+import delete_workspaces_webhooks from './workspaces/webhooks/delete-workspaces-webhooks';
+import get_or_create_workspaces_webhooks from './workspaces/webhooks/get-or-create-workspaces-webhooks';
+import test_emit_workspaces_webhooks from './workspaces/webhooks/test-emit-workspaces-webhooks';
 import create_keys from './keys/create-keys';
 
 export const endpoints: Endpoint[] = [];
@@ -72,6 +76,10 @@ addEndpoint(get_config_sessions_workspaces_peers);
 addEndpoint(remove_sessions_workspaces_peers);
 addEndpoint(set_sessions_workspaces_peers);
 addEndpoint(set_config_sessions_workspaces_peers);
+addEndpoint(list_workspaces_webhooks);
+addEndpoint(delete_workspaces_webhooks);
+addEndpoint(get_or_create_workspaces_webhooks);
+addEndpoint(test_emit_workspaces_webhooks);
 addEndpoint(create_keys);
 
 export type Filter = {
