@@ -94,6 +94,21 @@ Methods:
 - <code title="put /v2/workspaces/{workspace_id}/sessions/{session_id}/peers">client.workspaces.sessions.peers.<a href="./src/resources/workspaces/sessions/peers.ts">set</a>(workspaceId, sessionId, { ...params }) -> Session</code>
 - <code title="post /v2/workspaces/{workspace_id}/sessions/{session_id}/peers/{peer_id}/config">client.workspaces.sessions.peers.<a href="./src/resources/workspaces/sessions/peers.ts">setConfig</a>(workspaceId, sessionId, peerId, { ...params }) -> unknown</code>
 
+## Webhooks
+
+Types:
+
+- <code><a href="./src/resources/workspaces/webhooks.ts">WebhookEndpoint</a></code>
+- <code><a href="./src/resources/workspaces/webhooks.ts">WebhookDeleteResponse</a></code>
+- <code><a href="./src/resources/workspaces/webhooks.ts">WebhookTestEmitResponse</a></code>
+
+Methods:
+
+- <code title="get /v2/workspaces/{workspace_id}/webhooks">client.workspaces.webhooks.<a href="./src/resources/workspaces/webhooks.ts">list</a>(workspaceId, { ...params }) -> WebhookEndpointsPage</code>
+- <code title="delete /v2/workspaces/{workspace_id}/webhooks/{endpoint_id}">client.workspaces.webhooks.<a href="./src/resources/workspaces/webhooks.ts">delete</a>(workspaceId, endpointId) -> unknown</code>
+- <code title="post /v2/workspaces/{workspace_id}/webhooks">client.workspaces.webhooks.<a href="./src/resources/workspaces/webhooks.ts">getOrCreate</a>(workspaceId, { ...params }) -> WebhookEndpoint</code>
+- <code title="get /v2/workspaces/{workspace_id}/webhooks/test">client.workspaces.webhooks.<a href="./src/resources/workspaces/webhooks.ts">testEmit</a>(workspaceId) -> unknown</code>
+
 # Keys
 
 Types:
