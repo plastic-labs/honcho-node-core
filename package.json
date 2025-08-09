@@ -1,6 +1,6 @@
 {
   "name": "@honcho-ai/core",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "The official TypeScript library for the Honcho API",
   "author": "Honcho <hello@plasticlabs.ai>",
   "types": "dist/index.d.ts",
@@ -13,6 +13,9 @@
     "**/*"
   ],
   "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "test": "./scripts/test",
     "build": "./scripts/build",

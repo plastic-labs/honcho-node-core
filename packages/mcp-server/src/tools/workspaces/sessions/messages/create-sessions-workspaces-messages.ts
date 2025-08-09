@@ -59,6 +59,11 @@ export const tool: Tool = {
             type: 'string',
             title: 'Peer Id',
           },
+          created_at: {
+            type: 'string',
+            title: 'Created At',
+            format: 'date-time',
+          },
           metadata: {
             type: 'object',
             title: 'Metadata',

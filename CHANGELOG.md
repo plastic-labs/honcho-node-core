@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.3.1 (2025-08-09)
+
+Full Changelog: [v1.3.0...v1.3.1](https://github.com/plastic-labs/honcho-node-core/compare/v1.3.0...v1.3.1)
+
+### Features
+
+* **api:** manual updates ([56d3b6b](https://github.com/plastic-labs/honcho-node-core/commit/56d3b6b02646e70f3ae1e6a3a4c6ef90bb570e5c))
+* **mcp:** add unix socket option for remote MCP ([02104cc](https://github.com/plastic-labs/honcho-node-core/commit/02104ccf5fd8752f8bf2303206f248831ef2770c))
+
+
+### Chores
+
+* **internal:** move publish config ([6125fed](https://github.com/plastic-labs/honcho-node-core/commit/6125fed8158c89fc15376be82fc7b2d1d7fe6130))
+* **mcp:** refactor streamable http transport ([10efbf3](https://github.com/plastic-labs/honcho-node-core/commit/10efbf3cacec5c3fed2d14b21761b8c327a93230))
+* update @stainless-api/prism-cli to v5.15.0 ([9b52813](https://github.com/plastic-labs/honcho-node-core/commit/9b528138b13bfc29a4d0d703c6822390e0034f92))
+
 ## 1.3.0 (2025-08-06)
 
 Full Changelog: [v1.2.0...v1.3.0](https://github.com/plastic-labs/honcho-node-core/compare/v1.2.0...v1.3.0)

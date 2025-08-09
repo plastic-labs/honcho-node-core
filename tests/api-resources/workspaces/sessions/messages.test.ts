@@ -24,7 +24,14 @@ describe('resource messages', () => {
 
   test('create: required and optional params', async () => {
     const response = await client.workspaces.sessions.messages.create('workspace_id', 'session_id', {
-      messages: [{ content: 'content', peer_id: 'peer_id', metadata: { foo: 'bar' } }],
+      messages: [
+        {
+          content: 'content',
+          peer_id: 'peer_id',
+          created_at: '2019-12-27T18:11:19.117Z',
+          metadata: { foo: 'bar' },
+        },
+      ],
     });
   });
 

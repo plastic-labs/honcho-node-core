@@ -234,6 +234,13 @@ The following tools are available in this MCP server.
 - `set_sessions_workspaces_peers` (`write`): Set the peers in a session
 - `set_config_sessions_workspaces_peers` (`write`): Set the configuration for a peer in a session
 
+### Resource `workspaces.webhooks`:
+
+- `list_workspaces_webhooks` (`read`): List all webhook endpoints, optionally filtered by workspace.
+- `delete_workspaces_webhooks` (`write`): Delete a specific webhook endpoint.
+- `get_or_create_workspaces_webhooks` (`write`): Get or create a webhook endpoint URL.
+- `test_emit_workspaces_webhooks` (`read`): Test publishing a webhook event.
+
 ### Resource `keys`:
 
 - `create_keys` (`write`): Create a new Key

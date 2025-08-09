@@ -125,6 +125,8 @@ export interface MessageCreate {
 
   peer_id: string;
 
+  created_at?: string | null;
+
   metadata?: { [key: string]: unknown } | null;
 }
 

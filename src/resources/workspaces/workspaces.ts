@@ -3,6 +3,16 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
+import * as WebhooksAPI from './webhooks';
+import {
+  WebhookDeleteResponse,
+  WebhookEndpoint,
+  WebhookEndpointsPage,
+  WebhookGetOrCreateParams,
+  WebhookListParams,
+  WebhookTestEmitResponse,
+  Webhooks,
+} from './webhooks';
 import * as PeersAPI from './peers/peers';
 import {
   PagePeer,
@@ -42,6 +52,7 @@ import { Page, type PageParams } from '../../pagination';
 export class Workspaces extends APIResource {
   peers: PeersAPI.Peers = new PeersAPI.Peers(this._client);
   sessions: SessionsAPI.Sessions = new SessionsAPI.Sessions(this._client);
+  webhooks: WebhooksAPI.Webhooks = new WebhooksAPI.Webhooks(this._client);
 
   /**
    * Update a Workspace
@@ -268,6 +279,8 @@ Workspaces.Peers = Peers;
 Workspaces.PeersPage = PeersPage;
 Workspaces.Sessions = SessionsAPISessions;
 Workspaces.SessionsPage = SessionsPage;
+Workspaces.Webhooks = Webhooks;
+Workspaces.WebhookEndpointsPage = WebhookEndpointsPage;
 
 export declare namespace Workspaces {
   export {
@@ -314,5 +327,15 @@ export declare namespace Workspaces {
     type SessionGetContextParams as SessionGetContextParams,
     type SessionGetOrCreateParams as SessionGetOrCreateParams,
     type SessionSearchParams as SessionSearchParams,
+  };
+
+  export {
+    Webhooks as Webhooks,
+    type WebhookEndpoint as WebhookEndpoint,
+    type WebhookDeleteResponse as WebhookDeleteResponse,
+    type WebhookTestEmitResponse as WebhookTestEmitResponse,
+    WebhookEndpointsPage as WebhookEndpointsPage,
+    type WebhookListParams as WebhookListParams,
+    type WebhookGetOrCreateParams as WebhookGetOrCreateParams,
   };
 }

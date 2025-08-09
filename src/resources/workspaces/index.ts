@@ -32,6 +32,15 @@ export {
   type SessionSearchParams,
 } from './sessions/index';
 export {
+  WebhookEndpointsPage,
+  Webhooks,
+  type WebhookEndpoint,
+  type WebhookDeleteResponse,
+  type WebhookTestEmitResponse,
+  type WebhookListParams,
+  type WebhookGetOrCreateParams,
+} from './webhooks';
+export {
   WorkspacesPage,
   Workspaces,
   type DeriverStatus,
