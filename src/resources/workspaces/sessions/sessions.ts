@@ -204,7 +204,42 @@ export interface SessionGetContextResponse {
 
   messages: Array<MessagesAPI.Message>;
 
-  summary: string;
+  /**
+   * The summary if available
+   */
+  summary?: SessionGetContextResponse.Summary | null;
+}
+
+export namespace SessionGetContextResponse {
+  /**
+   * The summary if available
+   */
+  export interface Summary {
+    /**
+     * The summary text
+     */
+    content: string;
+
+    /**
+     * The timestamp of when the summary was created (ISO format)
+     */
+    created_at: string;
+
+    /**
+     * The ID of the message that this summary covers up to
+     */
+    message_id: number;
+
+    /**
+     * The type of summary (short or long)
+     */
+    summary_type: string;
+
+    /**
+     * The number of tokens in the summary text
+     */
+    token_count: number;
+  }
 }
 
 export type SessionSearchResponse = Array<MessagesAPI.Message>;
