@@ -165,6 +165,20 @@ export class Sessions extends APIResource {
       ...options,
     });
   }
+
+  /**
+   * Get available summaries for a session.
+   *
+   * Returns both short and long summaries if available, including metadata like the
+   * message ID they cover up to, creation timestamp, and token count.
+   */
+  summaries(
+    workspaceId: string,
+    sessionId: string,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<SessionSummariesResponse> {
+    return this._client.get(`/v2/workspaces/${workspaceId}/sessions/${sessionId}/summaries`, options);
+  }
 }
 
 export class SessionsPage extends Page<Session> {}
@@ -194,6 +208,82 @@ export interface SessionGetContextResponse {
 }
 
 export type SessionSearchResponse = Array<MessagesAPI.Message>;
+
+export interface SessionSummariesResponse {
+  id: string;
+
+  /**
+   * The long summary if available
+   */
+  long_summary?: SessionSummariesResponse.LongSummary | null;
+
+  /**
+   * The short summary if available
+   */
+  short_summary?: SessionSummariesResponse.ShortSummary | null;
+}
+
+export namespace SessionSummariesResponse {
+  /**
+   * The long summary if available
+   */
+  export interface LongSummary {
+    /**
+     * The summary text
+     */
+    content: string;
+
+    /**
+     * The timestamp of when the summary was created (ISO format)
+     */
+    created_at: string;
+
+    /**
+     * The ID of the message that this summary covers up to
+     */
+    message_id: number;
+
+    /**
+     * The type of summary (short or long)
+     */
+    summary_type: string;
+
+    /**
+     * The number of tokens in the summary text
+     */
+    token_count: number;
+  }
+
+  /**
+   * The short summary if available
+   */
+  export interface ShortSummary {
+    /**
+     * The summary text
+     */
+    content: string;
+
+    /**
+     * The timestamp of when the summary was created (ISO format)
+     */
+    created_at: string;
+
+    /**
+     * The ID of the message that this summary covers up to
+     */
+    message_id: number;
+
+    /**
+     * The type of summary (short or long)
+     */
+    summary_type: string;
+
+    /**
+     * The number of tokens in the summary text
+     */
+    token_count: number;
+  }
+}
 
 export interface SessionUpdateParams {
   configuration?: { [key: string]: unknown } | null;
@@ -266,6 +356,7 @@ export declare namespace Sessions {
     type SessionDeleteResponse as SessionDeleteResponse,
     type SessionGetContextResponse as SessionGetContextResponse,
     type SessionSearchResponse as SessionSearchResponse,
+    type SessionSummariesResponse as SessionSummariesResponse,
     SessionsPage as SessionsPage,
     type SessionUpdateParams as SessionUpdateParams,
     type SessionListParams as SessionListParams,

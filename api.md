@@ -50,6 +50,7 @@ Types:
 - <code><a href="./src/resources/workspaces/sessions/sessions.ts">SessionDeleteResponse</a></code>
 - <code><a href="./src/resources/workspaces/sessions/sessions.ts">SessionGetContextResponse</a></code>
 - <code><a href="./src/resources/workspaces/sessions/sessions.ts">SessionSearchResponse</a></code>
+- <code><a href="./src/resources/workspaces/sessions/sessions.ts">SessionSummariesResponse</a></code>
 
 Methods:
 
@@ -60,6 +61,7 @@ Methods:
 - <code title="get /v2/workspaces/{workspace_id}/sessions/{session_id}/context">client.workspaces.sessions.<a href="./src/resources/workspaces/sessions/sessions.ts">getContext</a>(workspaceId, sessionId, { ...params }) -> SessionGetContextResponse</code>
 - <code title="post /v2/workspaces/{workspace_id}/sessions">client.workspaces.sessions.<a href="./src/resources/workspaces/sessions/sessions.ts">getOrCreate</a>(workspaceId, { ...params }) -> Session</code>
 - <code title="post /v2/workspaces/{workspace_id}/sessions/{session_id}/search">client.workspaces.sessions.<a href="./src/resources/workspaces/sessions/sessions.ts">search</a>(workspaceId, sessionId, { ...params }) -> SessionSearchResponse</code>
+- <code title="get /v2/workspaces/{workspace_id}/sessions/{session_id}/summaries">client.workspaces.sessions.<a href="./src/resources/workspaces/sessions/sessions.ts">summaries</a>(workspaceId, sessionId) -> SessionSummariesResponse</code>
 
 ### Messages
 
