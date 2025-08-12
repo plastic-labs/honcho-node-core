@@ -23,6 +23,7 @@ import clone_workspaces_sessions from './workspaces/sessions/clone-workspaces-se
 import get_context_workspaces_sessions from './workspaces/sessions/get-context-workspaces-sessions';
 import get_or_create_workspaces_sessions from './workspaces/sessions/get-or-create-workspaces-sessions';
 import search_workspaces_sessions from './workspaces/sessions/search-workspaces-sessions';
+import summaries_workspaces_sessions from './workspaces/sessions/summaries-workspaces-sessions';
 import create_sessions_workspaces_messages from './workspaces/sessions/messages/create-sessions-workspaces-messages';
 import retrieve_sessions_workspaces_messages from './workspaces/sessions/messages/retrieve-sessions-workspaces-messages';
 import update_sessions_workspaces_messages from './workspaces/sessions/messages/update-sessions-workspaces-messages';
@@ -65,6 +66,7 @@ addEndpoint(clone_workspaces_sessions);
 addEndpoint(get_context_workspaces_sessions);
 addEndpoint(get_or_create_workspaces_sessions);
 addEndpoint(search_workspaces_sessions);
+addEndpoint(summaries_workspaces_sessions);
 addEndpoint(create_sessions_workspaces_messages);
 addEndpoint(retrieve_sessions_workspaces_messages);
 addEndpoint(update_sessions_workspaces_messages);

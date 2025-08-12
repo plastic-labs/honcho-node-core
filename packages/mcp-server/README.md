@@ -216,6 +216,10 @@ The following tools are available in this MCP server.
   Otherwise, it uses the session_id from the JWT for verification.
 
 - `search_workspaces_sessions` (`write`): Search a Session
+- `summaries_workspaces_sessions` (`read`): Get available summaries for a session.
+
+  Returns both short and long summaries if available, including metadata like
+  the message ID they cover up to, creation timestamp, and token count.
 
 ### Resource `workspaces.sessions.messages`:
 
