@@ -1,5 +1,26 @@
 # Changelog
 
+## 1.4.0 (2025-08-12)
+
+Full Changelog: [v1.3.0...v1.4.0](https://github.com/plastic-labs/honcho-node-core/compare/v1.3.0...v1.4.0)
+
+### Features
+
+* **api:** manual updates ([27ac0a1](https://github.com/plastic-labs/honcho-node-core/commit/27ac0a14c928268ee7aa8a8c98bcb3274757c2e9))
+* **api:** manual updates ([83e70cf](https://github.com/plastic-labs/honcho-node-core/commit/83e70cf3585c0733857a4c1c1f634c6e38617efd))
+* **api:** manual updates ([56d3b6b](https://github.com/plastic-labs/honcho-node-core/commit/56d3b6b02646e70f3ae1e6a3a4c6ef90bb570e5c))
+* **api:** Update Session Context ([91f3903](https://github.com/plastic-labs/honcho-node-core/commit/91f3903591d6246820db99331f205156d8c0214d))
+* **mcp:** add unix socket option for remote MCP ([02104cc](https://github.com/plastic-labs/honcho-node-core/commit/02104ccf5fd8752f8bf2303206f248831ef2770c))
+
+
+### Chores
+
+* **internal:** codegen related update ([299c3e5](https://github.com/plastic-labs/honcho-node-core/commit/299c3e515111098962c4f8d62fb511db131a0486))
+* **internal:** move publish config ([6125fed](https://github.com/plastic-labs/honcho-node-core/commit/6125fed8158c89fc15376be82fc7b2d1d7fe6130))
+* **internal:** update comment in script ([95fcf02](https://github.com/plastic-labs/honcho-node-core/commit/95fcf0233b7b31882c93041b08887b428db68d2c))
+* **mcp:** refactor streamable http transport ([10efbf3](https://github.com/plastic-labs/honcho-node-core/commit/10efbf3cacec5c3fed2d14b21761b8c327a93230))
+* update @stainless-api/prism-cli to v5.15.0 ([9b52813](https://github.com/plastic-labs/honcho-node-core/commit/9b528138b13bfc29a4d0d703c6822390e0034f92))
+
 ## 1.3.0 (2025-08-06)
 
 Full Changelog: [v1.2.0...v1.3.0](https://github.com/plastic-labs/honcho-node-core/compare/v1.2.0...v1.3.0)
