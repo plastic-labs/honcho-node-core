@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.4.1 (2025-08-16)
+
+Full Changelog: [v1.4.0...v1.4.1](https://github.com/plastic-labs/honcho-node-core/compare/v1.4.0...v1.4.1)
+
+### Bug Fixes
+
+* **mcp:** generate additionalProperties=true for map schemas to avoid validation issues ([332a655](https://github.com/plastic-labs/honcho-node-core/commit/332a65522e9e5c860eacf348b9c4fb9a6faaa78d))
+
+
+### Chores
+
+* **deps:** update dependency node-fetch to v2.6.13 ([bd7e8d7](https://github.com/plastic-labs/honcho-node-core/commit/bd7e8d7c889dbd97b7312ec623df3f2039671491))
+* **internal:** formatting change ([ee1396e](https://github.com/plastic-labs/honcho-node-core/commit/ee1396e908a43202d90832744e879688b0762626))
+* **mcp:** document remote server in README.md ([b3974b5](https://github.com/plastic-labs/honcho-node-core/commit/b3974b511cd6ac931e108118fc04c18155c324ba))
+* **mcp:** minor cleanup of types and package.json ([0fb3a44](https://github.com/plastic-labs/honcho-node-core/commit/0fb3a44ab102ca07da5b82ef7fbb9bb34cb395ac))
+* **mcp:** update README ([2949c5f](https://github.com/plastic-labs/honcho-node-core/commit/2949c5f32cc6f95498f5541c103c024949f22fc5))
+
 ## 1.4.0 (2025-08-12)
 
 Full Changelog: [v1.3.0...v1.4.0](https://github.com/plastic-labs/honcho-node-core/compare/v1.3.0...v1.4.0)
