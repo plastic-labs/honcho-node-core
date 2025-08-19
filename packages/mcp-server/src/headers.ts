@@ -17,7 +17,7 @@ export const parseAuthHeaders = (req: IncomingMessage): Partial<ClientOptions> =
   }
 
   const apiKey =
-    req.headers['x-honcho-api-key'] instanceof Array ?
+    Array.isArray(req.headers['x-honcho-api-key']) ?
       req.headers['x-honcho-api-key'][0]
     : req.headers['x-honcho-api-key'];
   return { apiKey };
