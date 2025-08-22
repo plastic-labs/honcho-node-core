@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { type ClientOptions } from '@honcho-ai/core/index';
+import { ClientOptions } from '@honcho-ai/core';
 
 export type WorkerInput = {
   opts: ClientOptions;
