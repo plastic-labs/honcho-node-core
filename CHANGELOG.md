@@ -1,5 +1,36 @@
 # Changelog
 
+## 1.5.0 (2025-08-24)
+
+Full Changelog: [v1.4.0...v1.5.0](https://github.com/plastic-labs/honcho-node-core/compare/v1.4.0...v1.5.0)
+
+### Features
+
+* **mcp:** add code execution tool ([75e0089](https://github.com/plastic-labs/honcho-node-core/commit/75e00892ec170c8b94453b56a19c940dadc2daac))
+* **mcp:** add option to infer mcp client ([535e557](https://github.com/plastic-labs/honcho-node-core/commit/535e5579855686d7df8f31848756b010230df43c))
+* **mcp:** parse query string as mcp client options in mcp server ([7201567](https://github.com/plastic-labs/honcho-node-core/commit/7201567dee2ba96c97f7ae719c6d4ca9801fed35))
+
+
+### Bug Fixes
+
+* **mcp:** generate additionalProperties=true for map schemas to avoid validation issues ([332a655](https://github.com/plastic-labs/honcho-node-core/commit/332a65522e9e5c860eacf348b9c4fb9a6faaa78d))
+
+
+### Chores
+
+* **deps:** update dependency node-fetch to v2.6.13 ([bd7e8d7](https://github.com/plastic-labs/honcho-node-core/commit/bd7e8d7c889dbd97b7312ec623df3f2039671491))
+* **internal:** codegen related update ([4106bc6](https://github.com/plastic-labs/honcho-node-core/commit/4106bc63a223a47ead5227ce338d8287c4a34277))
+* **internal:** formatting change ([ee1396e](https://github.com/plastic-labs/honcho-node-core/commit/ee1396e908a43202d90832744e879688b0762626))
+* **internal:** make mcp-server publishing public by defaut ([96d4fd1](https://github.com/plastic-labs/honcho-node-core/commit/96d4fd1edcbcf3aa718de75138dea6cfa790581b))
+* **internal:** refactor array check ([df42cdc](https://github.com/plastic-labs/honcho-node-core/commit/df42cdcc65e496c683434a7a18cec493eae284f1))
+* **mcp:** add cors to oauth metadata route ([21599d6](https://github.com/plastic-labs/honcho-node-core/commit/21599d683a2cbf1bef91f2e7241d0e2418b16fdf))
+* **mcp:** document remote server in README.md ([b3974b5](https://github.com/plastic-labs/honcho-node-core/commit/b3974b511cd6ac931e108118fc04c18155c324ba))
+* **mcp:** minor cleanup of types and package.json ([0fb3a44](https://github.com/plastic-labs/honcho-node-core/commit/0fb3a44ab102ca07da5b82ef7fbb9bb34cb395ac))
+* **mcp:** update package.json ([f86749f](https://github.com/plastic-labs/honcho-node-core/commit/f86749fc9cac30e8a5b0d1f54132d8713ab8de08))
+* **mcp:** update README ([2949c5f](https://github.com/plastic-labs/honcho-node-core/commit/2949c5f32cc6f95498f5541c103c024949f22fc5))
+* **mcp:** update types ([73a4ccb](https://github.com/plastic-labs/honcho-node-core/commit/73a4ccb00b5ca74db990e653645a4c448ccd30d1))
+* update CI script ([c90a2bd](https://github.com/plastic-labs/honcho-node-core/commit/c90a2bdfa9ada46ac81ad63d76b9450c5948146f))
+
 ## 1.4.0 (2025-08-12)
 
 Full Changelog: [v1.3.0...v1.4.0](https://github.com/plastic-labs/honcho-node-core/compare/v1.3.0...v1.4.0)
