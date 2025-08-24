@@ -209,6 +209,7 @@ export class Honcho extends Core.APIClient {
 Honcho.Workspaces = Workspaces;
 Honcho.WorkspacesPage = WorkspacesPage;
 Honcho.Keys = Keys;
+
 export declare namespace Honcho {
   export type RequestOptions = Core.RequestOptions;
 

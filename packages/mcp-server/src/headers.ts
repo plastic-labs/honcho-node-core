@@ -1,8 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { type ClientOptions } from '@honcho-ai/core/index';
-
 import { IncomingMessage } from 'node:http';
+import { ClientOptions } from '@honcho-ai/core';
 
 export const parseAuthHeaders = (req: IncomingMessage): Partial<ClientOptions> => {
   if (req.headers.authorization) {
@@ -17,7 +16,7 @@ export const parseAuthHeaders = (req: IncomingMessage): Partial<ClientOptions> =
   }
 
   const apiKey =
-    req.headers['x-honcho-api-key'] instanceof Array ?
+    Array.isArray(req.headers['x-honcho-api-key']) ?
       req.headers['x-honcho-api-key'][0]
     : req.headers['x-honcho-api-key'];
   return { apiKey };
