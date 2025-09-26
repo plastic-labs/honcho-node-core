@@ -5,8 +5,8 @@
   "compilerOptions": {
     "rootDir": "./dist/src",
     "paths": {
-      "@honcho-ai/mcp/*": ["dist/src/*"],
-      "@honcho-ai/mcp": ["dist/src/index.ts"]
+      "@honcho-ai/mcp/*": ["./dist/src/*"],
+      "@honcho-ai/mcp": ["./dist/src/index.ts"]
     },
     "noEmit": false,
     "declaration": true,
