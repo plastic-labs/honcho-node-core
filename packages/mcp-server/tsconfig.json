@@ -7,10 +7,9 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "baseUrl": "./",
     "paths": {
-      "@honcho-ai/mcp/*": ["src/*"],
-      "@honcho-ai/mcp": ["src/index.ts"]
+      "@honcho-ai/mcp/*": ["./src/*"],
+      "@honcho-ai/mcp": ["./src/index.ts"]
     },
     "noEmit": true,
 

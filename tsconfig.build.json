@@ -5,8 +5,8 @@
   "compilerOptions": {
     "rootDir": "./dist/src",
     "paths": {
-      "@honcho-ai/core/*": ["dist/src/*"],
-      "@honcho-ai/core": ["dist/src/index.ts"],
+      "@honcho-ai/core/*": ["./dist/src/*"],
+      "@honcho-ai/core": ["./dist/src/index.ts"]
     },
     "noEmit": false,
     "declaration": true,
