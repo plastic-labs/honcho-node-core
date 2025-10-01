@@ -23,6 +23,7 @@ Types:
 - <code><a href="./src/resources/workspaces/peers/peers.ts">PageSession</a></code>
 - <code><a href="./src/resources/workspaces/peers/peers.ts">Peer</a></code>
 - <code><a href="./src/resources/workspaces/peers/peers.ts">SessionGet</a></code>
+- <code><a href="./src/resources/workspaces/peers/peers.ts">PeerCardResponse</a></code>
 - <code><a href="./src/resources/workspaces/peers/peers.ts">PeerChatResponse</a></code>
 - <code><a href="./src/resources/workspaces/peers/peers.ts">PeerSearchResponse</a></code>
 - <code><a href="./src/resources/workspaces/peers/peers.ts">PeerWorkingRepresentationResponse</a></code>
@@ -31,6 +32,7 @@ Methods:
 
 - <code title="put /v2/workspaces/{workspace_id}/peers/{peer_id}">client.workspaces.peers.<a href="./src/resources/workspaces/peers/peers.ts">update</a>(workspaceId, peerId, { ...params }) -> Peer</code>
 - <code title="post /v2/workspaces/{workspace_id}/peers/list">client.workspaces.peers.<a href="./src/resources/workspaces/peers/peers.ts">list</a>(workspaceId, { ...params }) -> PeersPage</code>
+- <code title="get /v2/workspaces/{workspace_id}/peers/{peer_id}/card">client.workspaces.peers.<a href="./src/resources/workspaces/peers/peers.ts">card</a>(workspaceId, peerId, { ...params }) -> PeerCardResponse</code>
 - <code title="post /v2/workspaces/{workspace_id}/peers/{peer_id}/chat">client.workspaces.peers.<a href="./src/resources/workspaces/peers/peers.ts">chat</a>(workspaceId, peerId, { ...params }) -> PeerChatResponse</code>
 - <code title="post /v2/workspaces/{workspace_id}/peers">client.workspaces.peers.<a href="./src/resources/workspaces/peers/peers.ts">getOrCreate</a>(workspaceId, { ...params }) -> Peer</code>
 - <code title="post /v2/workspaces/{workspace_id}/peers/{peer_id}/search">client.workspaces.peers.<a href="./src/resources/workspaces/peers/peers.ts">search</a>(workspaceId, peerId, { ...params }) -> PeerSearchResponse</code>

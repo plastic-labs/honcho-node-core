@@ -51,6 +51,31 @@ export class Peers extends APIResource {
   }
 
   /**
+   * Get a peer card for a specific peer relationship.
+   *
+   * Returns the peer card that the observer peer has for the target peer if it
+   * exists. If no target is specified, returns the observer's own peer card.
+   */
+  card(
+    workspaceId: string,
+    peerId: string,
+    query?: PeerCardParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<PeerCardResponse>;
+  card(workspaceId: string, peerId: string, options?: Core.RequestOptions): Core.APIPromise<PeerCardResponse>;
+  card(
+    workspaceId: string,
+    peerId: string,
+    query: PeerCardParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<PeerCardResponse> {
+    if (isRequestOptions(query)) {
+      return this.card(workspaceId, peerId, {}, query);
+    }
+    return this._client.get(`/v2/workspaces/${workspaceId}/peers/${peerId}/card`, { query, ...options });
+  }
+
+  /**
    * Chat
    */
   chat(
@@ -151,6 +176,13 @@ export interface SessionGet {
   filters?: { [key: string]: unknown } | null;
 }
 
+export interface PeerCardResponse {
+  /**
+   * The peer card content, or None if not found
+   */
+  peer_card?: Array<string> | null;
+}
+
 export interface PeerChatResponse {
   content: string;
 }
@@ -170,6 +202,14 @@ export interface PeerListParams extends PageParams {
    * Body param:
    */
   filters?: { [key: string]: unknown } | null;
+}
+
+export interface PeerCardParams {
+  /**
+   * The peer whose card to retrieve. If not provided, returns the observer's own
+   * card
+   */
+  target?: string | null;
 }
 
 export interface PeerChatParams {
@@ -238,12 +278,14 @@ export declare namespace Peers {
     type PageSession as PageSession,
     type Peer as Peer,
     type SessionGet as SessionGet,
+    type PeerCardResponse as PeerCardResponse,
     type PeerChatResponse as PeerChatResponse,
     type PeerSearchResponse as PeerSearchResponse,
     type PeerWorkingRepresentationResponse as PeerWorkingRepresentationResponse,
     PeersPage as PeersPage,
     type PeerUpdateParams as PeerUpdateParams,
     type PeerListParams as PeerListParams,
+    type PeerCardParams as PeerCardParams,
     type PeerChatParams as PeerChatParams,
     type PeerGetOrCreateParams as PeerGetOrCreateParams,
     type PeerSearchParams as PeerSearchParams,
