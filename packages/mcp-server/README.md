@@ -222,6 +222,11 @@ The following tools are available in this MCP server.
 
 - `update_workspaces_peers` (`write`): Update a Peer's name and/or metadata
 - `list_workspaces_peers` (`write`): Get All Peers for a Workspace
+- `card_workspaces_peers` (`read`): Get a peer card for a specific peer relationship.
+
+  Returns the peer card that the observer peer has for the target peer if it exists.
+  If no target is specified, returns the observer's own peer card.
+
 - `chat_workspaces_peers` (`write`): Chat
 - `get_or_create_workspaces_peers` (`write`): Get a Peer by ID
 
