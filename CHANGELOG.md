@@ -1,5 +1,69 @@
 # Changelog
 
+## 1.4.1-alpha.0 (2025-10-01)
+
+Full Changelog: [v1.4.0...v1.4.1-alpha.0](https://github.com/plastic-labs/honcho-node-core/compare/v1.4.0...v1.4.1-alpha.0)
+
+### Features
+
+* **api:** Peer Card ([0973006](https://github.com/plastic-labs/honcho-node-core/commit/09730063bbf51415242b0383ddb92f535da90500))
+* **mcp:** add code execution tool ([75e0089](https://github.com/plastic-labs/honcho-node-core/commit/75e00892ec170c8b94453b56a19c940dadc2daac))
+* **mcp:** add docs search tool ([4b42c52](https://github.com/plastic-labs/honcho-node-core/commit/4b42c528692ad12030f05223d12884e95735672e))
+* **mcp:** add mcp bundles to build script ([eee6848](https://github.com/plastic-labs/honcho-node-core/commit/eee68486d73b10f91d83a39daca8f86b65b10cbf))
+* **mcp:** add option for including docs tools ([72cad62](https://github.com/plastic-labs/honcho-node-core/commit/72cad62a518e3cd922afd33b6fe04d7c38b94906))
+* **mcp:** add option to infer mcp client ([535e557](https://github.com/plastic-labs/honcho-node-core/commit/535e5579855686d7df8f31848756b010230df43c))
+* **mcp:** allow setting logging level ([2504386](https://github.com/plastic-labs/honcho-node-core/commit/25043861fb95e861cc637b8287bf4358d862da80))
+* **mcp:** enable experimental docs search tool ([01b93d8](https://github.com/plastic-labs/honcho-node-core/commit/01b93d84e1b5d761368746c5f6991a49b7a40a73))
+* **mcp:** expose client options in `streamableHTTPApp` ([23cf51d](https://github.com/plastic-labs/honcho-node-core/commit/23cf51d109b7873c2287bbe5bef3ed1b43acc97c))
+* **mcp:** parse query string as mcp client options in mcp server ([7201567](https://github.com/plastic-labs/honcho-node-core/commit/7201567dee2ba96c97f7ae719c6d4ca9801fed35))
+
+
+### Bug Fixes
+
+* **ci:** set permissions for DXT publish action ([42e973f](https://github.com/plastic-labs/honcho-node-core/commit/42e973f13a264dc5fdbe5d6b039e23f023481d52))
+* coerce nullable values to undefined ([24e0125](https://github.com/plastic-labs/honcho-node-core/commit/24e01254ba6318535d9b3e76384c07789066b0e8))
+* **mcp:** fix cli argument parsing logic ([d139d09](https://github.com/plastic-labs/honcho-node-core/commit/d139d09daacc3fe6f8aba88210c975a40a4556c0))
+* **mcp:** fix query options parsing ([3ab8fac](https://github.com/plastic-labs/honcho-node-core/commit/3ab8fac11a518b28f29f56046852bf18aa90dfb1))
+* **mcp:** fix uploading dxt release assets ([9b7ff80](https://github.com/plastic-labs/honcho-node-core/commit/9b7ff80a7a94d13d3f7f196530044e4626018021))
+* **mcp:** generate additionalProperties=true for map schemas to avoid validation issues ([332a655](https://github.com/plastic-labs/honcho-node-core/commit/332a65522e9e5c860eacf348b9c4fb9a6faaa78d))
+* **mcp:** resolve a linting issue in server code ([3865b7f](https://github.com/plastic-labs/honcho-node-core/commit/3865b7fca5bab8081cb995089f6bd36b900fbd12))
+
+
+### Performance Improvements
+
+* faster formatting ([fa3f27b](https://github.com/plastic-labs/honcho-node-core/commit/fa3f27b11bc24d3669aacd2d500637a45d5361e3))
+
+
+### Chores
+
+* ci build action ([e73e4ab](https://github.com/plastic-labs/honcho-node-core/commit/e73e4abd34f2b0d1bd34d3fb10bf134a71580de3))
+* **codegen:** internal codegen update ([a6798d2](https://github.com/plastic-labs/honcho-node-core/commit/a6798d21777c99a564207de886aa44bc19f97487))
+* **deps:** update dependency node-fetch to v2.6.13 ([bd7e8d7](https://github.com/plastic-labs/honcho-node-core/commit/bd7e8d7c889dbd97b7312ec623df3f2039671491))
+* do not install brew dependencies in ./scripts/bootstrap by default ([cb4667b](https://github.com/plastic-labs/honcho-node-core/commit/cb4667b63fd54cf2945239d26d0258af76d2ca0f))
+* **internal:** codegen related update ([836751c](https://github.com/plastic-labs/honcho-node-core/commit/836751c33658ac14b874d4d756a5c241564e3c0d))
+* **internal:** codegen related update ([b546888](https://github.com/plastic-labs/honcho-node-core/commit/b546888b56591d3db991fbeebc7dcc24bf9c1c31))
+* **internal:** codegen related update ([7e814eb](https://github.com/plastic-labs/honcho-node-core/commit/7e814ebfa37d23b50d9da331814bbfaaab3c39b0))
+* **internal:** codegen related update ([4106bc6](https://github.com/plastic-labs/honcho-node-core/commit/4106bc63a223a47ead5227ce338d8287c4a34277))
+* **internal:** fix incremental formatting in some cases ([f073902](https://github.com/plastic-labs/honcho-node-core/commit/f073902157135fdf5201fd9384ecce48f49da665))
+* **internal:** formatting change ([ee1396e](https://github.com/plastic-labs/honcho-node-core/commit/ee1396e908a43202d90832744e879688b0762626))
+* **internal:** gitignore .mcpb files ([2ddfa5e](https://github.com/plastic-labs/honcho-node-core/commit/2ddfa5e780676e1a04615ff0617ebad0264492e6))
+* **internal:** ignore .eslintcache ([0a6feca](https://github.com/plastic-labs/honcho-node-core/commit/0a6feca4d3dbbed204cc9244d02557a077166d3d))
+* **internal:** make mcp-server publishing public by defaut ([96d4fd1](https://github.com/plastic-labs/honcho-node-core/commit/96d4fd1edcbcf3aa718de75138dea6cfa790581b))
+* **internal:** refactor array check ([df42cdc](https://github.com/plastic-labs/honcho-node-core/commit/df42cdcc65e496c683434a7a18cec493eae284f1))
+* **internal:** remove .eslintcache ([8f0ca8e](https://github.com/plastic-labs/honcho-node-core/commit/8f0ca8e41969c0091ac6232110d3b2e3370e2f17))
+* **internal:** remove deprecated `compilerOptions.baseUrl` from tsconfig.json ([9277ed9](https://github.com/plastic-labs/honcho-node-core/commit/9277ed938851df474c7692ed57261e9bc5359781))
+* **mcp:** add cors to oauth metadata route ([21599d6](https://github.com/plastic-labs/honcho-node-core/commit/21599d683a2cbf1bef91f2e7241d0e2418b16fdf))
+* **mcp:** allow pointing `docs_search` tool at other URLs ([2af7d83](https://github.com/plastic-labs/honcho-node-core/commit/2af7d839c5ba0e29036b13f12ce3aa203b97c038))
+* **mcp:** document remote server in README.md ([b3974b5](https://github.com/plastic-labs/honcho-node-core/commit/b3974b511cd6ac931e108118fc04c18155c324ba))
+* **mcp:** minor cleanup of types and package.json ([0fb3a44](https://github.com/plastic-labs/honcho-node-core/commit/0fb3a44ab102ca07da5b82ef7fbb9bb34cb395ac))
+* **mcp:** rename dxt to mcpb ([35fe49b](https://github.com/plastic-labs/honcho-node-core/commit/35fe49b55e764fcdd6402ea472e5e0c47080aa33))
+* **mcp:** update package.json ([f86749f](https://github.com/plastic-labs/honcho-node-core/commit/f86749fc9cac30e8a5b0d1f54132d8713ab8de08))
+* **mcp:** update README ([2949c5f](https://github.com/plastic-labs/honcho-node-core/commit/2949c5f32cc6f95498f5541c103c024949f22fc5))
+* **mcp:** update types ([73a4ccb](https://github.com/plastic-labs/honcho-node-core/commit/73a4ccb00b5ca74db990e653645a4c448ccd30d1))
+* **mcp:** upload dxt as release asset ([98bbf5b](https://github.com/plastic-labs/honcho-node-core/commit/98bbf5b6878675e19f3e29983286e7f59e3dbefb))
+* update CI script ([c90a2bd](https://github.com/plastic-labs/honcho-node-core/commit/c90a2bdfa9ada46ac81ad63d76b9450c5948146f))
+* update lockfile ([5c55d42](https://github.com/plastic-labs/honcho-node-core/commit/5c55d42671813a7d0035099217a568b8a131b700))
+
 ## 1.4.0 (2025-08-12)
 
 Full Changelog: [v1.3.0...v1.4.0](https://github.com/plastic-labs/honcho-node-core/compare/v1.3.0...v1.4.0)
