@@ -49,6 +49,36 @@ describe('resource peers', () => {
     ).rejects.toThrow(Honcho.NotFoundError);
   });
 
+  test('card', async () => {
+    const responsePromise = client.workspaces.peers.card('workspace_id', 'peer_id');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('card: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.workspaces.peers.card('workspace_id', 'peer_id', { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Honcho.NotFoundError);
+  });
+
+  test('card: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.workspaces.peers.card(
+        'workspace_id',
+        'peer_id',
+        { target: 'target' },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Honcho.NotFoundError);
+  });
+
   test('chat: only required params', async () => {
     const responsePromise = client.workspaces.peers.chat('workspace_id', 'peer_id', { query: 'x' });
     const rawResponse = await responsePromise.asResponse();
