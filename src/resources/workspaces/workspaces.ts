@@ -49,6 +49,7 @@ import {
   SessionUpdateParams,
   Sessions as SessionsAPISessions,
   SessionsPage,
+  Summary,
 } from './sessions/sessions';
 import { Page, type PageParams } from '../../pagination';
 
@@ -322,6 +323,7 @@ export declare namespace Workspaces {
   export {
     SessionsAPISessions as Sessions,
     type Session as Session,
+    type Summary as Summary,
     type SessionDeleteResponse as SessionDeleteResponse,
     type SessionGetContextResponse as SessionGetContextResponse,
     type SessionSearchResponse as SessionSearchResponse,
