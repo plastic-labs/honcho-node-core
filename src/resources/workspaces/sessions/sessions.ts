@@ -197,6 +197,33 @@ export interface Session {
   metadata?: { [key: string]: unknown };
 }
 
+export interface Summary {
+  /**
+   * The summary text
+   */
+  content: string;
+
+  /**
+   * The timestamp of when the summary was created (ISO format)
+   */
+  created_at: string;
+
+  /**
+   * The public ID of the message that this summary covers up to
+   */
+  message_id: string;
+
+  /**
+   * The type of summary (short or long)
+   */
+  summary_type: string;
+
+  /**
+   * The number of tokens in the summary text
+   */
+  token_count: number;
+}
+
 export type SessionDeleteResponse = unknown;
 
 export interface SessionGetContextResponse {
@@ -233,7 +260,7 @@ export interface SessionGetContextResponse {
   /**
    * The summary if available
    */
-  summary?: SessionGetContextResponse.Summary | null;
+  summary?: Summary | null;
 }
 
 export namespace SessionGetContextResponse {
@@ -309,36 +336,6 @@ export namespace SessionGetContextResponse {
       session_name: string;
     }
   }
-
-  /**
-   * The summary if available
-   */
-  export interface Summary {
-    /**
-     * The summary text
-     */
-    content: string;
-
-    /**
-     * The timestamp of when the summary was created (ISO format)
-     */
-    created_at: string;
-
-    /**
-     * The public ID of the message that this summary covers up to
-     */
-    message_id: string;
-
-    /**
-     * The type of summary (short or long)
-     */
-    summary_type: string;
-
-    /**
-     * The number of tokens in the summary text
-     */
-    token_count: number;
-  }
 }
 
 export type SessionSearchResponse = Array<MessagesAPI.Message>;
@@ -349,74 +346,12 @@ export interface SessionSummariesResponse {
   /**
    * The long summary if available
    */
-  long_summary?: SessionSummariesResponse.LongSummary | null;
+  long_summary?: Summary | null;
 
   /**
    * The short summary if available
    */
-  short_summary?: SessionSummariesResponse.ShortSummary | null;
-}
-
-export namespace SessionSummariesResponse {
-  /**
-   * The long summary if available
-   */
-  export interface LongSummary {
-    /**
-     * The summary text
-     */
-    content: string;
-
-    /**
-     * The timestamp of when the summary was created (ISO format)
-     */
-    created_at: string;
-
-    /**
-     * The public ID of the message that this summary covers up to
-     */
-    message_id: string;
-
-    /**
-     * The type of summary (short or long)
-     */
-    summary_type: string;
-
-    /**
-     * The number of tokens in the summary text
-     */
-    token_count: number;
-  }
-
-  /**
-   * The short summary if available
-   */
-  export interface ShortSummary {
-    /**
-     * The summary text
-     */
-    content: string;
-
-    /**
-     * The timestamp of when the summary was created (ISO format)
-     */
-    created_at: string;
-
-    /**
-     * The public ID of the message that this summary covers up to
-     */
-    message_id: string;
-
-    /**
-     * The type of summary (short or long)
-     */
-    summary_type: string;
-
-    /**
-     * The number of tokens in the summary text
-     */
-    token_count: number;
-  }
+  short_summary?: Summary | null;
 }
 
 export interface SessionUpdateParams {
@@ -508,6 +443,7 @@ Sessions.Peers = Peers;
 export declare namespace Sessions {
   export {
     type Session as Session,
+    type Summary as Summary,
     type SessionDeleteResponse as SessionDeleteResponse,
     type SessionGetContextResponse as SessionGetContextResponse,
     type SessionSearchResponse as SessionSearchResponse,

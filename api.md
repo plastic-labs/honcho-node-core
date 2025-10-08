@@ -49,6 +49,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/workspaces/sessions/sessions.ts">Session</a></code>
+- <code><a href="./src/resources/workspaces/sessions/sessions.ts">Summary</a></code>
 - <code><a href="./src/resources/workspaces/sessions/sessions.ts">SessionDeleteResponse</a></code>
 - <code><a href="./src/resources/workspaces/sessions/sessions.ts">SessionGetContextResponse</a></code>
 - <code><a href="./src/resources/workspaces/sessions/sessions.ts">SessionSearchResponse</a></code>
