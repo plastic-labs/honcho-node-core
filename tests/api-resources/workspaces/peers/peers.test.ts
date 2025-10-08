@@ -137,10 +137,8 @@ describe('resource peers', () => {
     });
   });
 
-  test('workingRepresentation: only required params', async () => {
-    const responsePromise = client.workspaces.peers.workingRepresentation('workspace_id', 'peer_id', {
-      session_id: 'session_id',
-    });
+  test('workingRepresentation', async () => {
+    const responsePromise = client.workspaces.peers.workingRepresentation('workspace_id', 'peer_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -148,12 +146,5 @@ describe('resource peers', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('workingRepresentation: required and optional params', async () => {
-    const response = await client.workspaces.peers.workingRepresentation('workspace_id', 'peer_id', {
-      session_id: 'session_id',
-      target: 'target',
-    });
   });
 });

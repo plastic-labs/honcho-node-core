@@ -205,12 +205,111 @@ export interface SessionGetContextResponse {
   messages: Array<MessagesAPI.Message>;
 
   /**
+   * The peer card, if context is requested from a specific perspective
+   */
+  peer_card?: Array<string> | null;
+
+  /**
+   * A Representation is a traversable and diffable map of observations. At the base,
+   * we have a list of explicit observations, derived from a peer's messages.
+   *
+   * From there, deductive observations can be made by establishing logical
+   * relationships between explicit observations.
+   *
+   * In the future, we can add more levels of reasoning on top of these.
+   *
+   * All of a peer's observations are stored as documents in a collection. These
+   * documents can be queried in various ways to produce this Representation object.
+   *
+   * Additionally, a "working representation" is a version of this data structure
+   * representing the most recent observations within a single session.
+   *
+   * A representation can have a maximum number of observations, which is applied
+   * individually to each level of reasoning. If a maximum is set, observations are
+   * added and removed in FIFO order.
+   */
+  peer_representation?: SessionGetContextResponse.PeerRepresentation | null;
+
+  /**
    * The summary if available
    */
   summary?: SessionGetContextResponse.Summary | null;
 }
 
 export namespace SessionGetContextResponse {
+  /**
+   * A Representation is a traversable and diffable map of observations. At the base,
+   * we have a list of explicit observations, derived from a peer's messages.
+   *
+   * From there, deductive observations can be made by establishing logical
+   * relationships between explicit observations.
+   *
+   * In the future, we can add more levels of reasoning on top of these.
+   *
+   * All of a peer's observations are stored as documents in a collection. These
+   * documents can be queried in various ways to produce this Representation object.
+   *
+   * Additionally, a "working representation" is a version of this data structure
+   * representing the most recent observations within a single session.
+   *
+   * A representation can have a maximum number of observations, which is applied
+   * individually to each level of reasoning. If a maximum is set, observations are
+   * added and removed in FIFO order.
+   */
+  export interface PeerRepresentation {
+    /**
+     * Conclusions that MUST be true given explicit facts and premises - strict logical
+     * necessities. Each deduction should have premises and a single conclusion.
+     */
+    deductive?: Array<PeerRepresentation.Deductive>;
+
+    /**
+     * Facts LITERALLY stated by the user - direct quotes or clear paraphrases only, no
+     * interpretation or inference. Example: ['The user is 25 years old', 'The user has
+     * a dog']
+     */
+    explicit?: Array<PeerRepresentation.Explicit>;
+  }
+
+  export namespace PeerRepresentation {
+    /**
+     * Deductive observation with multiple premises and one conclusion, plus metadata.
+     */
+    export interface Deductive {
+      /**
+       * The deductive conclusion
+       */
+      conclusion: string;
+
+      created_at: string;
+
+      message_ids: Array<Array<unknown>>;
+
+      session_name: string;
+
+      /**
+       * Supporting premises or evidence for this conclusion
+       */
+      premises?: Array<string>;
+    }
+
+    /**
+     * Explicit observation with content and metadata.
+     */
+    export interface Explicit {
+      /**
+       * The explicit observation
+       */
+      content: string;
+
+      created_at: string;
+
+      message_ids: Array<Array<unknown>>;
+
+      session_name: string;
+    }
+  }
+
   /**
    * The summary if available
    */
@@ -226,9 +325,9 @@ export namespace SessionGetContextResponse {
     created_at: string;
 
     /**
-     * The ID of the message that this summary covers up to
+     * The public ID of the message that this summary covers up to
      */
-    message_id: number;
+    message_id: string;
 
     /**
      * The type of summary (short or long)
@@ -274,9 +373,9 @@ export namespace SessionSummariesResponse {
     created_at: string;
 
     /**
-     * The ID of the message that this summary covers up to
+     * The public ID of the message that this summary covers up to
      */
-    message_id: number;
+    message_id: string;
 
     /**
      * The type of summary (short or long)
@@ -304,9 +403,9 @@ export namespace SessionSummariesResponse {
     created_at: string;
 
     /**
-     * The ID of the message that this summary covers up to
+     * The public ID of the message that this summary covers up to
      */
-    message_id: number;
+    message_id: string;
 
     /**
      * The type of summary (short or long)
@@ -342,13 +441,34 @@ export interface SessionCloneParams {
 
 export interface SessionGetContextParams {
   /**
+   * The most recent message, used to fetch semantically relevant observations
+   */
+  last_message?: string | null;
+
+  /**
+   * A peer to get context for. If given, response will attempt to include
+   * representation and card from the perspective of that peer. Must be provided with
+   * `peer_target`.
+   */
+  peer_perspective?: string | null;
+
+  /**
+   * The target of the perspective. If given without `peer_perspective`, will get the
+   * Honcho-level representation and peer card for this peer. If given with
+   * `peer_perspective`, will get the representation and card for this peer _from the
+   * perspective of that peer_.
+   */
+  peer_target?: string | null;
+
+  /**
    * Whether or not to include a summary _if_ one is available for the session
    */
   summary?: boolean;
 
   /**
-   * Number of tokens to use for the context. Includes summary if set to true. If not
-   * provided, the context will be exhaustive (within 100000 tokens)
+   * Number of tokens to use for the context. Includes summary if set to true.
+   * Includes representation and peer card if they are included in the response. If
+   * not provided, the context will be exhaustive (within 100000 tokens)
    */
   tokens?: number | null;
 }
