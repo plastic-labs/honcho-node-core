@@ -119,7 +119,7 @@ export class Peers extends APIResource {
    * If a session_id is provided in the body, we get the working representation of
    * the peer in that session. If a target is provided, we get the representation of
    * the target from the perspective of the peer. If no target is provided, we get
-   * the global representation of the peer.
+   * the omniscient Honcho representation of the peer.
    */
   workingRepresentation(
     workspaceId: string,
@@ -260,7 +260,7 @@ export interface PeerWorkingRepresentationParams {
   /**
    * Get the working representation within this session
    */
-  session_id: string;
+  session_id?: string | null;
 
   /**
    * Optional peer ID to get the representation for, from the perspective of this

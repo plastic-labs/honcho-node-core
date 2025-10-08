@@ -123,7 +123,13 @@ describe('resource sessions', () => {
       client.workspaces.sessions.getContext(
         'workspace_id',
         'session_id',
-        { summary: true, tokens: 100000 },
+        {
+          last_message: 'last_message',
+          peer_perspective: 'peer_perspective',
+          peer_target: 'peer_target',
+          summary: true,
+          tokens: 100000,
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Honcho.NotFoundError);

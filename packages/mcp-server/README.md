@@ -238,7 +238,7 @@ The following tools are available in this MCP server.
 
   If a session_id is provided in the body, we get the working representation of the peer in that session.
   If a target is provided, we get the representation of the target from the perspective of the peer.
-  If no target is provided, we get the global representation of the peer.
+  If no target is provided, we get the omniscient Honcho representation of the peer.
 
 ### Resource `workspaces.peers.sessions`:
 

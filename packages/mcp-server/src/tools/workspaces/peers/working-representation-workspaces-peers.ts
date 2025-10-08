@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'working_representation_workspaces_peers',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nGet a peer's working representation for a session.\n\nIf a session_id is provided in the body, we get the working representation of the peer in that session.\nIf a target is provided, we get the representation of the target from the perspective of the peer.\nIf no target is provided, we get the global representation of the peer.\n\n# Response Schema\n```json\n{\n  type: 'object',\n  title: 'Response Get Working Representation V2 Workspaces  Workspace Id  Peers  Peer Id  Representation Post',\n  additionalProperties: true\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nGet a peer's working representation for a session.\n\nIf a session_id is provided in the body, we get the working representation of the peer in that session.\nIf a target is provided, we get the representation of the target from the perspective of the peer.\nIf no target is provided, we get the omniscient Honcho representation of the peer.\n\n# Response Schema\n```json\n{\n  type: 'object',\n  title: 'Response Get Working Representation V2 Workspaces  Workspace Id  Peers  Peer Id  Representation Post',\n  additionalProperties: true\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {
@@ -49,7 +49,7 @@ export const tool: Tool = {
           'A jq filter to apply to the response to include certain fields. Consult the output schema in the tool description to see the fields that are available.\n\nFor example: to include only the `name` field in every object of a results array, you can provide ".results[].name".\n\nFor more information, see the [jq documentation](https://jqlang.org/manual/).',
       },
     },
-    required: ['workspace_id', 'peer_id', 'session_id'],
+    required: ['workspace_id', 'peer_id'],
   },
   annotations: {},
 };
