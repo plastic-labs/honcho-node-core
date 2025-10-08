@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.5.0 (2025-10-08)
+
+Full Changelog: [v1.4.1-alpha.0...v1.5.0](https://github.com/plastic-labs/honcho-node-core/compare/v1.4.1-alpha.0...v1.5.0)
+
+### Features
+
+* **api:** api update ([4056d13](https://github.com/plastic-labs/honcho-node-core/commit/4056d13f5afac0ace75a3ff528d96c12fb37a5d5))
+* **api:** manual updates ([3f7b87f](https://github.com/plastic-labs/honcho-node-core/commit/3f7b87fc554b86114f017841087eef45af5b566b))
+
+
+### Chores
+
+* **internal:** use npm pack for build uploads ([9bea0ab](https://github.com/plastic-labs/honcho-node-core/commit/9bea0abc73a4e4576ce3c74d63e04d576bdef626))
+
 ## 1.4.1-alpha.0 (2025-10-01)
 
 Full Changelog: [v1.4.0...v1.4.1-alpha.0](https://github.com/plastic-labs/honcho-node-core/compare/v1.4.0...v1.4.1-alpha.0)
