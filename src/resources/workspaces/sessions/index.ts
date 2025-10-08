@@ -26,6 +26,7 @@ export {
   SessionsPage,
   Sessions,
   type Session,
+  type Summary,
   type SessionDeleteResponse,
   type SessionGetContextResponse,
   type SessionSearchResponse,
