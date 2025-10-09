@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'card_workspaces_peers',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nGet a peer card for a specific peer relationship.\n\nReturns the peer card that the observer peer has for the target peer if it exists.\nIf no target is specified, returns the observer's own peer card.\n\n# Response Schema\n```json\n{\n  type: 'object',\n  title: 'PeerCardResponse',\n  properties: {\n    peer_card: {\n      type: 'array',\n      title: 'Peer Card',\n      description: 'The peer card content, or None if not found',\n      items: {\n        type: 'string'\n      }\n    }\n  }\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nGet a peer card for a specific peer relationship.\n\nReturns the peer card that the observer peer has for the target peer if it exists.\nIf no target is specified, returns the observer's own peer card.\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/peer_card_response',\n  $defs: {\n    peer_card_response: {\n      type: 'object',\n      title: 'PeerCardResponse',\n      properties: {\n        peer_card: {\n          type: 'array',\n          title: 'Peer Card',\n          description: 'The peer card content, or None if not found',\n          items: {\n            type: 'string'\n          }\n        }\n      }\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {
