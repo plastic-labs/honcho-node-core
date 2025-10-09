@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'chat_workspaces_peers',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nChat\n\n# Response Schema\n```json\n{\n  type: 'object',\n  title: 'DialecticResponse',\n  properties: {\n    content: {\n      type: 'string',\n      title: 'Content'\n    }\n  },\n  required: [    'content'\n  ]\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nChat\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/peer_chat_response',\n  $defs: {\n    peer_chat_response: {\n      type: 'object',\n      title: 'DialecticResponse',\n      properties: {\n        content: {\n          type: 'string',\n          title: 'Content'\n        }\n      },\n      required: [        'content'\n      ]\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {
