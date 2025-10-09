@@ -94,6 +94,13 @@ export class Workspaces extends APIResource {
   }
 
   /**
+   * Delete a Workspace
+   */
+  delete(workspaceId: string, options?: Core.RequestOptions): Core.APIPromise<Workspace> {
+    return this._client.delete(`/v2/workspaces/${workspaceId}`, options);
+  }
+
+  /**
    * Get the deriver processing status, optionally scoped to an observer, sender,
    * and/or session
    */

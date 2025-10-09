@@ -210,6 +210,7 @@ The following tools are available in this MCP server.
 
 - `update_workspaces` (`write`): Update a Workspace
 - `list_workspaces` (`write`): Get all Workspaces
+- `delete_workspaces` (`write`): Delete a Workspace
 - `deriver_status_workspaces` (`read`): Get the deriver processing status, optionally scoped to an observer, sender, and/or session
 - `get_or_create_workspaces` (`write`): Get a Workspace by ID.
 
