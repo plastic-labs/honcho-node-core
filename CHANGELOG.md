@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.5.1 (2025-10-09)
+
+Full Changelog: [v1.5.0...v1.5.1](https://github.com/plastic-labs/honcho-node-core/compare/v1.5.0...v1.5.1)
+
+### Features
+
+* **api:** manual updates ([990c67a](https://github.com/plastic-labs/honcho-node-core/commit/990c67a925d3cdf24ff2e3877215c0320bbc5e34))
+
+
+### Chores
+
+* extract some types in mcp docs ([0306d4d](https://github.com/plastic-labs/honcho-node-core/commit/0306d4de16645ac4a7583035cae5590e8b37afc2))
+
 ## 1.5.0 (2025-10-08)
 
 Full Changelog: [v1.4.1-alpha.0...v1.5.0](https://github.com/plastic-labs/honcho-node-core/compare/v1.4.1-alpha.0...v1.5.0)
