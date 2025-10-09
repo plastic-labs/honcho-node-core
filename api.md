@@ -11,6 +11,7 @@ Methods:
 
 - <code title="put /v2/workspaces/{workspace_id}">client.workspaces.<a href="./src/resources/workspaces/workspaces.ts">update</a>(workspaceId, { ...params }) -> Workspace</code>
 - <code title="post /v2/workspaces/list">client.workspaces.<a href="./src/resources/workspaces/workspaces.ts">list</a>({ ...params }) -> WorkspacesPage</code>
+- <code title="delete /v2/workspaces/{workspace_id}">client.workspaces.<a href="./src/resources/workspaces/workspaces.ts">delete</a>(workspaceId) -> Workspace</code>
 - <code title="get /v2/workspaces/{workspace_id}/deriver/status">client.workspaces.<a href="./src/resources/workspaces/workspaces.ts">deriverStatus</a>(workspaceId, { ...params }) -> DeriverStatus</code>
 - <code title="post /v2/workspaces">client.workspaces.<a href="./src/resources/workspaces/workspaces.ts">getOrCreate</a>({ ...params }) -> Workspace</code>
 - <code title="post /v2/workspaces/{workspace_id}/search">client.workspaces.<a href="./src/resources/workspaces/workspaces.ts">search</a>(workspaceId, { ...params }) -> WorkspaceSearchResponse</code>
