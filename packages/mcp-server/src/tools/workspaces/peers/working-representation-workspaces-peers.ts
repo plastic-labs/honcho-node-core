@@ -32,6 +32,35 @@ export const tool: Tool = {
         title: 'Peer Id',
         description: 'ID of the peer',
       },
+      include_most_derived: {
+        type: 'boolean',
+        title: 'Include Most Derived',
+        description:
+          'Only used if `search_query` is provided. Whether to include the most derived observations in the representation',
+      },
+      max_observations: {
+        type: 'integer',
+        title: 'Max Observations',
+        description:
+          'Only used if `search_query` is provided. Maximum number of observations to include in the representation',
+      },
+      search_max_distance: {
+        type: 'number',
+        title: 'Search Max Distance',
+        description:
+          'Only used if `search_query` is provided. Maximum distance to search for semantically relevant observations',
+      },
+      search_query: {
+        type: 'string',
+        title: 'Search Query',
+        description: 'Optional input to curate the representation around semantic search results',
+      },
+      search_top_k: {
+        type: 'integer',
+        title: 'Search Top K',
+        description:
+          'Only used if `search_query` is provided. Number of semantic-search-retrieved observations to include in the representation',
+      },
       session_id: {
         type: 'string',
         title: 'Session Id',
