@@ -16,6 +16,16 @@ import {
   Messages,
   MessagesPage,
 } from './messages';
+import * as ObservationsAPI from './observations';
+import {
+  Observation,
+  ObservationDeleteResponse,
+  ObservationListParams,
+  ObservationQueryParams,
+  ObservationQueryResponse,
+  Observations,
+  ObservationsPage,
+} from './observations';
 import * as PeersAPI from './peers';
 import {
   PeerAddParams,
@@ -32,6 +42,7 @@ import { Page, type PageParams } from '../../../pagination';
 export class Sessions extends APIResource {
   messages: MessagesAPI.Messages = new MessagesAPI.Messages(this._client);
   peers: PeersAPI.Peers = new PeersAPI.Peers(this._client);
+  observations: ObservationsAPI.Observations = new ObservationsAPI.Observations(this._client);
 
   /**
    * Update the metadata of a Session
@@ -72,7 +83,17 @@ export class Sessions extends APIResource {
   }
 
   /**
-   * Delete a session by marking it as inactive
+   * Delete a session and all associated data.
+   *
+   * This permanently deletes the session and all related data including:
+   *
+   * - Messages
+   * - Message embeddings
+   * - Documents (theory-of-mind data)
+   * - Session peer associations
+   * - Background processing queue items
+   *
+   * This action cannot be undone.
    */
   delete(workspaceId: string, sessionId: string, options?: Core.RequestOptions): Core.APIPromise<unknown> {
     return this._client.delete(`/v2/workspaces/${workspaceId}/sessions/${sessionId}`, options);
@@ -469,6 +490,8 @@ Sessions.SessionsPage = SessionsPage;
 Sessions.Messages = Messages;
 Sessions.MessagesPage = MessagesPage;
 Sessions.Peers = Peers;
+Sessions.Observations = Observations;
+Sessions.ObservationsPage = ObservationsPage;
 
 export declare namespace Sessions {
   export {
@@ -509,5 +532,15 @@ export declare namespace Sessions {
     type PeerRemoveParams as PeerRemoveParams,
     type PeerSetParams as PeerSetParams,
     type PeerSetConfigParams as PeerSetConfigParams,
+  };
+
+  export {
+    Observations as Observations,
+    type Observation as Observation,
+    type ObservationDeleteResponse as ObservationDeleteResponse,
+    type ObservationQueryResponse as ObservationQueryResponse,
+    ObservationsPage as ObservationsPage,
+    type ObservationListParams as ObservationListParams,
+    type ObservationQueryParams as ObservationQueryParams,
   };
 }
