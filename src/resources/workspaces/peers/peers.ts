@@ -258,6 +258,35 @@ export interface PeerSearchParams {
 
 export interface PeerWorkingRepresentationParams {
   /**
+   * Only used if `search_query` is provided. Whether to include the most derived
+   * observations in the representation
+   */
+  include_most_derived?: boolean | null;
+
+  /**
+   * Only used if `search_query` is provided. Maximum number of observations to
+   * include in the representation
+   */
+  max_observations?: number | null;
+
+  /**
+   * Only used if `search_query` is provided. Maximum distance to search for
+   * semantically relevant observations
+   */
+  search_max_distance?: number | null;
+
+  /**
+   * Optional input to curate the representation around semantic search results
+   */
+  search_query?: string | null;
+
+  /**
+   * Only used if `search_query` is provided. Number of semantic-search-retrieved
+   * observations to include in the representation
+   */
+  search_top_k?: number | null;
+
+  /**
    * Get the working representation within this session
    */
   session_id?: string | null;
