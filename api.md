@@ -100,6 +100,20 @@ Methods:
 - <code title="put /v2/workspaces/{workspace_id}/sessions/{session_id}/peers">client.workspaces.sessions.peers.<a href="./src/resources/workspaces/sessions/peers.ts">set</a>(workspaceId, sessionId, { ...params }) -> Session</code>
 - <code title="post /v2/workspaces/{workspace_id}/sessions/{session_id}/peers/{peer_id}/config">client.workspaces.sessions.peers.<a href="./src/resources/workspaces/sessions/peers.ts">setConfig</a>(workspaceId, sessionId, peerId, { ...params }) -> unknown</code>
 
+### Observations
+
+Types:
+
+- <code><a href="./src/resources/workspaces/sessions/observations.ts">Observation</a></code>
+- <code><a href="./src/resources/workspaces/sessions/observations.ts">ObservationDeleteResponse</a></code>
+- <code><a href="./src/resources/workspaces/sessions/observations.ts">ObservationQueryResponse</a></code>
+
+Methods:
+
+- <code title="post /v2/workspaces/{workspace_id}/sessions/{session_id}/observations/list">client.workspaces.sessions.observations.<a href="./src/resources/workspaces/sessions/observations.ts">list</a>(workspaceId, sessionId, { ...params }) -> ObservationsPage</code>
+- <code title="delete /v2/workspaces/{workspace_id}/sessions/{session_id}/observations/{observation_id}">client.workspaces.sessions.observations.<a href="./src/resources/workspaces/sessions/observations.ts">delete</a>(workspaceId, sessionId, observationId) -> unknown</code>
+- <code title="post /v2/workspaces/{workspace_id}/sessions/{session_id}/observations/query">client.workspaces.sessions.observations.<a href="./src/resources/workspaces/sessions/observations.ts">query</a>(workspaceId, sessionId, { ...params }) -> ObservationQueryResponse</code>
+
 ## Webhooks
 
 Types:

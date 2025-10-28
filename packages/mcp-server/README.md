@@ -249,7 +249,18 @@ The following tools are available in this MCP server.
 
 - `update_workspaces_sessions` (`write`): Update the metadata of a Session
 - `list_workspaces_sessions` (`write`): Get All Sessions in a Workspace
-- `delete_workspaces_sessions` (`write`): Delete a session by marking it as inactive
+- `delete_workspaces_sessions` (`write`): Delete a session and all associated data.
+
+  This permanently deletes the session and all related data including:
+
+  - Messages
+  - Message embeddings
+  - Documents (theory-of-mind data)
+  - Session peer associations
+  - Background processing queue items
+
+  This action cannot be undone.
+
 - `clone_workspaces_sessions` (`read`): Clone a session, optionally up to a specific message
 - `get_context_workspaces_sessions` (`read`): Produce a context object from the session. The caller provides an optional token limit which the entire context must fit into.
   If not provided, the context will be exhaustive (within configured max tokens). To do this, we allocate 40% of the token limit
@@ -282,6 +293,24 @@ The following tools are available in this MCP server.
 - `remove_sessions_workspaces_peers` (`write`): Remove peers from a session
 - `set_sessions_workspaces_peers` (`write`): Set the peers in a session
 - `set_config_sessions_workspaces_peers` (`write`): Set the configuration for a peer in a session
+
+### Resource `workspaces.sessions.observations`:
+
+- `list_sessions_workspaces_observations` (`write`): List all observations for a session.
+
+  Returns paginated observations (documents) associated with this session.
+  Observations can be filtered by observer_id and observed_id using the filters parameter.
+
+- `delete_sessions_workspaces_observations` (`write`): Delete a specific observation.
+
+  This permanently deletes the observation (document) from the theory-of-mind system.
+  This action cannot be undone.
+
+- `query_sessions_workspaces_observations` (`write`): Query observations using semantic search.
+
+  Performs vector similarity search on observations to find semantically relevant results.
+  If observer_id and observed_id are provided in filters, only observations matching
+  those criteria will be searched. Otherwise, all observations for the session are searched.
 
 ### Resource `workspaces.webhooks`:
 

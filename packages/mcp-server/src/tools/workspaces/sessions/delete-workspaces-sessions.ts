@@ -16,7 +16,8 @@ export const metadata: Metadata = {
 
 export const tool: Tool = {
   name: 'delete_workspaces_sessions',
-  description: 'Delete a session by marking it as inactive',
+  description:
+    'Delete a session and all associated data.\n\nThis permanently deletes the session and all related data including:\n- Messages\n- Message embeddings\n- Documents (theory-of-mind data)\n- Session peer associations\n- Background processing queue items\n\nThis action cannot be undone.',
   inputSchema: {
     type: 'object',
     properties: {
