@@ -13,6 +13,15 @@ export {
   type MessageUploadParams,
 } from './messages';
 export {
+  ObservationsPage,
+  Observations,
+  type Observation,
+  type ObservationDeleteResponse,
+  type ObservationQueryResponse,
+  type ObservationListParams,
+  type ObservationQueryParams,
+} from './observations';
+export {
   Peers,
   type SessionPeerConfig,
   type PeerSetConfigResponse,
