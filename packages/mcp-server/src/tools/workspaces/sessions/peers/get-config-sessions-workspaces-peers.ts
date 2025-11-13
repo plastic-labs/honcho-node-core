@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { maybeFilter } from '@honcho-ai/mcp/filtering';
-import { Metadata, asTextContentResult } from '@honcho-ai/mcp/tools/types';
+import { isJqError, maybeFilter } from '@honcho-ai/mcp/filtering';
+import { Metadata, asErrorResult, asTextContentResult } from '@honcho-ai/mcp/tools/types';
 
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import Honcho from '@honcho-ai/core';
@@ -54,12 +54,19 @@ export const tool: Tool = {
 
 export const handler = async (client: Honcho, args: Record<string, unknown> | undefined) => {
   const { workspace_id, session_id, peer_id, jq_filter, ...body } = args as any;
-  return asTextContentResult(
-    await maybeFilter(
-      jq_filter,
-      await client.workspaces.sessions.peers.getConfig(workspace_id, session_id, peer_id),
-    ),
-  );
+  try {
+    return asTextContentResult(
+      await maybeFilter(
+        jq_filter,
+        await client.workspaces.sessions.peers.getConfig(workspace_id, session_id, peer_id),
+      ),
+    );
+  } catch (error) {
+    if (isJqError(error)) {
+      return asErrorResult(error.message);
+    }
+    throw error;
+  }
 };
 
 export default { metadata, tool, handler };
