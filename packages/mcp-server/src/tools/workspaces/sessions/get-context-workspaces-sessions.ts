@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { Metadata, asTextContentResult } from '@honcho-ai/mcp/tools/types';
+import { Metadata, asErrorResult, asTextContentResult } from '@honcho-ai/mcp/tools/types';
 
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import Honcho from '@honcho-ai/core';
@@ -99,7 +99,14 @@ export const tool: Tool = {
 
 export const handler = async (client: Honcho, args: Record<string, unknown> | undefined) => {
   const { workspace_id, session_id, ...body } = args as any;
-  return asTextContentResult(await client.workspaces.sessions.getContext(workspace_id, session_id, body));
+  try {
+    return asTextContentResult(await client.workspaces.sessions.getContext(workspace_id, session_id, body));
+  } catch (error) {
+    if (error instanceof Honcho.APIError) {
+      return asErrorResult(error.message);
+    }
+    throw error;
+  }
 };
 
 export default { metadata, tool, handler };
