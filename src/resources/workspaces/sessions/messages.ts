@@ -3,11 +3,12 @@
 import { APIResource } from '../../../resource';
 import { isRequestOptions } from '../../../core';
 import * as Core from '../../../core';
+import * as WorkspacesAPI from '../workspaces';
 import { Page, type PageParams } from '../../../pagination';
 
 export class Messages extends APIResource {
   /**
-   * Create messages for a session with JSON data (original functionality).
+   * Add new message(s) to a session.
    */
   create(
     workspaceId: string,
@@ -125,9 +126,38 @@ export interface MessageCreate {
 
   peer_id: string;
 
+  /**
+   * The set of options that can be in a message DB-level configuration dictionary.
+   *
+   * All fields are optional. Message-level configuration overrides all other
+   * configurations.
+   */
+  configuration?: MessageCreate.Configuration | null;
+
   created_at?: string | null;
 
   metadata?: { [key: string]: unknown } | null;
+}
+
+export namespace MessageCreate {
+  /**
+   * The set of options that can be in a message DB-level configuration dictionary.
+   *
+   * All fields are optional. Message-level configuration overrides all other
+   * configurations.
+   */
+  export interface Configuration {
+    /**
+     * Configuration for deriver functionality.
+     */
+    deriver?: WorkspacesAPI.DeriverConfiguration | null;
+
+    /**
+     * Configuration for peer card functionality. If deriver is disabled, peer cards
+     * will also be disabled and these settings will be ignored.
+     */
+    peer_card?: WorkspacesAPI.PeerCardConfiguration | null;
+  }
 }
 
 export type MessageCreateResponse = Array<Message>;

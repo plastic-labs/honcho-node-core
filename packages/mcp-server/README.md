@@ -254,6 +254,10 @@ The following tools are available in this MCP server.
   Otherwise, it uses the workspace_id from the JWT.
 
 - `search_workspaces` (`write`): Search a Workspace
+- `trigger_dream_workspaces` (`write`): Manually trigger a dream task immediately for a specific collection.
+
+  This endpoint bypasses all automatic dream conditions (document threshold,
+  minimum hours between dreams) and executes the dream task immediately without delay.
 
 ### Resource `workspaces.peers`:
 
@@ -271,6 +275,11 @@ The following tools are available in this MCP server.
   Otherwise, it uses the peer_id from the JWT.
 
 - `search_workspaces_peers` (`write`): Search a Peer
+- `set_card_workspaces_peers` (`write`): Set a peer card for a specific peer relationship.
+
+  Sets the peer card that the observer peer has for the target peer.
+  If no target is specified, sets the observer's own peer card.
+
 - `working_representation_workspaces_peers` (`write`): Get a peer's working representation for a session.
 
   If a session_id is provided in the body, we get the working representation of the peer in that session.
@@ -287,13 +296,9 @@ The following tools are available in this MCP server.
 - `list_workspaces_sessions` (`write`): Get All Sessions in a Workspace
 - `delete_workspaces_sessions` (`write`): Delete a session and all associated data.
 
-  This permanently deletes the session and all related data including:
-
-  - Messages
-  - Message embeddings
-  - Documents (theory-of-mind data)
-  - Session peer associations
-  - Background processing queue items
+  The session is marked as inactive immediately and returns 202 Accepted. The actual
+  deletion of all related data (messages, embeddings, documents, etc.) happens
+  asynchronously in the background.
 
   This action cannot be undone.
 
@@ -315,7 +320,7 @@ The following tools are available in this MCP server.
 
 ### Resource `workspaces.sessions.messages`:
 
-- `create_sessions_workspaces_messages` (`write`): Create messages for a session with JSON data (original functionality).
+- `create_sessions_workspaces_messages` (`write`): Add new message(s) to a session.
 - `retrieve_sessions_workspaces_messages` (`read`): Get a Message by ID
 - `update_sessions_workspaces_messages` (`write`): Update the metadata of a Message
 - `list_sessions_workspaces_messages` (`write`): Get all messages for a session
@@ -329,24 +334,6 @@ The following tools are available in this MCP server.
 - `remove_sessions_workspaces_peers` (`write`): Remove peers from a session
 - `set_sessions_workspaces_peers` (`write`): Set the peers in a session
 - `set_config_sessions_workspaces_peers` (`write`): Set the configuration for a peer in a session
-
-### Resource `workspaces.sessions.observations`:
-
-- `list_sessions_workspaces_observations` (`write`): List all observations for a session.
-
-  Returns paginated observations (documents) associated with this session.
-  Observations can be filtered by observer_id and observed_id using the filters parameter.
-
-- `delete_sessions_workspaces_observations` (`write`): Delete a specific observation.
-
-  This permanently deletes the observation (document) from the theory-of-mind system.
-  This action cannot be undone.
-
-- `query_sessions_workspaces_observations` (`write`): Query observations using semantic search.
-
-  Performs vector similarity search on observations to find semantically relevant results.
-  If observer_id and observed_id are provided in filters, only observations matching
-  those criteria will be searched. Otherwise, all observations for the session are searched.
 
 ### Resource `workspaces.webhooks`:
 

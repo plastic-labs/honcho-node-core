@@ -137,6 +137,26 @@ describe('resource peers', () => {
     });
   });
 
+  test('setCard: only required params', async () => {
+    const responsePromise = client.workspaces.peers.setCard('workspace_id', 'peer_id', {
+      peer_card: ['string'],
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('setCard: required and optional params', async () => {
+    const response = await client.workspaces.peers.setCard('workspace_id', 'peer_id', {
+      peer_card: ['string'],
+      target: 'target',
+    });
+  });
+
   test('workingRepresentation', async () => {
     const responsePromise = client.workspaces.peers.workingRepresentation('workspace_id', 'peer_id', {});
     const rawResponse = await responsePromise.asResponse();

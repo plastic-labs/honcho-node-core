@@ -117,8 +117,7 @@ export class Peers extends APIResource {
 
 export interface SessionPeerConfig {
   /**
-   * Whether other peers in this session should try to form a session-level
-   * theory-of-mind representation of this peer
+   * Whether honcho should form a global theory-of-mind representation of this peer
    */
   observe_me?: boolean | null;
 
@@ -126,7 +125,7 @@ export interface SessionPeerConfig {
    * Whether this peer should form a session-level theory-of-mind representation of
    * other peers in the session
    */
-  observe_others?: boolean;
+  observe_others?: boolean | null;
 }
 
 export type PeerSetConfigResponse = unknown;
@@ -141,8 +140,7 @@ export type PeerSetParams = { [key: string]: SessionPeerConfig };
 
 export interface PeerSetConfigParams {
   /**
-   * Whether other peers in this session should try to form a session-level
-   * theory-of-mind representation of this peer
+   * Whether honcho should form a global theory-of-mind representation of this peer
    */
   observe_me?: boolean | null;
 
@@ -150,7 +148,7 @@ export interface PeerSetConfigParams {
    * Whether this peer should form a session-level theory-of-mind representation of
    * other peers in the session
    */
-  observe_others?: boolean;
+  observe_others?: boolean | null;
 }
 
 export declare namespace Peers {

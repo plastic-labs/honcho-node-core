@@ -32,9 +32,7 @@ export const tool: Tool = {
         title: 'Id',
       },
       configuration: {
-        type: 'object',
-        title: 'Configuration',
-        additionalProperties: true,
+        $ref: '#/$defs/session_configuration',
       },
       metadata: {
         type: 'object',
@@ -54,6 +52,96 @@ export const tool: Tool = {
       },
     },
     required: ['workspace_id', 'id'],
+    $defs: {
+      session_configuration: {
+        type: 'object',
+        title: 'SessionConfiguration',
+        description:
+          'The set of options that can be in a session DB-level configuration dictionary.\n\nAll fields are optional. Session-level configuration overrides workspace-level configuration, which overrides global configuration.',
+        properties: {
+          deriver: {
+            $ref: '#/$defs/deriver_configuration',
+          },
+          dream: {
+            $ref: '#/$defs/dream_configuration',
+          },
+          peer_card: {
+            $ref: '#/$defs/peer_card_configuration',
+          },
+          summary: {
+            $ref: '#/$defs/summary_configuration',
+          },
+        },
+      },
+      deriver_configuration: {
+        type: 'object',
+        title: 'DeriverConfiguration',
+        properties: {
+          custom_instructions: {
+            type: 'string',
+            title: 'Custom Instructions',
+            description:
+              'TODO: currently unused. Custom instructions to use for the deriver on this workspace/session/message.',
+          },
+          enabled: {
+            type: 'boolean',
+            title: 'Enabled',
+            description: 'Whether to enable deriver functionality.',
+          },
+        },
+      },
+      dream_configuration: {
+        type: 'object',
+        title: 'DreamConfiguration',
+        properties: {
+          enabled: {
+            type: 'boolean',
+            title: 'Enabled',
+            description:
+              'Whether to enable dream functionality. If deriver is disabled, dreams will also be disabled and this setting will be ignored.',
+          },
+        },
+      },
+      peer_card_configuration: {
+        type: 'object',
+        title: 'PeerCardConfiguration',
+        properties: {
+          create: {
+            type: 'boolean',
+            title: 'Create',
+            description: 'Whether to generate peer card based on content.',
+          },
+          use: {
+            type: 'boolean',
+            title: 'Use',
+            description: 'Whether to use peer card related to this peer during deriver process.',
+          },
+        },
+      },
+      summary_configuration: {
+        type: 'object',
+        title: 'SummaryConfiguration',
+        properties: {
+          enabled: {
+            type: 'boolean',
+            title: 'Enabled',
+            description: 'Whether to enable summary functionality.',
+          },
+          messages_per_long_summary: {
+            type: 'integer',
+            title: 'Messages Per Long Summary',
+            description:
+              'Number of messages per long summary. Must be positive, greater than or equal to 20, and greater than messages_per_short_summary.',
+          },
+          messages_per_short_summary: {
+            type: 'integer',
+            title: 'Messages Per Short Summary',
+            description:
+              'Number of messages per short summary. Must be positive, greater than or equal to 10, and less than messages_per_long_summary.',
+          },
+        },
+      },
+    },
   },
   annotations: {},
 };
