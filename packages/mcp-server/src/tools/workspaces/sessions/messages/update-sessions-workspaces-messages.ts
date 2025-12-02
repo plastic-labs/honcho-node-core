@@ -66,7 +66,7 @@ export const handler = async (client: Honcho, args: Record<string, unknown> | un
       ),
     );
   } catch (error) {
-    if (isJqError(error)) {
+    if (error instanceof Honcho.APIError || isJqError(error)) {
       return asErrorResult(error.message);
     }
     throw error;
