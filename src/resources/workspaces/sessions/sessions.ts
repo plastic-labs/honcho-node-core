@@ -3,6 +3,7 @@
 import { APIResource } from '../../../resource';
 import { isRequestOptions } from '../../../core';
 import * as Core from '../../../core';
+import * as WorkspacesAPI from '../workspaces';
 import * as MessagesAPI from './messages';
 import {
   Message,
@@ -16,16 +17,6 @@ import {
   Messages,
   MessagesPage,
 } from './messages';
-import * as ObservationsAPI from './observations';
-import {
-  Observation,
-  ObservationDeleteResponse,
-  ObservationListParams,
-  ObservationQueryParams,
-  ObservationQueryResponse,
-  Observations,
-  ObservationsPage,
-} from './observations';
 import * as PeersAPI from './peers';
 import {
   PeerAddParams,
@@ -42,7 +33,6 @@ import { Page, type PageParams } from '../../../pagination';
 export class Sessions extends APIResource {
   messages: MessagesAPI.Messages = new MessagesAPI.Messages(this._client);
   peers: PeersAPI.Peers = new PeersAPI.Peers(this._client);
-  observations: ObservationsAPI.Observations = new ObservationsAPI.Observations(this._client);
 
   /**
    * Update the metadata of a Session
@@ -85,13 +75,9 @@ export class Sessions extends APIResource {
   /**
    * Delete a session and all associated data.
    *
-   * This permanently deletes the session and all related data including:
-   *
-   * - Messages
-   * - Message embeddings
-   * - Documents (theory-of-mind data)
-   * - Session peer associations
-   * - Background processing queue items
+   * The session is marked as inactive immediately and returns 202 Accepted. The
+   * actual deletion of all related data (messages, embeddings, documents, etc.)
+   * happens asynchronously in the background.
    *
    * This action cannot be undone.
    */
@@ -218,6 +204,38 @@ export interface Session {
   metadata?: { [key: string]: unknown };
 }
 
+/**
+ * The set of options that can be in a session DB-level configuration dictionary.
+ *
+ * All fields are optional. Session-level configuration overrides workspace-level
+ * configuration, which overrides global configuration.
+ */
+export interface SessionConfiguration {
+  /**
+   * Configuration for deriver functionality.
+   */
+  deriver?: WorkspacesAPI.DeriverConfiguration | null;
+
+  /**
+   * Configuration for dream functionality. If deriver is disabled, dreams will also
+   * be disabled and these settings will be ignored.
+   */
+  dream?: WorkspacesAPI.DreamConfiguration | null;
+
+  /**
+   * Configuration for peer card functionality. If deriver is disabled, peer cards
+   * will also be disabled and these settings will be ignored.
+   */
+  peer_card?: WorkspacesAPI.PeerCardConfiguration | null;
+
+  /**
+   * Configuration for summary functionality.
+   */
+  summary?: WorkspacesAPI.SummaryConfiguration | null;
+
+  [k: string]: unknown;
+}
+
 export interface Summary {
   /**
    * The summary text
@@ -331,7 +349,7 @@ export namespace SessionGetContextResponse {
 
       created_at: string;
 
-      message_ids: Array<Array<unknown>>;
+      message_ids: Array<number>;
 
       session_name: string;
 
@@ -352,7 +370,7 @@ export namespace SessionGetContextResponse {
 
       created_at: string;
 
-      message_ids: Array<Array<unknown>>;
+      message_ids: Array<number>;
 
       session_name: string;
     }
@@ -376,7 +394,13 @@ export interface SessionSummariesResponse {
 }
 
 export interface SessionUpdateParams {
-  configuration?: { [key: string]: unknown } | null;
+  /**
+   * The set of options that can be in a session DB-level configuration dictionary.
+   *
+   * All fields are optional. Session-level configuration overrides workspace-level
+   * configuration, which overrides global configuration.
+   */
+  configuration?: SessionConfiguration | null;
 
   metadata?: { [key: string]: unknown } | null;
 }
@@ -462,7 +486,13 @@ export interface SessionGetContextParams {
 export interface SessionGetOrCreateParams {
   id: string;
 
-  configuration?: { [key: string]: unknown } | null;
+  /**
+   * The set of options that can be in a session DB-level configuration dictionary.
+   *
+   * All fields are optional. Session-level configuration overrides workspace-level
+   * configuration, which overrides global configuration.
+   */
+  configuration?: SessionConfiguration | null;
 
   metadata?: { [key: string]: unknown } | null;
 
@@ -490,12 +520,11 @@ Sessions.SessionsPage = SessionsPage;
 Sessions.Messages = Messages;
 Sessions.MessagesPage = MessagesPage;
 Sessions.Peers = Peers;
-Sessions.Observations = Observations;
-Sessions.ObservationsPage = ObservationsPage;
 
 export declare namespace Sessions {
   export {
     type Session as Session,
+    type SessionConfiguration as SessionConfiguration,
     type Summary as Summary,
     type SessionDeleteResponse as SessionDeleteResponse,
     type SessionGetContextResponse as SessionGetContextResponse,
@@ -532,15 +561,5 @@ export declare namespace Sessions {
     type PeerRemoveParams as PeerRemoveParams,
     type PeerSetParams as PeerSetParams,
     type PeerSetConfigParams as PeerSetConfigParams,
-  };
-
-  export {
-    Observations as Observations,
-    type Observation as Observation,
-    type ObservationDeleteResponse as ObservationDeleteResponse,
-    type ObservationQueryResponse as ObservationQueryResponse,
-    ObservationsPage as ObservationsPage,
-    type ObservationListParams as ObservationListParams,
-    type ObservationQueryParams as ObservationQueryParams,
   };
 }

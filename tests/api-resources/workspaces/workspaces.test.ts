@@ -109,7 +109,12 @@ describe('resource workspaces', () => {
   test('getOrCreate: required and optional params', async () => {
     const response = await client.workspaces.getOrCreate({
       id: 'id',
-      configuration: { foo: 'bar' },
+      configuration: {
+        deriver: { custom_instructions: 'custom_instructions', enabled: true },
+        dream: { enabled: true },
+        peer_card: { create: true, use: true },
+        summary: { enabled: true, messages_per_long_summary: 20, messages_per_short_summary: 10 },
+      },
       metadata: { foo: 'bar' },
     });
   });
@@ -130,6 +135,28 @@ describe('resource workspaces', () => {
       query: 'query',
       filters: { foo: 'bar' },
       limit: 1,
+    });
+  });
+
+  test('triggerDream: only required params', async () => {
+    const responsePromise = client.workspaces.triggerDream('workspace_id', {
+      dream_type: 'consolidate',
+      observer: 'observer',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('triggerDream: required and optional params', async () => {
+    const response = await client.workspaces.triggerDream('workspace_id', {
+      dream_type: 'consolidate',
+      observer: 'observer',
+      observed: 'observed',
     });
   });
 });
