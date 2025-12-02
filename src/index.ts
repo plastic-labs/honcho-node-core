@@ -9,14 +9,20 @@ import * as Uploads from './uploads';
 import * as API from './resources/index';
 import { KeyCreateParams, KeyCreateResponse, Keys } from './resources/keys';
 import {
+  DeriverConfiguration,
   DeriverStatus,
+  DreamConfiguration,
   MessageSearchOptions,
+  PeerCardConfiguration,
+  SummaryConfiguration,
   Workspace,
+  WorkspaceConfiguration,
   WorkspaceDeriverStatusParams,
   WorkspaceGetOrCreateParams,
   WorkspaceListParams,
   WorkspaceSearchParams,
   WorkspaceSearchResponse,
+  WorkspaceTriggerDreamParams,
   WorkspaceUpdateParams,
   Workspaces,
   WorkspacesPage,
@@ -218,9 +224,14 @@ export declare namespace Honcho {
 
   export {
     Workspaces as Workspaces,
+    type DeriverConfiguration as DeriverConfiguration,
     type DeriverStatus as DeriverStatus,
+    type DreamConfiguration as DreamConfiguration,
     type MessageSearchOptions as MessageSearchOptions,
+    type PeerCardConfiguration as PeerCardConfiguration,
+    type SummaryConfiguration as SummaryConfiguration,
     type Workspace as Workspace,
+    type WorkspaceConfiguration as WorkspaceConfiguration,
     type WorkspaceSearchResponse as WorkspaceSearchResponse,
     WorkspacesPage as WorkspacesPage,
     type WorkspaceUpdateParams as WorkspaceUpdateParams,
@@ -228,6 +239,7 @@ export declare namespace Honcho {
     type WorkspaceDeriverStatusParams as WorkspaceDeriverStatusParams,
     type WorkspaceGetOrCreateParams as WorkspaceGetOrCreateParams,
     type WorkspaceSearchParams as WorkspaceSearchParams,
+    type WorkspaceTriggerDreamParams as WorkspaceTriggerDreamParams,
   };
 
   export {

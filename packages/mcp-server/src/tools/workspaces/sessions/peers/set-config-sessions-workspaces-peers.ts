@@ -39,8 +39,7 @@ export const tool: Tool = {
       observe_me: {
         type: 'boolean',
         title: 'Observe Me',
-        description:
-          'Whether other peers in this session should try to form a session-level theory-of-mind representation of this peer',
+        description: 'Whether honcho should form a global theory-of-mind representation of this peer',
       },
       observe_others: {
         type: 'boolean',

@@ -154,7 +154,12 @@ describe('resource sessions', () => {
   test('getOrCreate: required and optional params', async () => {
     const response = await client.workspaces.sessions.getOrCreate('workspace_id', {
       id: 'id',
-      configuration: { foo: 'bar' },
+      configuration: {
+        deriver: { custom_instructions: 'custom_instructions', enabled: true },
+        dream: { enabled: true },
+        peer_card: { create: true, use: true },
+        summary: { enabled: true, messages_per_long_summary: 20, messages_per_short_summary: 10 },
+      },
       metadata: { foo: 'bar' },
       peers: { foo: { observe_me: true, observe_others: true } },
     });

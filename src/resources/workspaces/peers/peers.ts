@@ -114,6 +114,26 @@ export class Peers extends APIResource {
   }
 
   /**
+   * Set a peer card for a specific peer relationship.
+   *
+   * Sets the peer card that the observer peer has for the target peer. If no target
+   * is specified, sets the observer's own peer card.
+   */
+  setCard(
+    workspaceId: string,
+    peerId: string,
+    params: PeerSetCardParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<PeerCardResponse> {
+    const { target, ...body } = params;
+    return this._client.put(`/v2/workspaces/${workspaceId}/peers/${peerId}/card`, {
+      query: { target },
+      body,
+      ...options,
+    });
+  }
+
+  /**
    * Get a peer's working representation for a session.
    *
    * If a session_id is provided in the body, we get the working representation of
@@ -172,15 +192,15 @@ export interface Peer {
   metadata?: { [key: string]: unknown };
 }
 
-export interface SessionGet {
-  filters?: { [key: string]: unknown } | null;
-}
-
 export interface PeerCardResponse {
   /**
    * The peer card content, or None if not found
    */
   peer_card?: Array<string> | null;
+}
+
+export interface SessionGet {
+  filters?: { [key: string]: unknown } | null;
 }
 
 export interface PeerChatResponse {
@@ -256,6 +276,19 @@ export interface PeerSearchParams {
   limit?: number;
 }
 
+export interface PeerSetCardParams {
+  /**
+   * Body param: The peer card content to set
+   */
+  peer_card: Array<string>;
+
+  /**
+   * Query param: The peer whose card to set. If not provided, sets the observer's
+   * own card
+   */
+  target?: string | null;
+}
+
 export interface PeerWorkingRepresentationParams {
   /**
    * Only used if `search_query` is provided. Whether to include the most derived
@@ -306,8 +339,8 @@ export declare namespace Peers {
     type PagePeer as PagePeer,
     type PageSession as PageSession,
     type Peer as Peer,
-    type SessionGet as SessionGet,
     type PeerCardResponse as PeerCardResponse,
+    type SessionGet as SessionGet,
     type PeerChatResponse as PeerChatResponse,
     type PeerSearchResponse as PeerSearchResponse,
     type PeerWorkingRepresentationResponse as PeerWorkingRepresentationResponse,
@@ -318,6 +351,7 @@ export declare namespace Peers {
     type PeerChatParams as PeerChatParams,
     type PeerGetOrCreateParams as PeerGetOrCreateParams,
     type PeerSearchParams as PeerSearchParams,
+    type PeerSetCardParams as PeerSetCardParams,
     type PeerWorkingRepresentationParams as PeerWorkingRepresentationParams,
   };
 

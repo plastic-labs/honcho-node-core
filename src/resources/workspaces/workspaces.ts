@@ -26,6 +26,7 @@ import {
   PeerListParams,
   PeerSearchParams,
   PeerSearchResponse,
+  PeerSetCardParams,
   PeerUpdateParams,
   PeerWorkingRepresentationParams,
   PeerWorkingRepresentationResponse,
@@ -38,6 +39,7 @@ import * as SessionsAPI from './sessions/sessions';
 import {
   Session,
   SessionCloneParams,
+  SessionConfiguration,
   SessionDeleteResponse,
   SessionGetContextParams,
   SessionGetContextResponse,
@@ -141,9 +143,41 @@ export class Workspaces extends APIResource {
   ): Core.APIPromise<WorkspaceSearchResponse> {
     return this._client.post(`/v2/workspaces/${workspaceId}/search`, { body, ...options });
   }
+
+  /**
+   * Manually trigger a dream task immediately for a specific collection.
+   *
+   * This endpoint bypasses all automatic dream conditions (document threshold,
+   * minimum hours between dreams) and executes the dream task immediately without
+   * delay.
+   */
+  triggerDream(
+    workspaceId: string,
+    body: WorkspaceTriggerDreamParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<void> {
+    return this._client.post(`/v2/workspaces/${workspaceId}/trigger_dream`, {
+      body,
+      ...options,
+      headers: { Accept: '*/*', ...options?.headers },
+    });
+  }
 }
 
 export class WorkspacesPage extends Page<Workspace> {}
+
+export interface DeriverConfiguration {
+  /**
+   * TODO: currently unused. Custom instructions to use for the deriver on this
+   * workspace/session/message.
+   */
+  custom_instructions?: string | null;
+
+  /**
+   * Whether to enable deriver functionality.
+   */
+  enabled?: boolean | null;
+}
 
 export interface DeriverStatus {
   /**
@@ -201,6 +235,14 @@ export namespace DeriverStatus {
   }
 }
 
+export interface DreamConfiguration {
+  /**
+   * Whether to enable dream functionality. If deriver is disabled, dreams will also
+   * be disabled and this setting will be ignored.
+   */
+  enabled?: boolean | null;
+}
+
 export interface MessageSearchOptions {
   /**
    * Search query
@@ -218,6 +260,37 @@ export interface MessageSearchOptions {
   limit?: number;
 }
 
+export interface PeerCardConfiguration {
+  /**
+   * Whether to generate peer card based on content.
+   */
+  create?: boolean | null;
+
+  /**
+   * Whether to use peer card related to this peer during deriver process.
+   */
+  use?: boolean | null;
+}
+
+export interface SummaryConfiguration {
+  /**
+   * Whether to enable summary functionality.
+   */
+  enabled?: boolean | null;
+
+  /**
+   * Number of messages per long summary. Must be positive, greater than or equal to
+   * 20, and greater than messages_per_short_summary.
+   */
+  messages_per_long_summary?: number | null;
+
+  /**
+   * Number of messages per short summary. Must be positive, greater than or equal to
+   * 10, and less than messages_per_long_summary.
+   */
+  messages_per_short_summary?: number | null;
+}
+
 export interface Workspace {
   id: string;
 
@@ -228,10 +301,48 @@ export interface Workspace {
   metadata?: { [key: string]: unknown };
 }
 
+/**
+ * The set of options that can be in a workspace DB-level configuration dictionary.
+ *
+ * All fields are optional. Session-level configuration overrides workspace-level
+ * configuration, which overrides global configuration.
+ */
+export interface WorkspaceConfiguration {
+  /**
+   * Configuration for deriver functionality.
+   */
+  deriver?: DeriverConfiguration | null;
+
+  /**
+   * Configuration for dream functionality. If deriver is disabled, dreams will also
+   * be disabled and these settings will be ignored.
+   */
+  dream?: DreamConfiguration | null;
+
+  /**
+   * Configuration for peer card functionality. If deriver is disabled, peer cards
+   * will also be disabled and these settings will be ignored.
+   */
+  peer_card?: PeerCardConfiguration | null;
+
+  /**
+   * Configuration for summary functionality.
+   */
+  summary?: SummaryConfiguration | null;
+
+  [k: string]: unknown;
+}
+
 export type WorkspaceSearchResponse = Array<MessagesAPI.Message>;
 
 export interface WorkspaceUpdateParams {
-  configuration?: { [key: string]: unknown } | null;
+  /**
+   * The set of options that can be in a workspace DB-level configuration dictionary.
+   *
+   * All fields are optional. Session-level configuration overrides workspace-level
+   * configuration, which overrides global configuration.
+   */
+  configuration?: WorkspaceConfiguration | null;
 
   metadata?: { [key: string]: unknown } | null;
 }
@@ -263,7 +374,13 @@ export interface WorkspaceDeriverStatusParams {
 export interface WorkspaceGetOrCreateParams {
   id: string;
 
-  configuration?: { [key: string]: unknown };
+  /**
+   * The set of options that can be in a workspace DB-level configuration dictionary.
+   *
+   * All fields are optional. Session-level configuration overrides workspace-level
+   * configuration, which overrides global configuration.
+   */
+  configuration?: WorkspaceConfiguration;
 
   metadata?: { [key: string]: unknown };
 }
@@ -285,6 +402,23 @@ export interface WorkspaceSearchParams {
   limit?: number;
 }
 
+export interface WorkspaceTriggerDreamParams {
+  /**
+   * Type of dream to trigger
+   */
+  dream_type: 'consolidate' | 'agent';
+
+  /**
+   * Observer peer name
+   */
+  observer: string;
+
+  /**
+   * Observed peer name (defaults to observer if not specified)
+   */
+  observed?: string | null;
+}
+
 Workspaces.WorkspacesPage = WorkspacesPage;
 Workspaces.Peers = Peers;
 Workspaces.PeersPage = PeersPage;
@@ -295,9 +429,14 @@ Workspaces.WebhookEndpointsPage = WebhookEndpointsPage;
 
 export declare namespace Workspaces {
   export {
+    type DeriverConfiguration as DeriverConfiguration,
     type DeriverStatus as DeriverStatus,
+    type DreamConfiguration as DreamConfiguration,
     type MessageSearchOptions as MessageSearchOptions,
+    type PeerCardConfiguration as PeerCardConfiguration,
+    type SummaryConfiguration as SummaryConfiguration,
     type Workspace as Workspace,
+    type WorkspaceConfiguration as WorkspaceConfiguration,
     type WorkspaceSearchResponse as WorkspaceSearchResponse,
     WorkspacesPage as WorkspacesPage,
     type WorkspaceUpdateParams as WorkspaceUpdateParams,
@@ -305,6 +444,7 @@ export declare namespace Workspaces {
     type WorkspaceDeriverStatusParams as WorkspaceDeriverStatusParams,
     type WorkspaceGetOrCreateParams as WorkspaceGetOrCreateParams,
     type WorkspaceSearchParams as WorkspaceSearchParams,
+    type WorkspaceTriggerDreamParams as WorkspaceTriggerDreamParams,
   };
 
   export {
@@ -312,8 +452,8 @@ export declare namespace Workspaces {
     type PagePeer as PagePeer,
     type PageSession as PageSession,
     type Peer as Peer,
-    type SessionGet as SessionGet,
     type PeerCardResponse as PeerCardResponse,
+    type SessionGet as SessionGet,
     type PeerChatResponse as PeerChatResponse,
     type PeerSearchResponse as PeerSearchResponse,
     type PeerWorkingRepresentationResponse as PeerWorkingRepresentationResponse,
@@ -324,12 +464,14 @@ export declare namespace Workspaces {
     type PeerChatParams as PeerChatParams,
     type PeerGetOrCreateParams as PeerGetOrCreateParams,
     type PeerSearchParams as PeerSearchParams,
+    type PeerSetCardParams as PeerSetCardParams,
     type PeerWorkingRepresentationParams as PeerWorkingRepresentationParams,
   };
 
   export {
     SessionsAPISessions as Sessions,
     type Session as Session,
+    type SessionConfiguration as SessionConfiguration,
     type Summary as Summary,
     type SessionDeleteResponse as SessionDeleteResponse,
     type SessionGetContextResponse as SessionGetContextResponse,

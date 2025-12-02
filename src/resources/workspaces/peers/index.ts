@@ -6,8 +6,8 @@ export {
   type PagePeer,
   type PageSession,
   type Peer,
-  type SessionGet,
   type PeerCardResponse,
+  type SessionGet,
   type PeerChatResponse,
   type PeerSearchResponse,
   type PeerWorkingRepresentationResponse,
@@ -17,6 +17,7 @@ export {
   type PeerChatParams,
   type PeerGetOrCreateParams,
   type PeerSearchParams,
+  type PeerSetCardParams,
   type PeerWorkingRepresentationParams,
 } from './peers';
 export { Sessions, type SessionListParams } from './sessions';
