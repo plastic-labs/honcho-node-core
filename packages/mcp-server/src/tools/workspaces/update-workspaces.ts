@@ -58,7 +58,7 @@ export const handler = async (client: Honcho, args: Record<string, unknown> | un
       await maybeFilter(jq_filter, await client.workspaces.update(workspace_id, body)),
     );
   } catch (error) {
-    if (isJqError(error)) {
+    if (error instanceof Honcho.APIError || isJqError(error)) {
       return asErrorResult(error.message);
     }
     throw error;
