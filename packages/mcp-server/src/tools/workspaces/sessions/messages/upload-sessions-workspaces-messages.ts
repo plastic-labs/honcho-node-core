@@ -39,6 +39,18 @@ export const tool: Tool = {
         type: 'string',
         title: 'Peer Id',
       },
+      configuration: {
+        type: 'string',
+        title: 'Configuration',
+      },
+      created_at: {
+        type: 'string',
+        title: 'Created At',
+      },
+      metadata: {
+        type: 'string',
+        title: 'Metadata',
+      },
       jq_filter: {
         type: 'string',
         title: 'jq Filter',

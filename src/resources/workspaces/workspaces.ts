@@ -3,6 +3,18 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
+import * as ObservationsAPI from './observations';
+import {
+  ObservationDeleteResponse,
+  ObservationGet,
+  ObservationListParams,
+  ObservationQuery,
+  ObservationQueryParams,
+  ObservationQueryResponse,
+  Observations,
+  ObservationsPage,
+  PageObservation,
+} from './observations';
 import * as WebhooksAPI from './webhooks';
 import {
   WebhookDeleteResponse,
@@ -22,6 +34,8 @@ import {
   PeerCardResponse,
   PeerChatParams,
   PeerChatResponse,
+  PeerGetContextParams,
+  PeerGetContextResponse,
   PeerGetOrCreateParams,
   PeerListParams,
   PeerSearchParams,
@@ -56,6 +70,7 @@ import {
 import { Page, type PageParams } from '../../pagination';
 
 export class Workspaces extends APIResource {
+  observations: ObservationsAPI.Observations = new ObservationsAPI.Observations(this._client);
   peers: PeersAPI.Peers = new PeersAPI.Peers(this._client);
   sessions: SessionsAPI.Sessions = new SessionsAPI.Sessions(this._client);
   webhooks: WebhooksAPI.Webhooks = new WebhooksAPI.Webhooks(this._client);
@@ -420,6 +435,7 @@ export interface WorkspaceTriggerDreamParams {
 }
 
 Workspaces.WorkspacesPage = WorkspacesPage;
+Workspaces.ObservationsPage = ObservationsPage;
 Workspaces.Peers = Peers;
 Workspaces.PeersPage = PeersPage;
 Workspaces.Sessions = SessionsAPISessions;
@@ -448,6 +464,18 @@ export declare namespace Workspaces {
   };
 
   export {
+    type Observations as Observations,
+    type ObservationGet as ObservationGet,
+    type ObservationQuery as ObservationQuery,
+    type PageObservation as PageObservation,
+    type ObservationDeleteResponse as ObservationDeleteResponse,
+    type ObservationQueryResponse as ObservationQueryResponse,
+    ObservationsPage as ObservationsPage,
+    type ObservationListParams as ObservationListParams,
+    type ObservationQueryParams as ObservationQueryParams,
+  };
+
+  export {
     Peers as Peers,
     type PagePeer as PagePeer,
     type PageSession as PageSession,
@@ -455,6 +483,7 @@ export declare namespace Workspaces {
     type PeerCardResponse as PeerCardResponse,
     type SessionGet as SessionGet,
     type PeerChatResponse as PeerChatResponse,
+    type PeerGetContextResponse as PeerGetContextResponse,
     type PeerSearchResponse as PeerSearchResponse,
     type PeerWorkingRepresentationResponse as PeerWorkingRepresentationResponse,
     PeersPage as PeersPage,
@@ -462,6 +491,7 @@ export declare namespace Workspaces {
     type PeerListParams as PeerListParams,
     type PeerCardParams as PeerCardParams,
     type PeerChatParams as PeerChatParams,
+    type PeerGetContextParams as PeerGetContextParams,
     type PeerGetOrCreateParams as PeerGetOrCreateParams,
     type PeerSearchParams as PeerSearchParams,
     type PeerSetCardParams as PeerSetCardParams,

@@ -1,6 +1,17 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export {
+  ObservationsPage,
+  Observations,
+  type ObservationGet,
+  type ObservationQuery,
+  type PageObservation,
+  type ObservationDeleteResponse,
+  type ObservationQueryResponse,
+  type ObservationListParams,
+  type ObservationQueryParams,
+} from './observations';
+export {
   PeersPage,
   Peers,
   type PagePeer,
@@ -9,12 +20,14 @@ export {
   type PeerCardResponse,
   type SessionGet,
   type PeerChatResponse,
+  type PeerGetContextResponse,
   type PeerSearchResponse,
   type PeerWorkingRepresentationResponse,
   type PeerUpdateParams,
   type PeerListParams,
   type PeerCardParams,
   type PeerChatParams,
+  type PeerGetContextParams,
   type PeerGetOrCreateParams,
   type PeerSearchParams,
   type PeerSetCardParams,
