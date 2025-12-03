@@ -1,5 +1,45 @@
 # Changelog
 
+## 1.6.0 (2025-12-03)
+
+Full Changelog: [v1.5.1...v1.6.0](https://github.com/plastic-labs/honcho-node-core/compare/v1.5.1...v1.6.0)
+
+### Features
+
+* **api:** manual updates ([d6d07b8](https://github.com/plastic-labs/honcho-node-core/commit/d6d07b85ccd3ee516e8f0c6014c0f78b9d14c954))
+* **api:** manual updates ([76b5c15](https://github.com/plastic-labs/honcho-node-core/commit/76b5c156cf73204677d9e0bf327732e5fa89c7ec))
+* **api:** manual updates ([c0badaf](https://github.com/plastic-labs/honcho-node-core/commit/c0badafadda7d0742850b01d048304bedc8738a7))
+* **api:** manual updates ([dc56409](https://github.com/plastic-labs/honcho-node-core/commit/dc564090ecc34a215b70d85de9ba753157faa68e))
+* **mcp:** add detail field to docs search tool ([7b10104](https://github.com/plastic-labs/honcho-node-core/commit/7b10104ce3763230d01aede98b9cf754570503ac))
+* **mcp:** enable optional code execution tool on http mcp servers ([78f0623](https://github.com/plastic-labs/honcho-node-core/commit/78f0623e279c424ddd227f5475d950d03bd6d538))
+* **mcp:** return logs on code tool errors ([76e9711](https://github.com/plastic-labs/honcho-node-core/commit/76e9711a5b82273a42120a14962dab8414f10054))
+
+
+### Bug Fixes
+
+* **mcpb:** pin @anthropic-ai/mcpb version ([4d9466d](https://github.com/plastic-labs/honcho-node-core/commit/4d9466dcf33c734e7ac7858ab1e81021a3085157))
+* **mcp:** return tool execution error on api error ([91cd2b1](https://github.com/plastic-labs/honcho-node-core/commit/91cd2b1955d55063fbe73c22a4b73167b99b4131))
+* **mcp:** return tool execution error on jq failure ([463177f](https://github.com/plastic-labs/honcho-node-core/commit/463177ff56ab702fb8d53876ff515f288e7b00c5))
+
+
+### Chores
+
+* **internal:** codegen related update ([525c6c6](https://github.com/plastic-labs/honcho-node-core/commit/525c6c6783ba3d673e62fd50e90b68cf44c681ce))
+* **internal:** codegen related update ([801f693](https://github.com/plastic-labs/honcho-node-core/commit/801f6930f63669d397a65355c1e3257782a5405b))
+* **internal:** grammar fix (it's -&gt; its) ([e7812a8](https://github.com/plastic-labs/honcho-node-core/commit/e7812a85bdcd83e1242251d29b48b9a3d15fbc60))
+* mcp code tool explicit error message when missing a run function ([e5179b9](https://github.com/plastic-labs/honcho-node-core/commit/e5179b968fc0d1d1855a2aef4d6586fdf7f9c9da))
+* **mcp:** add friendlier MCP code tool errors on incorrect method invocations ([962c884](https://github.com/plastic-labs/honcho-node-core/commit/962c88431a059dd62ae5631be9ca79713427fae2))
+* **mcp:** add line numbers to code tool errors ([5f2b8f0](https://github.com/plastic-labs/honcho-node-core/commit/5f2b8f0e9b297e0dfbc96599b72505c3eba1611f))
+* **mcp:** clarify http auth error ([bff3b0a](https://github.com/plastic-labs/honcho-node-core/commit/bff3b0a8d9ab8723ff98bdfe9f9932c3b937f8f2))
+* **mcp:** upgrade jq-web ([e3589d7](https://github.com/plastic-labs/honcho-node-core/commit/e3589d791f0169042c55a0819cac301ce3c5b121))
+* use structured error when code execution tool errors ([2497e67](https://github.com/plastic-labs/honcho-node-core/commit/2497e67e58d8b88c636304768d134bbedbce6359))
+
+
+### Documentation
+
+* **mcp:** add a README button for one-click add to Cursor ([b37f39c](https://github.com/plastic-labs/honcho-node-core/commit/b37f39cf39851458ebee7b448c31d803a356c71f))
+* **mcp:** add a README link to add server to VS Code or Claude Code ([5a302e0](https://github.com/plastic-labs/honcho-node-core/commit/5a302e00898f8bc6d88ed7a86af6e817a01bd56d))
+
 ## 1.5.1 (2025-10-09)
 
 Full Changelog: [v1.5.0...v1.5.1](https://github.com/plastic-labs/honcho-node-core/compare/v1.5.0...v1.5.1)
