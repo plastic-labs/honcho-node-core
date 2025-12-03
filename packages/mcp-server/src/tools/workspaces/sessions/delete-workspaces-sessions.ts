@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'delete_workspaces_sessions',
   description:
-    'Delete a session and all associated data.\n\nThe session is marked as inactive immediately and returns 202 Accepted. The actual\ndeletion of all related data (messages, embeddings, documents, etc.) happens\nasynchronously in the background.\n\nThis action cannot be undone.',
+    'Delete a session and all associated data.\n\nThe session is marked as inactive immediately and returns 202 Accepted. The actual\ndeletion of all related data (messages, embeddings, documents, etc.) happens\nasynchronously via the queue with retry support.\n\nThis action cannot be undone.',
   inputSchema: {
     type: 'object',
     properties: {

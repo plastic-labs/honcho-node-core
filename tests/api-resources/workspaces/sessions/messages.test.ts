@@ -129,6 +129,9 @@ describe('resource messages', () => {
     const response = await client.workspaces.sessions.messages.upload('workspace_id', 'session_id', {
       file: await toFile(Buffer.from('# my file contents'), 'README.md'),
       peer_id: 'peer_id',
+      configuration: 'configuration',
+      created_at: 'created_at',
+      metadata: 'metadata',
     });
   });
 });

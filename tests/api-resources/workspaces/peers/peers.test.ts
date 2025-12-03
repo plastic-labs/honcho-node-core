@@ -99,6 +99,43 @@ describe('resource peers', () => {
     });
   });
 
+  test('getContext', async () => {
+    const responsePromise = client.workspaces.peers.getContext('workspace_id', 'peer_id');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('getContext: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.workspaces.peers.getContext('workspace_id', 'peer_id', { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Honcho.NotFoundError);
+  });
+
+  test('getContext: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.workspaces.peers.getContext(
+        'workspace_id',
+        'peer_id',
+        {
+          include_most_derived: true,
+          max_observations: 1,
+          search_max_distance: 0,
+          search_query: 'search_query',
+          search_top_k: 1,
+          target: 'target',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Honcho.NotFoundError);
+  });
+
   test('getOrCreate: only required params', async () => {
     const responsePromise = client.workspaces.peers.getOrCreate('workspace_id', { id: 'id' });
     const rawResponse = await responsePromise.asResponse();
