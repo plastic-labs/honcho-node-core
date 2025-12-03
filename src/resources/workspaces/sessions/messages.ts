@@ -188,6 +188,12 @@ export interface MessageUploadParams {
   file: Core.Uploadable;
 
   peer_id: string;
+
+  configuration?: string | null;
+
+  created_at?: string | null;
+
+  metadata?: string | null;
 }
 
 Messages.MessagesPage = MessagesPage;

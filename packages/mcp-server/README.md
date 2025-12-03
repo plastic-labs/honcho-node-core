@@ -259,6 +259,22 @@ The following tools are available in this MCP server.
   This endpoint bypasses all automatic dream conditions (document threshold,
   minimum hours between dreams) and executes the dream task immediately without delay.
 
+### Resource `workspaces.observations`:
+
+- `list_workspaces_observations` (`write`): List all observations using custom filters. Observations are listed by recency unless `reverse` is set to `true`.
+
+  Observations can be filtered by session_id, observer_id and observed_id using the filters parameter.
+
+- `delete_workspaces_observations` (`write`): Delete a specific observation.
+
+  This permanently deletes the observation (document) from the theory-of-mind system.
+  This action cannot be undone.
+
+- `query_workspaces_observations` (`write`): Query observations using semantic search.
+
+  Performs vector similarity search on observations to find semantically relevant results.
+  Observer and observed are required for semantic search and must be provided in filters.
+
 ### Resource `workspaces.peers`:
 
 - `update_workspaces_peers` (`write`): Update a Peer's name and/or metadata
@@ -269,6 +285,16 @@ The following tools are available in this MCP server.
   If no target is specified, returns the observer's own peer card.
 
 - `chat_workspaces_peers` (`write`): Chat
+- `get_context_workspaces_peers` (`read`): Get context for a peer, including their representation and peer card.
+
+  This endpoint returns the working representation and peer card for a peer.
+  If a target is specified, returns the context for the target from the
+  observer peer's perspective. If no target is specified, returns the
+  peer's own context (self-observation).
+
+  This is useful for getting all the context needed about a peer without
+  making multiple API calls.
+
 - `get_or_create_workspaces_peers` (`write`): Get a Peer by ID
 
   If peer_id is provided as a query parameter, it uses that (must match JWT workspace_id).
@@ -298,7 +324,7 @@ The following tools are available in this MCP server.
 
   The session is marked as inactive immediately and returns 202 Accepted. The actual
   deletion of all related data (messages, embeddings, documents, etc.) happens
-  asynchronously in the background.
+  asynchronously via the queue with retry support.
 
   This action cannot be undone.
 

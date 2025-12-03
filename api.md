@@ -22,6 +22,23 @@ Methods:
 - <code title="post /v2/workspaces/{workspace_id}/search">client.workspaces.<a href="./src/resources/workspaces/workspaces.ts">search</a>(workspaceId, { ...params }) -> WorkspaceSearchResponse</code>
 - <code title="post /v2/workspaces/{workspace_id}/trigger_dream">client.workspaces.<a href="./src/resources/workspaces/workspaces.ts">triggerDream</a>(workspaceId, { ...params }) -> void</code>
 
+## Observations
+
+Types:
+
+- <code><a href="./src/resources/workspaces/observations.ts">ObservationGet</a></code>
+- <code><a href="./src/resources/workspaces/observations.ts">ObservationQuery</a></code>
+- <code><a href="./src/resources/workspaces/observations.ts">Observations</a></code>
+- <code><a href="./src/resources/workspaces/observations.ts">PageObservation</a></code>
+- <code><a href="./src/resources/workspaces/observations.ts">ObservationDeleteResponse</a></code>
+- <code><a href="./src/resources/workspaces/observations.ts">ObservationQueryResponse</a></code>
+
+Methods:
+
+- <code title="post /v2/workspaces/{workspace_id}/observations/list">client.workspaces.observations.<a href="./src/resources/workspaces/observations.ts">list</a>(workspaceId, { ...params }) -> ObservationsPage</code>
+- <code title="delete /v2/workspaces/{workspace_id}/observations/{observation_id}">client.workspaces.observations.<a href="./src/resources/workspaces/observations.ts">delete</a>(workspaceId, observationId) -> unknown</code>
+- <code title="post /v2/workspaces/{workspace_id}/observations/query">client.workspaces.observations.<a href="./src/resources/workspaces/observations.ts">query</a>(workspaceId, { ...params }) -> ObservationQueryResponse</code>
+
 ## Peers
 
 Types:
@@ -32,6 +49,7 @@ Types:
 - <code><a href="./src/resources/workspaces/peers/peers.ts">PeerCardResponse</a></code>
 - <code><a href="./src/resources/workspaces/peers/peers.ts">SessionGet</a></code>
 - <code><a href="./src/resources/workspaces/peers/peers.ts">PeerChatResponse</a></code>
+- <code><a href="./src/resources/workspaces/peers/peers.ts">PeerGetContextResponse</a></code>
 - <code><a href="./src/resources/workspaces/peers/peers.ts">PeerSearchResponse</a></code>
 - <code><a href="./src/resources/workspaces/peers/peers.ts">PeerWorkingRepresentationResponse</a></code>
 
@@ -41,6 +59,7 @@ Methods:
 - <code title="post /v2/workspaces/{workspace_id}/peers/list">client.workspaces.peers.<a href="./src/resources/workspaces/peers/peers.ts">list</a>(workspaceId, { ...params }) -> PeersPage</code>
 - <code title="get /v2/workspaces/{workspace_id}/peers/{peer_id}/card">client.workspaces.peers.<a href="./src/resources/workspaces/peers/peers.ts">card</a>(workspaceId, peerId, { ...params }) -> PeerCardResponse</code>
 - <code title="post /v2/workspaces/{workspace_id}/peers/{peer_id}/chat">client.workspaces.peers.<a href="./src/resources/workspaces/peers/peers.ts">chat</a>(workspaceId, peerId, { ...params }) -> PeerChatResponse</code>
+- <code title="get /v2/workspaces/{workspace_id}/peers/{peer_id}/context">client.workspaces.peers.<a href="./src/resources/workspaces/peers/peers.ts">getContext</a>(workspaceId, peerId, { ...params }) -> PeerGetContextResponse</code>
 - <code title="post /v2/workspaces/{workspace_id}/peers">client.workspaces.peers.<a href="./src/resources/workspaces/peers/peers.ts">getOrCreate</a>(workspaceId, { ...params }) -> Peer</code>
 - <code title="post /v2/workspaces/{workspace_id}/peers/{peer_id}/search">client.workspaces.peers.<a href="./src/resources/workspaces/peers/peers.ts">search</a>(workspaceId, peerId, { ...params }) -> PeerSearchResponse</code>
 - <code title="put /v2/workspaces/{workspace_id}/peers/{peer_id}/card">client.workspaces.peers.<a href="./src/resources/workspaces/peers/peers.ts">setCard</a>(workspaceId, peerId, { ...params }) -> PeerCardResponse</code>
