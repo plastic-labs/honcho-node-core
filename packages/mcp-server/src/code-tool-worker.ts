@@ -49,6 +49,7 @@ const fuse = new Fuse(
     'client.workspaces.search',
     'client.workspaces.triggerDream',
     'client.workspaces.update',
+    'client.workspaces.observations.create',
     'client.workspaces.observations.delete',
     'client.workspaces.observations.list',
     'client.workspaces.observations.query',

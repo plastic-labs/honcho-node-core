@@ -9,6 +9,29 @@ const client = new Honcho({
 });
 
 describe('resource observations', () => {
+  test('create: only required params', async () => {
+    const responsePromise = client.workspaces.observations.create('workspace_id', {
+      observations: [
+        { content: 'x', observed_id: 'observed_id', observer_id: 'observer_id', session_id: 'session_id' },
+      ],
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('create: required and optional params', async () => {
+    const response = await client.workspaces.observations.create('workspace_id', {
+      observations: [
+        { content: 'x', observed_id: 'observed_id', observer_id: 'observer_id', session_id: 'session_id' },
+      ],
+    });
+  });
+
   test('list', async () => {
     const responsePromise = client.workspaces.observations.list('workspace_id');
     const rawResponse = await responsePromise.asResponse();
