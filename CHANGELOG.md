@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.6.1 (2025-12-04)
+
+Full Changelog: [v1.6.0...v1.6.1](https://github.com/plastic-labs/honcho-node-core/compare/v1.6.0...v1.6.1)
+
+### Features
+
+* **api:** Add Manual Observation Creation ([99000b7](https://github.com/plastic-labs/honcho-node-core/commit/99000b70b612db3d56851febb5af240929ce3174))
+
 ## 1.6.0 (2025-12-03)
 
 Full Changelog: [v1.5.1...v1.6.0](https://github.com/plastic-labs/honcho-node-core/compare/v1.5.1...v1.6.0)
