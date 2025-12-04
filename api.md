@@ -26,15 +26,18 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/workspaces/observations.ts">ObservationCreate</a></code>
 - <code><a href="./src/resources/workspaces/observations.ts">ObservationGet</a></code>
 - <code><a href="./src/resources/workspaces/observations.ts">ObservationQuery</a></code>
 - <code><a href="./src/resources/workspaces/observations.ts">Observations</a></code>
 - <code><a href="./src/resources/workspaces/observations.ts">PageObservation</a></code>
+- <code><a href="./src/resources/workspaces/observations.ts">ObservationCreateResponse</a></code>
 - <code><a href="./src/resources/workspaces/observations.ts">ObservationDeleteResponse</a></code>
 - <code><a href="./src/resources/workspaces/observations.ts">ObservationQueryResponse</a></code>
 
 Methods:
 
+- <code title="post /v2/workspaces/{workspace_id}/observations">client.workspaces.observations.<a href="./src/resources/workspaces/observations.ts">create</a>(workspaceId, { ...params }) -> ObservationCreateResponse</code>
 - <code title="post /v2/workspaces/{workspace_id}/observations/list">client.workspaces.observations.<a href="./src/resources/workspaces/observations.ts">list</a>(workspaceId, { ...params }) -> ObservationsPage</code>
 - <code title="delete /v2/workspaces/{workspace_id}/observations/{observation_id}">client.workspaces.observations.<a href="./src/resources/workspaces/observations.ts">delete</a>(workspaceId, observationId) -> unknown</code>
 - <code title="post /v2/workspaces/{workspace_id}/observations/query">client.workspaces.observations.<a href="./src/resources/workspaces/observations.ts">query</a>(workspaceId, { ...params }) -> ObservationQueryResponse</code>
