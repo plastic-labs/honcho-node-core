@@ -261,6 +261,14 @@ The following tools are available in this MCP server.
 
 ### Resource `workspaces.observations`:
 
+- `create_workspaces_observations` (`write`): Create one or more observations.
+
+  Creates observations (theory-of-mind facts) for the specified observer/observed peer pairs.
+  Each observation must reference existing peers and a session within the workspace.
+  Embeddings are automatically generated for semantic search.
+
+  Maximum of 100 observations per request.
+
 - `list_workspaces_observations` (`write`): List all observations using custom filters. Observations are listed by recency unless `reverse` is set to `true`.
 
   Observations can be filtered by session_id, observer_id and observed_id using the filters parameter.

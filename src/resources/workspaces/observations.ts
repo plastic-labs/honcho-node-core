@@ -7,6 +7,23 @@ import { Page, type PageParams } from '../../pagination';
 
 export class Observations extends APIResource {
   /**
+   * Create one or more observations.
+   *
+   * Creates observations (theory-of-mind facts) for the specified observer/observed
+   * peer pairs. Each observation must reference existing peers and a session within
+   * the workspace. Embeddings are automatically generated for semantic search.
+   *
+   * Maximum of 100 observations per request.
+   */
+  create(
+    workspaceId: string,
+    body: ObservationCreateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<ObservationCreateResponse> {
+    return this._client.post(`/v2/workspaces/${workspaceId}/observations`, { body, ...options });
+  }
+
+  /**
    * List all observations using custom filters. Observations are listed by recency
    * unless `reverse` is set to `true`.
    *
@@ -67,6 +84,28 @@ export class Observations extends APIResource {
 }
 
 export class ObservationsPage extends Page<Observations> {}
+
+/**
+ * Schema for creating a single observation
+ */
+export interface ObservationCreate {
+  content: string;
+
+  /**
+   * The peer being observed
+   */
+  observed_id: string;
+
+  /**
+   * The peer making the observation
+   */
+  observer_id: string;
+
+  /**
+   * The session this observation relates to
+   */
+  session_id: string;
+}
 
 /**
  * Schema for listing observations with optional filters
@@ -135,9 +174,15 @@ export interface PageObservation {
   total?: number;
 }
 
+export type ObservationCreateResponse = Array<Observations>;
+
 export type ObservationDeleteResponse = unknown;
 
 export type ObservationQueryResponse = Array<Observations>;
+
+export interface ObservationCreateParams {
+  observations: Array<ObservationCreate>;
+}
 
 export interface ObservationListParams extends PageParams {
   /**
@@ -177,13 +222,16 @@ Observations.ObservationsPage = ObservationsPage;
 
 export declare namespace Observations {
   export {
+    type ObservationCreate as ObservationCreate,
     type ObservationGet as ObservationGet,
     type ObservationQuery as ObservationQuery,
     type Observations as Observations,
     type PageObservation as PageObservation,
+    type ObservationCreateResponse as ObservationCreateResponse,
     type ObservationDeleteResponse as ObservationDeleteResponse,
     type ObservationQueryResponse as ObservationQueryResponse,
     ObservationsPage as ObservationsPage,
+    type ObservationCreateParams as ObservationCreateParams,
     type ObservationListParams as ObservationListParams,
     type ObservationQueryParams as ObservationQueryParams,
   };

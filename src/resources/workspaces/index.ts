@@ -3,11 +3,14 @@
 export {
   ObservationsPage,
   Observations,
+  type ObservationCreate,
   type ObservationGet,
   type ObservationQuery,
   type PageObservation,
+  type ObservationCreateResponse,
   type ObservationDeleteResponse,
   type ObservationQueryResponse,
+  type ObservationCreateParams,
   type ObservationListParams,
   type ObservationQueryParams,
 } from './observations';

@@ -5,6 +5,9 @@ import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
 import * as ObservationsAPI from './observations';
 import {
+  ObservationCreate,
+  ObservationCreateParams,
+  ObservationCreateResponse,
   ObservationDeleteResponse,
   ObservationGet,
   ObservationListParams,
@@ -465,12 +468,15 @@ export declare namespace Workspaces {
 
   export {
     type Observations as Observations,
+    type ObservationCreate as ObservationCreate,
     type ObservationGet as ObservationGet,
     type ObservationQuery as ObservationQuery,
     type PageObservation as PageObservation,
+    type ObservationCreateResponse as ObservationCreateResponse,
     type ObservationDeleteResponse as ObservationDeleteResponse,
     type ObservationQueryResponse as ObservationQueryResponse,
     ObservationsPage as ObservationsPage,
+    type ObservationCreateParams as ObservationCreateParams,
     type ObservationListParams as ObservationListParams,
     type ObservationQueryParams as ObservationQueryParams,
   };
