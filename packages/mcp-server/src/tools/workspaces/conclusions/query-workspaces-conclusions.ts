@@ -7,18 +7,18 @@ import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import Honcho from '@honcho-ai/core';
 
 export const metadata: Metadata = {
-  resource: 'workspaces.observations',
+  resource: 'workspaces.conclusions',
   operation: 'write',
   tags: [],
   httpMethod: 'post',
-  httpPath: '/v2/workspaces/{workspace_id}/observations/query',
-  operationId: 'query_observations_v2_workspaces__workspace_id__observations_query_post',
+  httpPath: '/v2/workspaces/{workspace_id}/conclusions/query',
+  operationId: 'query_conclusions_v2_workspaces__workspace_id__conclusions_query_post',
 };
 
 export const tool: Tool = {
-  name: 'query_workspaces_observations',
+  name: 'query_workspaces_conclusions',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nQuery observations using semantic search.\n\nPerforms vector similarity search on observations to find semantically relevant results.\nObserver and observed are required for semantic search and must be provided in filters.\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/observation_query_response',\n  $defs: {\n    observation_query_response: {\n      type: 'array',\n      title: 'Response Query Observations V2 Workspaces  Workspace Id  Observations Query Post',\n      items: {\n        $ref: '#/$defs/observation'\n      }\n    },\n    observation: {\n      type: 'object',\n      title: 'Observation',\n      description: 'Deprecated: use Conclusion.',\n      properties: {\n        id: {\n          type: 'string',\n          title: 'Id'\n        },\n        content: {\n          type: 'string',\n          title: 'Content'\n        },\n        created_at: {\n          type: 'string',\n          title: 'Created At',\n          format: 'date-time'\n        },\n        observed_id: {\n          type: 'string',\n          title: 'Observed Id',\n          description: 'The peer the conclusion is about'\n        },\n        observer_id: {\n          type: 'string',\n          title: 'Observer Id',\n          description: 'The peer who made the conclusion'\n        },\n        session_id: {\n          type: 'string',\n          title: 'Session Id'\n        }\n      },\n      required: [        'id',\n        'content',\n        'created_at',\n        'observed_id',\n        'observer_id',\n        'session_id'\n      ]\n    }\n  }\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nQuery conclusions using semantic search.\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/conclusion_query_response',\n  $defs: {\n    conclusion_query_response: {\n      type: 'array',\n      title: 'Response Query Conclusions V2 Workspaces  Workspace Id  Conclusions Query Post',\n      items: {\n        $ref: '#/$defs/conclusion'\n      }\n    },\n    conclusion: {\n      type: 'object',\n      title: 'Conclusion',\n      description: 'Conclusion response - external view of a document.',\n      properties: {\n        id: {\n          type: 'string',\n          title: 'Id'\n        },\n        content: {\n          type: 'string',\n          title: 'Content'\n        },\n        created_at: {\n          type: 'string',\n          title: 'Created At',\n          format: 'date-time'\n        },\n        observed_id: {\n          type: 'string',\n          title: 'Observed Id',\n          description: 'The peer the conclusion is about'\n        },\n        observer_id: {\n          type: 'string',\n          title: 'Observer Id',\n          description: 'The peer who made the conclusion'\n        },\n        session_id: {\n          type: 'string',\n          title: 'Session Id'\n        }\n      },\n      required: [        'id',\n        'content',\n        'created_at',\n        'observed_id',\n        'observer_id',\n        'session_id'\n      ]\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {
@@ -64,7 +64,7 @@ export const handler = async (client: Honcho, args: Record<string, unknown> | un
   const { workspace_id, jq_filter, ...body } = args as any;
   try {
     return asTextContentResult(
-      await maybeFilter(jq_filter, await client.workspaces.observations.query(workspace_id, body)),
+      await maybeFilter(jq_filter, await client.workspaces.conclusions.query(workspace_id, body)),
     );
   } catch (error) {
     if (error instanceof Honcho.APIError || isJqError(error)) {
