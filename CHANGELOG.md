@@ -1,5 +1,28 @@
 # Changelog
 
+## 1.7.0 (2025-12-08)
+
+Full Changelog: [v1.6.1...v1.7.0](https://github.com/plastic-labs/honcho-node-core/compare/v1.6.1...v1.7.0)
+
+### Features
+
+* **api:** Backwards compatible changes ([e49197a](https://github.com/plastic-labs/honcho-node-core/commit/e49197a92c36c981677906b0dd976512cda99470))
+* **mcp:** add typescript check to code execution tool ([31051a6](https://github.com/plastic-labs/honcho-node-core/commit/31051a66e40df4f8f6edc9c6805ee975cdc083d7))
+* **mcp:** handle code mode calls in the Stainless API ([fddafb6](https://github.com/plastic-labs/honcho-node-core/commit/fddafb66d75b5f01ec67b752036d9371e7e62cbc))
+
+
+### Bug Fixes
+
+* **mcp:** correct code tool API endpoint ([4540d45](https://github.com/plastic-labs/honcho-node-core/commit/4540d45ea4af22fb5c227cee0e20b5ab6904e1ce))
+* **mcp:** return correct lines on typescript errors ([0a71490](https://github.com/plastic-labs/honcho-node-core/commit/0a714908f0c1510b29aa9d0546ae05d6a7008fb6))
+
+
+### Chores
+
+* **internal:** codegen related update ([f718e5d](https://github.com/plastic-labs/honcho-node-core/commit/f718e5d9c983596b5bd6982e89b92823039f3e3d))
+* **internal:** codegen related update ([9789e2b](https://github.com/plastic-labs/honcho-node-core/commit/9789e2b21990a21483e7ae1bf4c2c7f6b70eca29))
+* use latest @modelcontextprotocol/sdk ([22a5ace](https://github.com/plastic-labs/honcho-node-core/commit/22a5aceb3583baff3528a0adf97949a528393059))
+
 ## 1.6.1 (2025-12-04)
 
 Full Changelog: [v1.6.0...v1.6.1](https://github.com/plastic-labs/honcho-node-core/compare/v1.6.0...v1.6.1)
