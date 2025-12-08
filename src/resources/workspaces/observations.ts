@@ -3,6 +3,7 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
+import * as ConclusionsAPI from './conclusions';
 import { Page, type PageParams } from '../../pagination';
 
 export class Observations extends APIResource {
@@ -14,6 +15,8 @@ export class Observations extends APIResource {
    * the workspace. Embeddings are automatically generated for semantic search.
    *
    * Maximum of 100 observations per request.
+   *
+   * @deprecated
    */
   create(
     workspaceId: string,
@@ -29,18 +32,20 @@ export class Observations extends APIResource {
    *
    * Observations can be filtered by session_id, observer_id and observed_id using
    * the filters parameter.
+   *
+   * @deprecated
    */
   list(
     workspaceId: string,
     params?: ObservationListParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<ObservationsPage, Observations>;
-  list(workspaceId: string, options?: Core.RequestOptions): Core.PagePromise<ObservationsPage, Observations>;
+  ): Core.PagePromise<ObservationsPage, Observation>;
+  list(workspaceId: string, options?: Core.RequestOptions): Core.PagePromise<ObservationsPage, Observation>;
   list(
     workspaceId: string,
     params: ObservationListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<ObservationsPage, Observations> {
+  ): Core.PagePromise<ObservationsPage, Observation> {
     if (isRequestOptions(params)) {
       return this.list(workspaceId, {}, params);
     }
@@ -58,6 +63,8 @@ export class Observations extends APIResource {
    *
    * This permanently deletes the observation (document) from the theory-of-mind
    * system. This action cannot be undone.
+   *
+   * @deprecated
    */
   delete(
     workspaceId: string,
@@ -73,6 +80,8 @@ export class Observations extends APIResource {
    * Performs vector similarity search on observations to find semantically relevant
    * results. Observer and observed are required for semantic search and must be
    * provided in filters.
+   *
+   * @deprecated
    */
   query(
     workspaceId: string,
@@ -83,39 +92,62 @@ export class Observations extends APIResource {
   }
 }
 
-export class ObservationsPage extends Page<Observations> {}
+export class ObservationsPage extends Page<Observation> {}
 
 /**
- * Schema for creating a single observation
+ * Deprecated: use Conclusion.
+ */
+export interface Observation {
+  id: string;
+
+  content: string;
+
+  created_at: string;
+
+  /**
+   * The peer the conclusion is about
+   */
+  observed_id: string;
+
+  /**
+   * The peer who made the conclusion
+   */
+  observer_id: string;
+
+  session_id: string;
+}
+
+/**
+ * Deprecated: use ConclusionCreate.
  */
 export interface ObservationCreate {
   content: string;
 
   /**
-   * The peer being observed
+   * The peer the conclusion is about
    */
   observed_id: string;
 
   /**
-   * The peer making the observation
+   * The peer making the conclusion
    */
   observer_id: string;
 
   /**
-   * The session this observation relates to
+   * The session this conclusion relates to
    */
   session_id: string;
 }
 
 /**
- * Schema for listing observations with optional filters
+ * Deprecated: use ConclusionGet.
  */
 export interface ObservationGet {
   filters?: { [key: string]: unknown } | null;
 }
 
 /**
- * Query parameters for semantic search of observations
+ * Deprecated: use ConclusionQuery.
  */
 export interface ObservationQuery {
   /**
@@ -139,31 +171,8 @@ export interface ObservationQuery {
   top_k?: number;
 }
 
-/**
- * Observation response - external view of a document
- */
-export interface Observations {
-  id: string;
-
-  content: string;
-
-  created_at: string;
-
-  /**
-   * The peer being observed
-   */
-  observed_id: string;
-
-  /**
-   * The peer who made the observation
-   */
-  observer_id: string;
-
-  session_id: string;
-}
-
 export interface PageObservation {
-  items: Array<Observations>;
+  items: Array<Observation>;
 
   page: number;
 
@@ -174,13 +183,15 @@ export interface PageObservation {
   total?: number;
 }
 
-export type ObservationCreateResponse = Array<Observations>;
+export type ObservationCreateResponse = Array<Observation>;
 
 export type ObservationDeleteResponse = unknown;
 
-export type ObservationQueryResponse = Array<Observations>;
+export type ObservationQueryResponse = Array<Observation>;
 
 export interface ObservationCreateParams {
+  conclusions: Array<ConclusionsAPI.ConclusionCreate>;
+
   observations: Array<ObservationCreate>;
 }
 
@@ -222,10 +233,10 @@ Observations.ObservationsPage = ObservationsPage;
 
 export declare namespace Observations {
   export {
+    type Observation as Observation,
     type ObservationCreate as ObservationCreate,
     type ObservationGet as ObservationGet,
     type ObservationQuery as ObservationQuery,
-    type Observations as Observations,
     type PageObservation as PageObservation,
     type ObservationCreateResponse as ObservationCreateResponse,
     type ObservationDeleteResponse as ObservationDeleteResponse,

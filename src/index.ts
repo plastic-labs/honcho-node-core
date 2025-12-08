@@ -14,12 +14,14 @@ import {
   DreamConfiguration,
   MessageSearchOptions,
   PeerCardConfiguration,
+  QueueStatus,
   SummaryConfiguration,
   Workspace,
   WorkspaceConfiguration,
   WorkspaceDeriverStatusParams,
   WorkspaceGetOrCreateParams,
   WorkspaceListParams,
+  WorkspaceQueueStatusParams,
   WorkspaceSearchParams,
   WorkspaceSearchResponse,
   WorkspaceTriggerDreamParams,
@@ -29,9 +31,8 @@ import {
 } from './resources/workspaces/workspaces';
 
 const environments = {
-  demo: 'https://demo.honcho.dev',
-  local: 'http://localhost:8000',
   production: 'https://api.honcho.dev',
+  local: 'http://localhost:8000',
 };
 type Environment = keyof typeof environments;
 
@@ -45,9 +46,8 @@ export interface ClientOptions {
    * Specifies the environment to use for the API.
    *
    * Each environment maps to a different base URL:
-   * - `demo` corresponds to `https://demo.honcho.dev`
-   * - `local` corresponds to `http://localhost:8000`
    * - `production` corresponds to `https://api.honcho.dev`
+   * - `local` corresponds to `http://localhost:8000`
    */
   environment?: Environment | undefined;
 
@@ -122,8 +122,8 @@ export class Honcho extends Core.APIClient {
    * API Client for interfacing with the Honcho API.
    *
    * @param {string | null | undefined} [opts.apiKey=process.env['HONCHO_API_KEY'] ?? null]
-   * @param {Environment} [opts.environment=demo] - Specifies the environment URL to use for the API.
-   * @param {string} [opts.baseURL=process.env['HONCHO_BASE_URL'] ?? https://demo.honcho.dev] - Override the default base URL for the API.
+   * @param {Environment} [opts.environment=production] - Specifies the environment URL to use for the API.
+   * @param {string} [opts.baseURL=process.env['HONCHO_BASE_URL'] ?? https://api.honcho.dev] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {number} [opts.httpAgent] - An HTTP agent used to manage HTTP(s) connections.
    * @param {Core.Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
@@ -140,7 +140,7 @@ export class Honcho extends Core.APIClient {
       apiKey,
       ...opts,
       baseURL,
-      environment: opts.environment ?? 'demo',
+      environment: opts.environment ?? 'production',
     };
 
     if (baseURL && opts.environment) {
@@ -150,8 +150,8 @@ export class Honcho extends Core.APIClient {
     }
 
     super({
-      baseURL: options.baseURL || environments[options.environment || 'demo'],
-      baseURLOverridden: baseURL ? baseURL !== environments[options.environment || 'demo'] : false,
+      baseURL: options.baseURL || environments[options.environment || 'production'],
+      baseURLOverridden: baseURL ? baseURL !== environments[options.environment || 'production'] : false,
       timeout: options.timeout ?? 60000 /* 1 minute */,
       httpAgent: options.httpAgent,
       maxRetries: options.maxRetries,
@@ -170,7 +170,7 @@ export class Honcho extends Core.APIClient {
    * Check whether the base URL is set to its default.
    */
   #baseURLOverridden(): boolean {
-    return this.baseURL !== environments[this._options.environment || 'demo'];
+    return this.baseURL !== environments[this._options.environment || 'production'];
   }
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
@@ -229,6 +229,7 @@ export declare namespace Honcho {
     type DreamConfiguration as DreamConfiguration,
     type MessageSearchOptions as MessageSearchOptions,
     type PeerCardConfiguration as PeerCardConfiguration,
+    type QueueStatus as QueueStatus,
     type SummaryConfiguration as SummaryConfiguration,
     type Workspace as Workspace,
     type WorkspaceConfiguration as WorkspaceConfiguration,
@@ -238,6 +239,7 @@ export declare namespace Honcho {
     type WorkspaceListParams as WorkspaceListParams,
     type WorkspaceDeriverStatusParams as WorkspaceDeriverStatusParams,
     type WorkspaceGetOrCreateParams as WorkspaceGetOrCreateParams,
+    type WorkspaceQueueStatusParams as WorkspaceQueueStatusParams,
     type WorkspaceSearchParams as WorkspaceSearchParams,
     type WorkspaceTriggerDreamParams as WorkspaceTriggerDreamParams,
   };

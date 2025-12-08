@@ -173,26 +173,26 @@ describe('instantiate client', () => {
     test('empty env variable', () => {
       process.env['HONCHO_BASE_URL'] = ''; // empty
       const client = new Honcho({ apiKey: 'My API Key' });
-      expect(client.baseURL).toEqual('https://demo.honcho.dev');
+      expect(client.baseURL).toEqual('https://api.honcho.dev');
     });
 
     test('blank env variable', () => {
       process.env['HONCHO_BASE_URL'] = '  '; // blank
       const client = new Honcho({ apiKey: 'My API Key' });
-      expect(client.baseURL).toEqual('https://demo.honcho.dev');
+      expect(client.baseURL).toEqual('https://api.honcho.dev');
     });
 
     test('env variable with environment', () => {
       process.env['HONCHO_BASE_URL'] = 'https://example.com/from_env';
 
       expect(
-        () => new Honcho({ apiKey: 'My API Key', environment: 'demo' }),
+        () => new Honcho({ apiKey: 'My API Key', environment: 'production' }),
       ).toThrowErrorMatchingInlineSnapshot(
         `"Ambiguous URL; The \`baseURL\` option (or HONCHO_BASE_URL env var) and the \`environment\` option are given. If you want to use the environment you must pass baseURL: null"`,
       );
 
-      const client = new Honcho({ apiKey: 'My API Key', baseURL: null, environment: 'demo' });
-      expect(client.baseURL).toEqual('https://demo.honcho.dev');
+      const client = new Honcho({ apiKey: 'My API Key', baseURL: null, environment: 'production' });
+      expect(client.baseURL).toEqual('https://api.honcho.dev');
     });
 
     test('in request options', () => {
