@@ -3,8 +3,25 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
+import * as ConclusionsAPI from './conclusions';
+import {
+  Conclusion,
+  ConclusionCreate,
+  ConclusionCreateParams,
+  ConclusionCreateResponse,
+  ConclusionDeleteResponse,
+  ConclusionGet,
+  ConclusionListParams,
+  ConclusionQuery,
+  ConclusionQueryParams,
+  ConclusionQueryResponse,
+  Conclusions,
+  ConclusionsPage,
+  PageConclusion,
+} from './conclusions';
 import * as ObservationsAPI from './observations';
 import {
+  Observation,
   ObservationCreate,
   ObservationCreateParams,
   ObservationCreateResponse,
@@ -73,6 +90,7 @@ import {
 import { Page, type PageParams } from '../../pagination';
 
 export class Workspaces extends APIResource {
+  conclusions: ConclusionsAPI.Conclusions = new ConclusionsAPI.Conclusions(this._client);
   observations: ObservationsAPI.Observations = new ObservationsAPI.Observations(this._client);
   peers: PeersAPI.Peers = new PeersAPI.Peers(this._client);
   sessions: SessionsAPI.Sessions = new SessionsAPI.Sessions(this._client);
@@ -121,8 +139,9 @@ export class Workspaces extends APIResource {
   }
 
   /**
-   * Get the deriver processing status, optionally scoped to an observer, sender,
-   * and/or session
+   * Deprecated: use /queue/status. Provides identical response payload.
+   *
+   * @deprecated
    */
   deriverStatus(
     workspaceId: string,
@@ -149,6 +168,27 @@ export class Workspaces extends APIResource {
    */
   getOrCreate(body: WorkspaceGetOrCreateParams, options?: Core.RequestOptions): Core.APIPromise<Workspace> {
     return this._client.post('/v2/workspaces', { body, ...options });
+  }
+
+  /**
+   * Get the processing queue status, optionally scoped to an observer, sender,
+   * and/or session.
+   */
+  queueStatus(
+    workspaceId: string,
+    query?: WorkspaceQueueStatusParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<QueueStatus>;
+  queueStatus(workspaceId: string, options?: Core.RequestOptions): Core.APIPromise<QueueStatus>;
+  queueStatus(
+    workspaceId: string,
+    query: WorkspaceQueueStatusParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<QueueStatus> {
+    if (isRequestOptions(query)) {
+      return this.queueStatus(workspaceId, {}, query);
+    }
+    return this._client.get(`/v2/workspaces/${workspaceId}/queue/status`, { query, ...options });
   }
 
   /**
@@ -197,6 +237,9 @@ export interface DeriverConfiguration {
   enabled?: boolean | null;
 }
 
+/**
+ * Deprecated: use QueueStatus.
+ */
 export interface DeriverStatus {
   /**
    * Completed work units
@@ -225,6 +268,9 @@ export interface DeriverStatus {
 }
 
 export namespace DeriverStatus {
+  /**
+   * Status for a specific session within the processing queue.
+   */
   export interface Sessions {
     /**
      * Completed work units
@@ -288,6 +334,68 @@ export interface PeerCardConfiguration {
    * Whether to use peer card related to this peer during deriver process.
    */
   use?: boolean | null;
+}
+
+/**
+ * Aggregated processing queue status.
+ */
+export interface QueueStatus {
+  /**
+   * Completed work units
+   */
+  completed_work_units: number;
+
+  /**
+   * Work units currently being processed
+   */
+  in_progress_work_units: number;
+
+  /**
+   * Work units waiting to be processed
+   */
+  pending_work_units: number;
+
+  /**
+   * Total work units
+   */
+  total_work_units: number;
+
+  /**
+   * Per-session status when not filtered by session
+   */
+  sessions?: { [key: string]: QueueStatus.Sessions } | null;
+}
+
+export namespace QueueStatus {
+  /**
+   * Status for a specific session within the processing queue.
+   */
+  export interface Sessions {
+    /**
+     * Completed work units
+     */
+    completed_work_units: number;
+
+    /**
+     * Work units currently being processed
+     */
+    in_progress_work_units: number;
+
+    /**
+     * Work units waiting to be processed
+     */
+    pending_work_units: number;
+
+    /**
+     * Total work units
+     */
+    total_work_units: number;
+
+    /**
+     * Session ID if filtered by session
+     */
+    session_id?: string | null;
+  }
 }
 
 export interface SummaryConfiguration {
@@ -403,6 +511,23 @@ export interface WorkspaceGetOrCreateParams {
   metadata?: { [key: string]: unknown };
 }
 
+export interface WorkspaceQueueStatusParams {
+  /**
+   * Optional observer ID to filter by
+   */
+  observer_id?: string | null;
+
+  /**
+   * Optional sender ID to filter by
+   */
+  sender_id?: string | null;
+
+  /**
+   * Optional session ID to filter by
+   */
+  session_id?: string | null;
+}
+
 export interface WorkspaceSearchParams {
   /**
    * Search query
@@ -438,6 +563,9 @@ export interface WorkspaceTriggerDreamParams {
 }
 
 Workspaces.WorkspacesPage = WorkspacesPage;
+Workspaces.Conclusions = Conclusions;
+Workspaces.ConclusionsPage = ConclusionsPage;
+Workspaces.Observations = Observations;
 Workspaces.ObservationsPage = ObservationsPage;
 Workspaces.Peers = Peers;
 Workspaces.PeersPage = PeersPage;
@@ -453,6 +581,7 @@ export declare namespace Workspaces {
     type DreamConfiguration as DreamConfiguration,
     type MessageSearchOptions as MessageSearchOptions,
     type PeerCardConfiguration as PeerCardConfiguration,
+    type QueueStatus as QueueStatus,
     type SummaryConfiguration as SummaryConfiguration,
     type Workspace as Workspace,
     type WorkspaceConfiguration as WorkspaceConfiguration,
@@ -462,12 +591,30 @@ export declare namespace Workspaces {
     type WorkspaceListParams as WorkspaceListParams,
     type WorkspaceDeriverStatusParams as WorkspaceDeriverStatusParams,
     type WorkspaceGetOrCreateParams as WorkspaceGetOrCreateParams,
+    type WorkspaceQueueStatusParams as WorkspaceQueueStatusParams,
     type WorkspaceSearchParams as WorkspaceSearchParams,
     type WorkspaceTriggerDreamParams as WorkspaceTriggerDreamParams,
   };
 
   export {
-    type Observations as Observations,
+    Conclusions as Conclusions,
+    type Conclusion as Conclusion,
+    type ConclusionCreate as ConclusionCreate,
+    type ConclusionGet as ConclusionGet,
+    type ConclusionQuery as ConclusionQuery,
+    type PageConclusion as PageConclusion,
+    type ConclusionCreateResponse as ConclusionCreateResponse,
+    type ConclusionDeleteResponse as ConclusionDeleteResponse,
+    type ConclusionQueryResponse as ConclusionQueryResponse,
+    ConclusionsPage as ConclusionsPage,
+    type ConclusionCreateParams as ConclusionCreateParams,
+    type ConclusionListParams as ConclusionListParams,
+    type ConclusionQueryParams as ConclusionQueryParams,
+  };
+
+  export {
+    Observations as Observations,
+    type Observation as Observation,
     type ObservationCreate as ObservationCreate,
     type ObservationGet as ObservationGet,
     type ObservationQuery as ObservationQuery,

@@ -24,7 +24,7 @@ import Honcho from '@honcho-ai/core';
 
 const client = new Honcho({
   apiKey: process.env['HONCHO_API_KEY'], // This is the default and can be omitted
-  environment: 'local', // or 'demo' | 'production'; defaults to 'demo'
+  environment: 'local', // defaults to 'production'
 });
 
 const workspace = await client.workspaces.getOrCreate({ id: 'id' });
@@ -42,7 +42,7 @@ import Honcho from '@honcho-ai/core';
 
 const client = new Honcho({
   apiKey: process.env['HONCHO_API_KEY'], // This is the default and can be omitted
-  environment: 'local', // or 'demo' | 'production'; defaults to 'demo'
+  environment: 'local', // defaults to 'production'
 });
 
 const params: Honcho.WorkspaceGetOrCreateParams = { id: 'id' };

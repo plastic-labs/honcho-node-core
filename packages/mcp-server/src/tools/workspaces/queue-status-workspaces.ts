@@ -11,14 +11,14 @@ export const metadata: Metadata = {
   operation: 'read',
   tags: [],
   httpMethod: 'get',
-  httpPath: '/v2/workspaces/{workspace_id}/deriver/status',
-  operationId: 'get_deriver_status_v2_workspaces__workspace_id__deriver_status_get',
+  httpPath: '/v2/workspaces/{workspace_id}/queue/status',
+  operationId: 'get_queue_status_v2_workspaces__workspace_id__queue_status_get',
 };
 
 export const tool: Tool = {
-  name: 'deriver_status_workspaces',
+  name: 'queue_status_workspaces',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nDeprecated: use /queue/status. Provides identical response payload.\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/deriver_status',\n  $defs: {\n    deriver_status: {\n      type: 'object',\n      title: 'DeriverStatus',\n      description: 'Deprecated: use QueueStatus.',\n      properties: {\n        completed_work_units: {\n          type: 'integer',\n          title: 'Completed Work Units',\n          description: 'Completed work units'\n        },\n        in_progress_work_units: {\n          type: 'integer',\n          title: 'In Progress Work Units',\n          description: 'Work units currently being processed'\n        },\n        pending_work_units: {\n          type: 'integer',\n          title: 'Pending Work Units',\n          description: 'Work units waiting to be processed'\n        },\n        total_work_units: {\n          type: 'integer',\n          title: 'Total Work Units',\n          description: 'Total work units'\n        },\n        sessions: {\n          type: 'object',\n          title: 'Sessions',\n          description: 'Per-session status when not filtered by session',\n          additionalProperties: true\n        }\n      },\n      required: [        'completed_work_units',\n        'in_progress_work_units',\n        'pending_work_units',\n        'total_work_units'\n      ]\n    }\n  }\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nGet the processing queue status, optionally scoped to an observer, sender, and/or session.\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/queue_status',\n  $defs: {\n    queue_status: {\n      type: 'object',\n      title: 'QueueStatus',\n      description: 'Aggregated processing queue status.',\n      properties: {\n        completed_work_units: {\n          type: 'integer',\n          title: 'Completed Work Units',\n          description: 'Completed work units'\n        },\n        in_progress_work_units: {\n          type: 'integer',\n          title: 'In Progress Work Units',\n          description: 'Work units currently being processed'\n        },\n        pending_work_units: {\n          type: 'integer',\n          title: 'Pending Work Units',\n          description: 'Work units waiting to be processed'\n        },\n        total_work_units: {\n          type: 'integer',\n          title: 'Total Work Units',\n          description: 'Total work units'\n        },\n        sessions: {\n          type: 'object',\n          title: 'Sessions',\n          description: 'Per-session status when not filtered by session',\n          additionalProperties: true\n        }\n      },\n      required: [        'completed_work_units',\n        'in_progress_work_units',\n        'pending_work_units',\n        'total_work_units'\n      ]\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {
@@ -60,7 +60,7 @@ export const handler = async (client: Honcho, args: Record<string, unknown> | un
   const { workspace_id, jq_filter, ...body } = args as any;
   try {
     return asTextContentResult(
-      await maybeFilter(jq_filter, await client.workspaces.deriverStatus(workspace_id, body)),
+      await maybeFilter(jq_filter, await client.workspaces.queueStatus(workspace_id, body)),
     );
   } catch (error) {
     if (error instanceof Honcho.APIError || isJqError(error)) {
