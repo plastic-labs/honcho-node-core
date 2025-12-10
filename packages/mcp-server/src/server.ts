@@ -33,7 +33,7 @@ export const newMcpServer = () =>
   new McpServer(
     {
       name: 'honcho_ai_core_api',
-      version: '1.6.1',
+      version: '1.7.0',
     },
     { capabilities: { tools: {}, logging: {} } },
   );
