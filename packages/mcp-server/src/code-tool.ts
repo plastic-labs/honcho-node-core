@@ -39,6 +39,7 @@ export async function codeTool() {
       },
       body: JSON.stringify({
         project_name: 'honcho',
+        client_opts: { environment: (readEnv('HONCHO_ENVIRONMENT') || undefined) as any },
         code,
       }),
     });
