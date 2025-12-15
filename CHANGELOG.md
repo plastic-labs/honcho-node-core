@@ -1,5 +1,23 @@
 # Changelog
 
+## 1.8.0 (2025-12-15)
+
+Full Changelog: [v1.7.0...v1.8.0](https://github.com/plastic-labs/honcho-node-core/compare/v1.7.0...v1.8.0)
+
+### Features
+
+* **api:** remove accidental "conclusions" and "QueueStatus" from main ([e8fdbd5](https://github.com/plastic-labs/honcho-node-core/commit/e8fdbd5600b70283d88461cdb5f7860a212d05dc))
+
+
+### Bug Fixes
+
+* **mcp:** add client instantiation options to code tool ([9a75f57](https://github.com/plastic-labs/honcho-node-core/commit/9a75f57280e2ee27cbf7fc983cd847751b27a671))
+
+
+### Chores
+
+* **mcp:** update lockfile ([0267d53](https://github.com/plastic-labs/honcho-node-core/commit/0267d53ffee27ea4bb06f93b9e57069ac46b1536))
+
 ## 1.7.0 (2025-12-08)
 
 Full Changelog: [v1.6.1...v1.7.0](https://github.com/plastic-labs/honcho-node-core/compare/v1.6.1...v1.7.0)
