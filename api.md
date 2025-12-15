@@ -7,7 +7,6 @@ Types:
 - <code><a href="./src/resources/workspaces/workspaces.ts">DreamConfiguration</a></code>
 - <code><a href="./src/resources/workspaces/workspaces.ts">MessageSearchOptions</a></code>
 - <code><a href="./src/resources/workspaces/workspaces.ts">PeerCardConfiguration</a></code>
-- <code><a href="./src/resources/workspaces/workspaces.ts">QueueStatus</a></code>
 - <code><a href="./src/resources/workspaces/workspaces.ts">SummaryConfiguration</a></code>
 - <code><a href="./src/resources/workspaces/workspaces.ts">Workspace</a></code>
 - <code><a href="./src/resources/workspaces/workspaces.ts">WorkspaceConfiguration</a></code>
@@ -20,29 +19,8 @@ Methods:
 - <code title="delete /v2/workspaces/{workspace_id}">client.workspaces.<a href="./src/resources/workspaces/workspaces.ts">delete</a>(workspaceId) -> Workspace</code>
 - <code title="get /v2/workspaces/{workspace_id}/deriver/status">client.workspaces.<a href="./src/resources/workspaces/workspaces.ts">deriverStatus</a>(workspaceId, { ...params }) -> DeriverStatus</code>
 - <code title="post /v2/workspaces">client.workspaces.<a href="./src/resources/workspaces/workspaces.ts">getOrCreate</a>({ ...params }) -> Workspace</code>
-- <code title="get /v2/workspaces/{workspace_id}/queue/status">client.workspaces.<a href="./src/resources/workspaces/workspaces.ts">queueStatus</a>(workspaceId, { ...params }) -> QueueStatus</code>
 - <code title="post /v2/workspaces/{workspace_id}/search">client.workspaces.<a href="./src/resources/workspaces/workspaces.ts">search</a>(workspaceId, { ...params }) -> WorkspaceSearchResponse</code>
 - <code title="post /v2/workspaces/{workspace_id}/trigger_dream">client.workspaces.<a href="./src/resources/workspaces/workspaces.ts">triggerDream</a>(workspaceId, { ...params }) -> void</code>
-
-## Conclusions
-
-Types:
-
-- <code><a href="./src/resources/workspaces/conclusions.ts">Conclusion</a></code>
-- <code><a href="./src/resources/workspaces/conclusions.ts">ConclusionCreate</a></code>
-- <code><a href="./src/resources/workspaces/conclusions.ts">ConclusionGet</a></code>
-- <code><a href="./src/resources/workspaces/conclusions.ts">ConclusionQuery</a></code>
-- <code><a href="./src/resources/workspaces/conclusions.ts">PageConclusion</a></code>
-- <code><a href="./src/resources/workspaces/conclusions.ts">ConclusionCreateResponse</a></code>
-- <code><a href="./src/resources/workspaces/conclusions.ts">ConclusionDeleteResponse</a></code>
-- <code><a href="./src/resources/workspaces/conclusions.ts">ConclusionQueryResponse</a></code>
-
-Methods:
-
-- <code title="post /v2/workspaces/{workspace_id}/conclusions">client.workspaces.conclusions.<a href="./src/resources/workspaces/conclusions.ts">create</a>(workspaceId, { ...params }) -> ConclusionCreateResponse</code>
-- <code title="post /v2/workspaces/{workspace_id}/conclusions/list">client.workspaces.conclusions.<a href="./src/resources/workspaces/conclusions.ts">list</a>(workspaceId, { ...params }) -> ConclusionsPage</code>
-- <code title="delete /v2/workspaces/{workspace_id}/conclusions/{conclusion_id}">client.workspaces.conclusions.<a href="./src/resources/workspaces/conclusions.ts">delete</a>(workspaceId, conclusionId) -> unknown</code>
-- <code title="post /v2/workspaces/{workspace_id}/conclusions/query">client.workspaces.conclusions.<a href="./src/resources/workspaces/conclusions.ts">query</a>(workspaceId, { ...params }) -> ConclusionQueryResponse</code>
 
 ## Observations
 
@@ -72,6 +50,7 @@ Types:
 - <code><a href="./src/resources/workspaces/peers/peers.ts">PageSession</a></code>
 - <code><a href="./src/resources/workspaces/peers/peers.ts">Peer</a></code>
 - <code><a href="./src/resources/workspaces/peers/peers.ts">PeerCardResponse</a></code>
+- <code><a href="./src/resources/workspaces/peers/peers.ts">Representation</a></code>
 - <code><a href="./src/resources/workspaces/peers/peers.ts">SessionGet</a></code>
 - <code><a href="./src/resources/workspaces/peers/peers.ts">PeerChatResponse</a></code>
 - <code><a href="./src/resources/workspaces/peers/peers.ts">PeerGetContextResponse</a></code>
