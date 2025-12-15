@@ -9,7 +9,6 @@ export {
   type DreamConfiguration,
   type MessageSearchOptions,
   type PeerCardConfiguration,
-  type QueueStatus,
   type SummaryConfiguration,
   type Workspace,
   type WorkspaceConfiguration,
@@ -18,7 +17,6 @@ export {
   type WorkspaceListParams,
   type WorkspaceDeriverStatusParams,
   type WorkspaceGetOrCreateParams,
-  type WorkspaceQueueStatusParams,
   type WorkspaceSearchParams,
   type WorkspaceTriggerDreamParams,
 } from './workspaces/workspaces';

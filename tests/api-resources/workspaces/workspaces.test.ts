@@ -119,35 +119,6 @@ describe('resource workspaces', () => {
     });
   });
 
-  test('queueStatus', async () => {
-    const responsePromise = client.workspaces.queueStatus('workspace_id');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('queueStatus: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.workspaces.queueStatus('workspace_id', { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Honcho.NotFoundError);
-  });
-
-  test('queueStatus: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.workspaces.queueStatus(
-        'workspace_id',
-        { observer_id: 'observer_id', sender_id: 'sender_id', session_id: 'session_id' },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Honcho.NotFoundError);
-  });
-
   test('search: only required params', async () => {
     const responsePromise = client.workspaces.search('workspace_id', { query: 'query' });
     const rawResponse = await responsePromise.asResponse();

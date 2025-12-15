@@ -11,9 +11,6 @@ const client = new Honcho({
 describe('resource observations', () => {
   test('create: only required params', async () => {
     const responsePromise = client.workspaces.observations.create('workspace_id', {
-      conclusions: [
-        { content: 'x', observed_id: 'observed_id', observer_id: 'observer_id', session_id: 'session_id' },
-      ],
       observations: [
         { content: 'x', observed_id: 'observed_id', observer_id: 'observer_id', session_id: 'session_id' },
       ],
@@ -29,9 +26,6 @@ describe('resource observations', () => {
 
   test('create: required and optional params', async () => {
     const response = await client.workspaces.observations.create('workspace_id', {
-      conclusions: [
-        { content: 'x', observed_id: 'observed_id', observer_id: 'observer_id', session_id: 'session_id' },
-      ],
       observations: [
         { content: 'x', observed_id: 'observed_id', observer_id: 'observer_id', session_id: 'session_id' },
       ],

@@ -7,6 +7,7 @@ export {
   type PageSession,
   type Peer,
   type PeerCardResponse,
+  type Representation,
   type SessionGet,
   type PeerChatResponse,
   type PeerGetContextResponse,

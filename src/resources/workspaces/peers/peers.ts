@@ -233,6 +233,79 @@ export interface PeerCardResponse {
   peer_card?: Array<string> | null;
 }
 
+/**
+ * A Representation is a traversable and diffable map of observations. At the base,
+ * we have a list of explicit observations, derived from a peer's messages.
+ *
+ * From there, deductive observations can be made by establishing logical
+ * relationships between explicit observations.
+ *
+ * In the future, we can add more levels of reasoning on top of these.
+ *
+ * All of a peer's observations are stored as documents in a collection. These
+ * documents can be queried in various ways to produce this Representation object.
+ *
+ * Additionally, a "working representation" is a version of this data structure
+ * representing the most recent observations within a single session.
+ *
+ * A representation can have a maximum number of observations, which is applied
+ * individually to each level of reasoning. If a maximum is set, observations are
+ * added and removed in FIFO order.
+ */
+export interface Representation {
+  /**
+   * Conclusions that MUST be true given explicit facts and premises - strict logical
+   * necessities. Each deduction should have premises and a single conclusion.
+   */
+  deductive?: Array<Representation.Deductive>;
+
+  /**
+   * Facts LITERALLY stated by the user - direct quotes or clear paraphrases only, no
+   * interpretation or inference. Example: ['The user is 25 years old', 'The user has
+   * a dog']
+   */
+  explicit?: Array<Representation.Explicit>;
+}
+
+export namespace Representation {
+  /**
+   * Deductive observation with multiple premises and one conclusion, plus metadata.
+   */
+  export interface Deductive {
+    /**
+     * The deductive conclusion
+     */
+    conclusion: string;
+
+    created_at: string;
+
+    message_ids: Array<number>;
+
+    session_name: string;
+
+    /**
+     * Supporting premises or evidence for this conclusion
+     */
+    premises?: Array<string>;
+  }
+
+  /**
+   * Explicit observation with content and metadata.
+   */
+  export interface Explicit {
+    /**
+     * The explicit observation
+     */
+    content: string;
+
+    created_at: string;
+
+    message_ids: Array<number>;
+
+    session_name: string;
+  }
+}
+
 export interface SessionGet {
   filters?: { [key: string]: unknown } | null;
 }
@@ -279,82 +352,7 @@ export interface PeerGetContextResponse {
    * individually to each level of reasoning. If a maximum is set, observations are
    * added and removed in FIFO order.
    */
-  representation?: PeerGetContextResponse.Representation | null;
-}
-
-export namespace PeerGetContextResponse {
-  /**
-   * A Representation is a traversable and diffable map of observations. At the base,
-   * we have a list of explicit observations, derived from a peer's messages.
-   *
-   * From there, deductive observations can be made by establishing logical
-   * relationships between explicit observations.
-   *
-   * In the future, we can add more levels of reasoning on top of these.
-   *
-   * All of a peer's observations are stored as documents in a collection. These
-   * documents can be queried in various ways to produce this Representation object.
-   *
-   * Additionally, a "working representation" is a version of this data structure
-   * representing the most recent observations within a single session.
-   *
-   * A representation can have a maximum number of observations, which is applied
-   * individually to each level of reasoning. If a maximum is set, observations are
-   * added and removed in FIFO order.
-   */
-  export interface Representation {
-    /**
-     * Conclusions that MUST be true given explicit facts and premises - strict logical
-     * necessities. Each deduction should have premises and a single conclusion.
-     */
-    deductive?: Array<Representation.Deductive>;
-
-    /**
-     * Facts LITERALLY stated by the user - direct quotes or clear paraphrases only, no
-     * interpretation or inference. Example: ['The user is 25 years old', 'The user has
-     * a dog']
-     */
-    explicit?: Array<Representation.Explicit>;
-  }
-
-  export namespace Representation {
-    /**
-     * Deductive observation with multiple premises and one conclusion, plus metadata.
-     */
-    export interface Deductive {
-      /**
-       * The deductive conclusion
-       */
-      conclusion: string;
-
-      created_at: string;
-
-      message_ids: Array<number>;
-
-      session_name: string;
-
-      /**
-       * Supporting premises or evidence for this conclusion
-       */
-      premises?: Array<string>;
-    }
-
-    /**
-     * Explicit observation with content and metadata.
-     */
-    export interface Explicit {
-      /**
-       * The explicit observation
-       */
-      content: string;
-
-      created_at: string;
-
-      message_ids: Array<number>;
-
-      session_name: string;
-    }
-  }
+  representation?: Representation | null;
 }
 
 export type PeerSearchResponse = Array<MessagesAPI.Message>;
@@ -525,6 +523,7 @@ export declare namespace Peers {
     type PageSession as PageSession,
     type Peer as Peer,
     type PeerCardResponse as PeerCardResponse,
+    type Representation as Representation,
     type SessionGet as SessionGet,
     type PeerChatResponse as PeerChatResponse,
     type PeerGetContextResponse as PeerGetContextResponse,

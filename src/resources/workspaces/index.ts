@@ -1,21 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export {
-  ConclusionsPage,
-  Conclusions,
-  type Conclusion,
-  type ConclusionCreate,
-  type ConclusionGet,
-  type ConclusionQuery,
-  type PageConclusion,
-  type ConclusionCreateResponse,
-  type ConclusionDeleteResponse,
-  type ConclusionQueryResponse,
-  type ConclusionCreateParams,
-  type ConclusionListParams,
-  type ConclusionQueryParams,
-} from './conclusions';
-export {
   ObservationsPage,
   Observations,
   type Observation,
@@ -37,6 +22,7 @@ export {
   type PageSession,
   type Peer,
   type PeerCardResponse,
+  type Representation,
   type SessionGet,
   type PeerChatResponse,
   type PeerGetContextResponse,
@@ -86,7 +72,6 @@ export {
   type DreamConfiguration,
   type MessageSearchOptions,
   type PeerCardConfiguration,
-  type QueueStatus,
   type SummaryConfiguration,
   type Workspace,
   type WorkspaceConfiguration,
@@ -95,7 +80,6 @@ export {
   type WorkspaceListParams,
   type WorkspaceDeriverStatusParams,
   type WorkspaceGetOrCreateParams,
-  type WorkspaceQueueStatusParams,
   type WorkspaceSearchParams,
   type WorkspaceTriggerDreamParams,
 } from './workspaces';

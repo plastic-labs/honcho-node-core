@@ -4,6 +4,7 @@ import { APIResource } from '../../../resource';
 import { isRequestOptions } from '../../../core';
 import * as Core from '../../../core';
 import * as WorkspacesAPI from '../workspaces';
+import * as PeersAPI from '../peers/peers';
 import * as MessagesAPI from './messages';
 import {
   Message,
@@ -17,7 +18,7 @@ import {
   Messages,
   MessagesPage,
 } from './messages';
-import * as PeersAPI from './peers';
+import * as SessionsPeersAPI from './peers';
 import {
   PeerAddParams,
   PeerListParams,
@@ -32,7 +33,7 @@ import { Page, type PageParams } from '../../../pagination';
 
 export class Sessions extends APIResource {
   messages: MessagesAPI.Messages = new MessagesAPI.Messages(this._client);
-  peers: PeersAPI.Peers = new PeersAPI.Peers(this._client);
+  peers: SessionsPeersAPI.Peers = new SessionsPeersAPI.Peers(this._client);
 
   /**
    * Update the metadata of a Session
@@ -294,87 +295,12 @@ export interface SessionGetContextResponse {
    * individually to each level of reasoning. If a maximum is set, observations are
    * added and removed in FIFO order.
    */
-  peer_representation?: SessionGetContextResponse.PeerRepresentation | null;
+  peer_representation?: PeersAPI.Representation | null;
 
   /**
    * The summary if available
    */
   summary?: Summary | null;
-}
-
-export namespace SessionGetContextResponse {
-  /**
-   * A Representation is a traversable and diffable map of observations. At the base,
-   * we have a list of explicit observations, derived from a peer's messages.
-   *
-   * From there, deductive observations can be made by establishing logical
-   * relationships between explicit observations.
-   *
-   * In the future, we can add more levels of reasoning on top of these.
-   *
-   * All of a peer's observations are stored as documents in a collection. These
-   * documents can be queried in various ways to produce this Representation object.
-   *
-   * Additionally, a "working representation" is a version of this data structure
-   * representing the most recent observations within a single session.
-   *
-   * A representation can have a maximum number of observations, which is applied
-   * individually to each level of reasoning. If a maximum is set, observations are
-   * added and removed in FIFO order.
-   */
-  export interface PeerRepresentation {
-    /**
-     * Conclusions that MUST be true given explicit facts and premises - strict logical
-     * necessities. Each deduction should have premises and a single conclusion.
-     */
-    deductive?: Array<PeerRepresentation.Deductive>;
-
-    /**
-     * Facts LITERALLY stated by the user - direct quotes or clear paraphrases only, no
-     * interpretation or inference. Example: ['The user is 25 years old', 'The user has
-     * a dog']
-     */
-    explicit?: Array<PeerRepresentation.Explicit>;
-  }
-
-  export namespace PeerRepresentation {
-    /**
-     * Deductive observation with multiple premises and one conclusion, plus metadata.
-     */
-    export interface Deductive {
-      /**
-       * The deductive conclusion
-       */
-      conclusion: string;
-
-      created_at: string;
-
-      message_ids: Array<number>;
-
-      session_name: string;
-
-      /**
-       * Supporting premises or evidence for this conclusion
-       */
-      premises?: Array<string>;
-    }
-
-    /**
-     * Explicit observation with content and metadata.
-     */
-    export interface Explicit {
-      /**
-       * The explicit observation
-       */
-      content: string;
-
-      created_at: string;
-
-      message_ids: Array<number>;
-
-      session_name: string;
-    }
-  }
 }
 
 export type SessionSearchResponse = Array<MessagesAPI.Message>;
@@ -496,7 +422,7 @@ export interface SessionGetOrCreateParams {
 
   metadata?: { [key: string]: unknown } | null;
 
-  peers?: { [key: string]: PeersAPI.SessionPeerConfig } | null;
+  peers?: { [key: string]: SessionsPeersAPI.SessionPeerConfig } | null;
 }
 
 export interface SessionSearchParams {
