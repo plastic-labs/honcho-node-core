@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'create_workspaces_observations',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nCreate one or more observations.\n\nCreates observations (theory-of-mind facts) for the specified observer/observed peer pairs.\nEach observation must reference existing peers and a session within the workspace.\nEmbeddings are automatically generated for semantic search.\n\nMaximum of 100 observations per request.\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/observation_create_response',\n  $defs: {\n    observation_create_response: {\n      type: 'array',\n      title: 'Response Create Observations V2 Workspaces  Workspace Id  Observations Post',\n      items: {\n        $ref: '#/$defs/observation'\n      }\n    },\n    observation: {\n      type: 'object',\n      title: 'Observation',\n      description: 'Deprecated: use Conclusion.',\n      properties: {\n        id: {\n          type: 'string',\n          title: 'Id'\n        },\n        content: {\n          type: 'string',\n          title: 'Content'\n        },\n        created_at: {\n          type: 'string',\n          title: 'Created At',\n          format: 'date-time'\n        },\n        observed_id: {\n          type: 'string',\n          title: 'Observed Id',\n          description: 'The peer the conclusion is about'\n        },\n        observer_id: {\n          type: 'string',\n          title: 'Observer Id',\n          description: 'The peer who made the conclusion'\n        },\n        session_id: {\n          type: 'string',\n          title: 'Session Id'\n        }\n      },\n      required: [        'id',\n        'content',\n        'created_at',\n        'observed_id',\n        'observer_id',\n        'session_id'\n      ]\n    }\n  }\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nCreate one or more observations.\n\nCreates observations (theory-of-mind facts) for the specified observer/observed peer pairs.\nEach observation must reference existing peers and a session within the workspace.\nEmbeddings are automatically generated for semantic search.\n\nMaximum of 100 observations per request.\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/observation_create_response',\n  $defs: {\n    observation_create_response: {\n      type: 'array',\n      title: 'Response Create Observations V2 Workspaces  Workspace Id  Observations Post',\n      items: {\n        $ref: '#/$defs/observation'\n      }\n    },\n    observation: {\n      type: 'object',\n      title: 'Observation',\n      description: 'Observation response - external view of a document',\n      properties: {\n        id: {\n          type: 'string',\n          title: 'Id'\n        },\n        content: {\n          type: 'string',\n          title: 'Content'\n        },\n        created_at: {\n          type: 'string',\n          title: 'Created At',\n          format: 'date-time'\n        },\n        observed_id: {\n          type: 'string',\n          title: 'Observed Id',\n          description: 'The peer being observed'\n        },\n        observer_id: {\n          type: 'string',\n          title: 'Observer Id',\n          description: 'The peer who made the observation'\n        },\n        session_id: {\n          type: 'string',\n          title: 'Session Id'\n        }\n      },\n      required: [        'id',\n        'content',\n        'created_at',\n        'observed_id',\n        'observer_id',\n        'session_id'\n      ]\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {
@@ -26,13 +26,6 @@ export const tool: Tool = {
         type: 'string',
         title: 'Workspace Id',
         description: 'ID of the workspace',
-      },
-      conclusions: {
-        type: 'array',
-        title: 'Conclusions',
-        items: {
-          $ref: '#/$defs/conclusion_create',
-        },
       },
       observations: {
         type: 'array',
@@ -48,39 +41,12 @@ export const tool: Tool = {
           'A jq filter to apply to the response to include certain fields. Consult the output schema in the tool description to see the fields that are available.\n\nFor example: to include only the `name` field in every object of a results array, you can provide ".results[].name".\n\nFor more information, see the [jq documentation](https://jqlang.org/manual/).',
       },
     },
-    required: ['workspace_id', 'conclusions', 'observations'],
+    required: ['workspace_id', 'observations'],
     $defs: {
-      conclusion_create: {
-        type: 'object',
-        title: 'ConclusionCreate',
-        description: 'Schema for creating a single conclusion.',
-        properties: {
-          content: {
-            type: 'string',
-            title: 'Content',
-          },
-          observed_id: {
-            type: 'string',
-            title: 'Observed Id',
-            description: 'The peer the conclusion is about',
-          },
-          observer_id: {
-            type: 'string',
-            title: 'Observer Id',
-            description: 'The peer making the conclusion',
-          },
-          session_id: {
-            type: 'string',
-            title: 'Session Id',
-            description: 'The session this conclusion relates to',
-          },
-        },
-        required: ['content', 'observed_id', 'observer_id', 'session_id'],
-      },
       observation_create: {
         type: 'object',
         title: 'ObservationCreate',
-        description: 'Deprecated: use ConclusionCreate.',
+        description: 'Schema for creating a single observation',
         properties: {
           content: {
             type: 'string',
@@ -89,17 +55,17 @@ export const tool: Tool = {
           observed_id: {
             type: 'string',
             title: 'Observed Id',
-            description: 'The peer the conclusion is about',
+            description: 'The peer being observed',
           },
           observer_id: {
             type: 'string',
             title: 'Observer Id',
-            description: 'The peer making the conclusion',
+            description: 'The peer making the observation',
           },
           session_id: {
             type: 'string',
             title: 'Session Id',
-            description: 'The session this conclusion relates to',
+            description: 'The session this observation relates to',
           },
         },
         required: ['content', 'observed_id', 'observer_id', 'session_id'],

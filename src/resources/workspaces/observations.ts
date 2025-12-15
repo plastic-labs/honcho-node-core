@@ -3,7 +3,6 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as ConclusionsAPI from './conclusions';
 import { Page, type PageParams } from '../../pagination';
 
 export class Observations extends APIResource {
@@ -15,8 +14,6 @@ export class Observations extends APIResource {
    * the workspace. Embeddings are automatically generated for semantic search.
    *
    * Maximum of 100 observations per request.
-   *
-   * @deprecated
    */
   create(
     workspaceId: string,
@@ -32,8 +29,6 @@ export class Observations extends APIResource {
    *
    * Observations can be filtered by session_id, observer_id and observed_id using
    * the filters parameter.
-   *
-   * @deprecated
    */
   list(
     workspaceId: string,
@@ -63,8 +58,6 @@ export class Observations extends APIResource {
    *
    * This permanently deletes the observation (document) from the theory-of-mind
    * system. This action cannot be undone.
-   *
-   * @deprecated
    */
   delete(
     workspaceId: string,
@@ -80,8 +73,6 @@ export class Observations extends APIResource {
    * Performs vector similarity search on observations to find semantically relevant
    * results. Observer and observed are required for semantic search and must be
    * provided in filters.
-   *
-   * @deprecated
    */
   query(
     workspaceId: string,
@@ -95,7 +86,7 @@ export class Observations extends APIResource {
 export class ObservationsPage extends Page<Observation> {}
 
 /**
- * Deprecated: use Conclusion.
+ * Observation response - external view of a document
  */
 export interface Observation {
   id: string;
@@ -105,12 +96,12 @@ export interface Observation {
   created_at: string;
 
   /**
-   * The peer the conclusion is about
+   * The peer being observed
    */
   observed_id: string;
 
   /**
-   * The peer who made the conclusion
+   * The peer who made the observation
    */
   observer_id: string;
 
@@ -118,36 +109,36 @@ export interface Observation {
 }
 
 /**
- * Deprecated: use ConclusionCreate.
+ * Schema for creating a single observation
  */
 export interface ObservationCreate {
   content: string;
 
   /**
-   * The peer the conclusion is about
+   * The peer being observed
    */
   observed_id: string;
 
   /**
-   * The peer making the conclusion
+   * The peer making the observation
    */
   observer_id: string;
 
   /**
-   * The session this conclusion relates to
+   * The session this observation relates to
    */
   session_id: string;
 }
 
 /**
- * Deprecated: use ConclusionGet.
+ * Schema for listing observations with optional filters
  */
 export interface ObservationGet {
   filters?: { [key: string]: unknown } | null;
 }
 
 /**
- * Deprecated: use ConclusionQuery.
+ * Query parameters for semantic search of observations
  */
 export interface ObservationQuery {
   /**
@@ -190,8 +181,6 @@ export type ObservationDeleteResponse = unknown;
 export type ObservationQueryResponse = Array<Observation>;
 
 export interface ObservationCreateParams {
-  conclusions: Array<ConclusionsAPI.ConclusionCreate>;
-
   observations: Array<ObservationCreate>;
 }
 

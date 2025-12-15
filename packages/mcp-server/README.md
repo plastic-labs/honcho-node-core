@@ -247,28 +247,17 @@ The following tools are available in this MCP server.
 - `update_workspaces` (`write`): Update a Workspace
 - `list_workspaces` (`write`): Get all Workspaces
 - `delete_workspaces` (`write`): Delete a Workspace
-- `deriver_status_workspaces` (`read`): Deprecated: use /queue/status. Provides identical response payload.
+- `deriver_status_workspaces` (`read`): Get the deriver processing status, optionally scoped to an observer, sender, and/or session
 - `get_or_create_workspaces` (`write`): Get a Workspace by ID.
 
   If workspace_id is provided as a query parameter, it uses that (must match JWT workspace_id).
   Otherwise, it uses the workspace_id from the JWT.
 
-- `queue_status_workspaces` (`read`): Get the processing queue status, optionally scoped to an observer, sender, and/or session.
 - `search_workspaces` (`write`): Search a Workspace
 - `trigger_dream_workspaces` (`write`): Manually trigger a dream task immediately for a specific collection.
 
   This endpoint bypasses all automatic dream conditions (document threshold,
   minimum hours between dreams) and executes the dream task immediately without delay.
-
-### Resource `workspaces.conclusions`:
-
-- `create_workspaces_conclusions` (`write`): Create one or more conclusions.
-
-  Conclusions are theory-of-mind facts derived from interactions between peers.
-
-- `list_workspaces_conclusions` (`write`): List conclusions using custom filters, ordered by recency unless `reverse` is true.
-- `delete_workspaces_conclusions` (`write`): Delete a specific conclusion (document).
-- `query_workspaces_conclusions` (`write`): Query conclusions using semantic search.
 
 ### Resource `workspaces.observations`:
 
