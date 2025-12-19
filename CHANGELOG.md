@@ -1,5 +1,23 @@
 # Changelog
 
+## 2.0.0 (2025-12-19)
+
+Full Changelog: [v1.8.0...v2.0.0](https://github.com/plastic-labs/honcho-node-core/compare/v1.8.0...v2.0.0)
+
+### ⚠ BREAKING CHANGES
+
+* **mcp:** remove deprecated tool schemes
+* **mcp:** **Migration:** To migrate, simply modify the command used to invoke the MCP server. Currently, the only supported tool scheme is code mode. Now, starting the server with just `node /path/to/mcp/server` or `npx package-name` will invoke code tools: changing your command to one of these is likely all you will need to do.
+
+### Bug Fixes
+
+* **mcp:** pass base url to code tool ([2442bcb](https://github.com/plastic-labs/honcho-node-core/commit/2442bcbf0d188dfb71d3b01ffc3e8b639d94420b))
+
+
+### Chores
+
+* **mcp:** remove deprecated tool schemes ([0b85e67](https://github.com/plastic-labs/honcho-node-core/commit/0b85e67d8d1a978088cab37f212a3c4f5b96c254))
+
 ## 1.8.0 (2025-12-15)
 
 Full Changelog: [v1.7.0...v1.8.0](https://github.com/plastic-labs/honcho-node-core/compare/v1.7.0...v1.8.0)
