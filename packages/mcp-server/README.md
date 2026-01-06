@@ -41,7 +41,7 @@ For clients with a configuration JSON, it might look something like this:
 If you use Cursor, you can install the MCP server by using the button below. You will need to set your environment variables
 in Cursor's `mcp.json`, which can be found in Cursor Settings > Tools & MCP > New MCP Server.
 
-[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=@honcho-ai/mcp&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsIkBob25jaG8tYWkvbWNwIl0sImVudiI6eyJIT05DSE9fQVBJX0tFWSI6IlNldCB5b3VyIEhPTkNIT19BUElfS0VZIGhlcmUuIn19)
+[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=%40honcho-ai%2Fmcp&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsIkBob25jaG8tYWkvbWNwIl0sImVudiI6eyJIT05DSE9fQVBJX0tFWSI6IlNldCB5b3VyIEhPTkNIT19BUElfS0VZIGhlcmUuIn19)
 
 ### VS Code
 
@@ -56,7 +56,7 @@ If you use Claude Code, you can install the MCP server by running the command be
 environment variables in Claude Code's `.claude.json`, which can be found in your home directory.
 
 ```
-claude mcp add --transport stdio honcho_ai_core_api --env HONCHO_API_KEY="Your HONCHO_API_KEY here." -- npx -y @honcho-ai/mcp
+claude mcp add honcho_ai_mcp_api --env HONCHO_API_KEY="Your HONCHO_API_KEY here." -- npx -y @honcho-ai/mcp
 ```
 
 ## Code Mode
