@@ -333,12 +333,12 @@ export interface SessionCloneParams {
 export interface SessionGetContextParams {
   /**
    * Only used if `last_message` is provided. Whether to include the most derived
-   * observations in the representation
+   * conclusions in the representation
    */
   include_most_derived?: boolean;
 
   /**
-   * The most recent message, used to fetch semantically relevant observations
+   * The most recent message, used to fetch semantically relevant conclusions
    */
   last_message?: string | null;
 
@@ -349,10 +349,10 @@ export interface SessionGetContextParams {
   limit_to_session?: boolean;
 
   /**
-   * Only used if `last_message` is provided. The maximum number of observations to
+   * Only used if `last_message` is provided. The maximum number of conclusions to
    * include in the representation
    */
-  max_observations?: number | null;
+  max_conclusions?: number | null;
 
   /**
    * A peer to get context for. If given, response will attempt to include
@@ -371,13 +371,13 @@ export interface SessionGetContextParams {
 
   /**
    * Only used if `last_message` is provided. The maximum distance to search for
-   * semantically relevant observations
+   * semantically relevant conclusions
    */
   search_max_distance?: number | null;
 
   /**
    * Only used if `last_message` is provided. The number of semantic-search-retrieved
-   * observations to include in the representation
+   * conclusions to include in the representation
    */
   search_top_k?: number | null;
 

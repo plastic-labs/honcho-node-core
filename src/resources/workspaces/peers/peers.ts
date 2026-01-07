@@ -322,18 +322,18 @@ export interface PeerChatParams {
 
 export interface PeerGetContextParams {
   /**
-   * Whether to include the most derived observations in the representation
+   * Whether to include the most derived conclusions in the representation
    */
   include_most_derived?: boolean;
 
   /**
-   * Maximum number of observations to include in the representation
+   * Maximum number of conclusions to include in the representation
    */
-  max_observations?: number | null;
+  max_conclusions?: number | null;
 
   /**
    * Only used if `search_query` is provided. Maximum distance for semantically
-   * relevant observations
+   * relevant conclusions
    */
   search_max_distance?: number | null;
 
@@ -344,7 +344,7 @@ export interface PeerGetContextParams {
 
   /**
    * Only used if `search_query` is provided. Number of semantic-search-retrieved
-   * observations to include
+   * conclusions to include
    */
   search_top_k?: number | null;
 
@@ -366,19 +366,19 @@ export interface PeerGetOrCreateParams {
 export interface PeerGetRepresentationParams {
   /**
    * Only used if `search_query` is provided. Whether to include the most derived
-   * observations in the representation
+   * conclusions in the representation
    */
   include_most_derived?: boolean | null;
 
   /**
-   * Only used if `search_query` is provided. Maximum number of observations to
+   * Only used if `search_query` is provided. Maximum number of conclusions to
    * include in the representation
    */
-  max_observations?: number | null;
+  max_conclusions?: number | null;
 
   /**
    * Only used if `search_query` is provided. Maximum distance to search for
-   * semantically relevant observations
+   * semantically relevant conclusions
    */
   search_max_distance?: number | null;
 
@@ -389,7 +389,7 @@ export interface PeerGetRepresentationParams {
 
   /**
    * Only used if `search_query` is provided. Number of semantic-search-retrieved
-   * observations to include in the representation
+   * conclusions to include in the representation
    */
   search_top_k?: number | null;
 
