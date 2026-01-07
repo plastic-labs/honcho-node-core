@@ -130,7 +130,7 @@ describe('resource peers', () => {
         'peer_id',
         {
           include_most_derived: true,
-          max_observations: 1,
+          max_conclusions: 1,
           search_max_distance: 0,
           search_query: 'search_query',
           search_top_k: 1,
