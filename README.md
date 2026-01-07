@@ -226,7 +226,9 @@ const response = await client.workspaces.getOrCreate({ id: 'id' }).asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: workspace, response: raw } = await client.workspaces.getOrCreate({ id: 'id' }).withResponse();
+const { data: workspace, response: raw } = await client.workspaces
+  .getOrCreate({ id: 'id' })
+  .withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(workspace.id);
 ```

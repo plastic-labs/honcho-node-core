@@ -12,7 +12,12 @@ describe('resource observations', () => {
   test('create: only required params', async () => {
     const responsePromise = client.workspaces.observations.create('workspace_id', {
       observations: [
-        { content: 'x', observed_id: 'observed_id', observer_id: 'observer_id', session_id: 'session_id' },
+        {
+          content: 'x',
+          observed_id: 'observed_id',
+          observer_id: 'observer_id',
+          session_id: 'session_id',
+        },
       ],
     });
     const rawResponse = await responsePromise.asResponse();
@@ -27,7 +32,12 @@ describe('resource observations', () => {
   test('create: required and optional params', async () => {
     const response = await client.workspaces.observations.create('workspace_id', {
       observations: [
-        { content: 'x', observed_id: 'observed_id', observer_id: 'observer_id', session_id: 'session_id' },
+        {
+          content: 'x',
+          observed_id: 'observed_id',
+          observer_id: 'observer_id',
+          session_id: 'session_id',
+        },
       ],
     });
   });
@@ -55,7 +65,12 @@ describe('resource observations', () => {
     await expect(
       client.workspaces.observations.list(
         'workspace_id',
-        { page: 1, reverse: true, size: 1, filters: { foo: 'bar' } },
+        {
+          page: 1,
+          reverse: true,
+          size: 1,
+          filters: { foo: 'bar' },
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Honcho.NotFoundError);
