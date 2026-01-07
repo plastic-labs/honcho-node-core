@@ -342,7 +342,7 @@ export interface WorkspaceScheduleDreamParams {
   /**
    * Optional focus mode to bias the dream toward specific reasoning: 'deduction'
    * prioritizes logical inferences from explicit facts, 'induction' prioritizes
-   * pattern recognition across observations, 'knowledge_update' detects when facts
+   * pattern recognition across conclusions, 'knowledge_update' detects when facts
    * have changed over time
    */
   reasoning_focus?: 'deduction' | 'induction' | 'knowledge_update' | null;

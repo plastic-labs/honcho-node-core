@@ -131,7 +131,7 @@ describe('resource sessions', () => {
           include_most_derived: true,
           last_message: 'last_message',
           limit_to_session: true,
-          max_observations: 1,
+          max_conclusions: 1,
           peer_perspective: 'peer_perspective',
           peer_target: 'peer_target',
           search_max_distance: 0,
