@@ -42,7 +42,11 @@ describe('resource workspaces', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.workspaces.list(
-        { page: 1, size: 1, filters: { foo: 'bar' } },
+        {
+          page: 1,
+          size: 1,
+          filters: { foo: 'bar' },
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Honcho.NotFoundError);
@@ -89,7 +93,11 @@ describe('resource workspaces', () => {
     await expect(
       client.workspaces.deriverStatus(
         'workspace_id',
-        { observer_id: 'observer_id', sender_id: 'sender_id', session_id: 'session_id' },
+        {
+          observer_id: 'observer_id',
+          sender_id: 'sender_id',
+          session_id: 'session_id',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Honcho.NotFoundError);
@@ -113,7 +121,11 @@ describe('resource workspaces', () => {
         deriver: { custom_instructions: 'custom_instructions', enabled: true },
         dream: { enabled: true },
         peer_card: { create: true, use: true },
-        summary: { enabled: true, messages_per_long_summary: 20, messages_per_short_summary: 10 },
+        summary: {
+          enabled: true,
+          messages_per_long_summary: 20,
+          messages_per_short_summary: 10,
+        },
       },
       metadata: { foo: 'bar' },
     });

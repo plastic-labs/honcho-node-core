@@ -43,7 +43,11 @@ describe('resource sessions', () => {
     await expect(
       client.workspaces.sessions.list(
         'workspace_id',
-        { page: 1, size: 1, filters: { foo: 'bar' } },
+        {
+          page: 1,
+          size: 1,
+          filters: { foo: 'bar' },
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Honcho.NotFoundError);
@@ -158,7 +162,11 @@ describe('resource sessions', () => {
         deriver: { custom_instructions: 'custom_instructions', enabled: true },
         dream: { enabled: true },
         peer_card: { create: true, use: true },
-        summary: { enabled: true, messages_per_long_summary: 20, messages_per_short_summary: 10 },
+        summary: {
+          enabled: true,
+          messages_per_long_summary: 20,
+          messages_per_short_summary: 10,
+        },
       },
       metadata: { foo: 'bar' },
       peers: { foo: { observe_me: true, observe_others: true } },

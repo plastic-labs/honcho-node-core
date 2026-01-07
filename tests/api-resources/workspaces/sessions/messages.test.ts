@@ -105,7 +105,12 @@ describe('resource messages', () => {
       client.workspaces.sessions.messages.list(
         'workspace_id',
         'session_id',
-        { page: 1, reverse: true, size: 1, filters: { foo: 'bar' } },
+        {
+          page: 1,
+          reverse: true,
+          size: 1,
+          filters: { foo: 'bar' },
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Honcho.NotFoundError);
