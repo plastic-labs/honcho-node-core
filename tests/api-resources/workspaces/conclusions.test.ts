@@ -8,10 +8,10 @@ const client = new Honcho({
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
-describe('resource observations', () => {
+describe('resource conclusions', () => {
   test('create: only required params', async () => {
-    const responsePromise = client.workspaces.observations.create('workspace_id', {
-      observations: [
+    const responsePromise = client.workspaces.conclusions.create('workspace_id', {
+      conclusions: [
         {
           content: 'x',
           observed_id: 'observed_id',
@@ -30,8 +30,8 @@ describe('resource observations', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await client.workspaces.observations.create('workspace_id', {
-      observations: [
+    const response = await client.workspaces.conclusions.create('workspace_id', {
+      conclusions: [
         {
           content: 'x',
           observed_id: 'observed_id',
@@ -43,7 +43,7 @@ describe('resource observations', () => {
   });
 
   test('list', async () => {
-    const responsePromise = client.workspaces.observations.list('workspace_id');
+    const responsePromise = client.workspaces.conclusions.list('workspace_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -56,14 +56,14 @@ describe('resource observations', () => {
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.workspaces.observations.list('workspace_id', { path: '/_stainless_unknown_path' }),
+      client.workspaces.conclusions.list('workspace_id', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Honcho.NotFoundError);
   });
 
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.workspaces.observations.list(
+      client.workspaces.conclusions.list(
         'workspace_id',
         {
           page: 1,
@@ -77,7 +77,7 @@ describe('resource observations', () => {
   });
 
   test('delete', async () => {
-    const responsePromise = client.workspaces.observations.delete('workspace_id', 'observation_id');
+    const responsePromise = client.workspaces.conclusions.delete('workspace_id', 'conclusion_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -90,14 +90,14 @@ describe('resource observations', () => {
   test('delete: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.workspaces.observations.delete('workspace_id', 'observation_id', {
+      client.workspaces.conclusions.delete('workspace_id', 'conclusion_id', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(Honcho.NotFoundError);
   });
 
   test('query: only required params', async () => {
-    const responsePromise = client.workspaces.observations.query('workspace_id', { query: 'query' });
+    const responsePromise = client.workspaces.conclusions.query('workspace_id', { query: 'query' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -108,7 +108,7 @@ describe('resource observations', () => {
   });
 
   test('query: required and optional params', async () => {
-    const response = await client.workspaces.observations.query('workspace_id', {
+    const response = await client.workspaces.conclusions.query('workspace_id', {
       query: 'query',
       distance: 0,
       filters: { foo: 'bar' },

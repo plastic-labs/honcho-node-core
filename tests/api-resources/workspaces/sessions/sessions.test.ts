@@ -159,9 +159,9 @@ describe('resource sessions', () => {
     const response = await client.workspaces.sessions.getOrCreate('workspace_id', {
       id: 'id',
       configuration: {
-        deriver: { custom_instructions: 'custom_instructions', enabled: true },
         dream: { enabled: true },
         peer_card: { create: true, use: true },
+        reasoning: { custom_instructions: 'custom_instructions', enabled: true },
         summary: {
           enabled: true,
           messages_per_long_summary: 20,

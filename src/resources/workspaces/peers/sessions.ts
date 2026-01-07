@@ -9,7 +9,7 @@ import { type PageParams } from '../../../pagination';
 
 export class Sessions extends APIResource {
   /**
-   * Get All Sessions for a Peer
+   * Get all Sessions for a Peer, paginated with optional filters.
    */
   list(
     workspaceId: string,

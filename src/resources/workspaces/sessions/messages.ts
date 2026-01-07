@@ -16,14 +16,14 @@ export class Messages extends APIResource {
     body: MessageCreateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<MessageCreateResponse> {
-    return this._client.post(`/v2/workspaces/${workspaceId}/sessions/${sessionId}/messages/`, {
+    return this._client.post(`/v2/workspaces/${workspaceId}/sessions/${sessionId}/messages`, {
       body,
       ...options,
     });
   }
 
   /**
-   * Get a Message by ID
+   * Get a single message by ID from a Session.
    */
   retrieve(
     workspaceId: string,
@@ -38,7 +38,9 @@ export class Messages extends APIResource {
   }
 
   /**
-   * Update the metadata of a Message
+   * Update the metadata of a message.
+   *
+   * This will overwrite any existing metadata for the message.
    */
   update(
     workspaceId: string,
@@ -54,7 +56,7 @@ export class Messages extends APIResource {
   }
 
   /**
-   * Get all messages for a session
+   * Get all messages for a Session with optional filters. Results are paginated.
    */
   list(
     workspaceId: string,
@@ -148,15 +150,15 @@ export namespace MessageCreate {
    */
   export interface Configuration {
     /**
-     * Configuration for deriver functionality.
-     */
-    deriver?: WorkspacesAPI.DeriverConfiguration | null;
-
-    /**
-     * Configuration for peer card functionality. If deriver is disabled, peer cards
+     * Configuration for peer card functionality. If reasoning is disabled, peer cards
      * will also be disabled and these settings will be ignored.
      */
     peer_card?: WorkspacesAPI.PeerCardConfiguration | null;
+
+    /**
+     * Configuration for reasoning functionality.
+     */
+    reasoning?: WorkspacesAPI.ReasoningConfiguration | null;
   }
 }
 

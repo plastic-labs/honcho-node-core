@@ -4,7 +4,6 @@ import { APIResource } from '../../../resource';
 import { isRequestOptions } from '../../../core';
 import * as Core from '../../../core';
 import * as WorkspacesAPI from '../workspaces';
-import * as PeersAPI from '../peers/peers';
 import * as MessagesAPI from './messages';
 import {
   Message,
@@ -18,13 +17,12 @@ import {
   Messages,
   MessagesPage,
 } from './messages';
-import * as SessionsPeersAPI from './peers';
+import * as PeersAPI from './peers';
 import {
   PeerAddParams,
   PeerListParams,
   PeerRemoveParams,
   PeerSetConfigParams,
-  PeerSetConfigResponse,
   PeerSetParams,
   Peers,
   SessionPeerConfig,
@@ -33,10 +31,10 @@ import { Page, type PageParams } from '../../../pagination';
 
 export class Sessions extends APIResource {
   messages: MessagesAPI.Messages = new MessagesAPI.Messages(this._client);
-  peers: SessionsPeersAPI.Peers = new SessionsPeersAPI.Peers(this._client);
+  peers: PeersAPI.Peers = new PeersAPI.Peers(this._client);
 
   /**
-   * Update the metadata of a Session
+   * Update a Session's metadata and/or configuration.
    */
   update(
     workspaceId: string,
@@ -48,7 +46,7 @@ export class Sessions extends APIResource {
   }
 
   /**
-   * Get All Sessions in a Workspace
+   * Get all Sessions for a Workspace, paginated with optional filters.
    */
   list(
     workspaceId: string,
@@ -74,11 +72,11 @@ export class Sessions extends APIResource {
   }
 
   /**
-   * Delete a session and all associated data.
+   * Delete a Session and all associated messages.
    *
-   * The session is marked as inactive immediately and returns 202 Accepted. The
-   * actual deletion of all related data (messages, embeddings, documents, etc.)
-   * happens asynchronously via the queue with retry support.
+   * The Session is marked as inactive immediately and returns 202 Accepted. The
+   * actual deletion of all related data happens asynchronously via the queue with
+   * retry support.
    *
    * This action cannot be undone.
    */
@@ -87,32 +85,33 @@ export class Sessions extends APIResource {
   }
 
   /**
-   * Clone a session, optionally up to a specific message
+   * Clone a Session, optionally up to a specific message ID.
    */
   clone(
     workspaceId: string,
     sessionId: string,
-    query?: SessionCloneParams,
+    params?: SessionCloneParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Session>;
   clone(workspaceId: string, sessionId: string, options?: Core.RequestOptions): Core.APIPromise<Session>;
   clone(
     workspaceId: string,
     sessionId: string,
-    query: SessionCloneParams | Core.RequestOptions = {},
+    params: SessionCloneParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.APIPromise<Session> {
-    if (isRequestOptions(query)) {
-      return this.clone(workspaceId, sessionId, {}, query);
+    if (isRequestOptions(params)) {
+      return this.clone(workspaceId, sessionId, {}, params);
     }
-    return this._client.get(`/v2/workspaces/${workspaceId}/sessions/${sessionId}/clone`, {
-      query,
+    const { message_id } = params;
+    return this._client.post(`/v2/workspaces/${workspaceId}/sessions/${sessionId}/clone`, {
+      query: { message_id },
       ...options,
     });
   }
 
   /**
-   * Produce a context object from the session. The caller provides an optional token
+   * Produce a context object from the Session. The caller provides an optional token
    * limit which the entire context must fit into. If not provided, the context will
    * be exhaustive (within configured max tokens). To do this, we allocate 40% of the
    * token limit to the summary, and 60% to recent messages -- as many as can fit.
@@ -146,10 +145,10 @@ export class Sessions extends APIResource {
   }
 
   /**
-   * Get a specific session in a workspace.
+   * Get a Session by ID or create a new Session with the given ID.
    *
-   * If session_id is provided as a query parameter, it verifies the session is in
-   * the workspace. Otherwise, it uses the session_id from the JWT for verification.
+   * If Session ID is provided as a parameter, it verifies the Session is in the
+   * Workspace. Otherwise, it uses the session_id from the JWT for verification.
    */
   getOrCreate(
     workspaceId: string,
@@ -160,7 +159,8 @@ export class Sessions extends APIResource {
   }
 
   /**
-   * Search a Session
+   * Search a Session with optional filters. Use `limit` to control the number of
+   * results returned.
    */
   search(
     workspaceId: string,
@@ -175,7 +175,7 @@ export class Sessions extends APIResource {
   }
 
   /**
-   * Get available summaries for a session.
+   * Get available summaries for a Session.
    *
    * Returns both short and long summaries if available, including metadata like the
    * message ID they cover up to, creation timestamp, and token count.
@@ -213,21 +213,21 @@ export interface Session {
  */
 export interface SessionConfiguration {
   /**
-   * Configuration for deriver functionality.
-   */
-  deriver?: WorkspacesAPI.DeriverConfiguration | null;
-
-  /**
-   * Configuration for dream functionality. If deriver is disabled, dreams will also
-   * be disabled and these settings will be ignored.
+   * Configuration for dream functionality. If reasoning is disabled, dreams will
+   * also be disabled and these settings will be ignored.
    */
   dream?: WorkspacesAPI.DreamConfiguration | null;
 
   /**
-   * Configuration for peer card functionality. If deriver is disabled, peer cards
+   * Configuration for peer card functionality. If reasoning is disabled, peer cards
    * will also be disabled and these settings will be ignored.
    */
   peer_card?: WorkspacesAPI.PeerCardConfiguration | null;
+
+  /**
+   * Configuration for reasoning functionality.
+   */
+  reasoning?: WorkspacesAPI.ReasoningConfiguration | null;
 
   /**
    * Configuration for summary functionality.
@@ -277,25 +277,10 @@ export interface SessionGetContextResponse {
   peer_card?: Array<string> | null;
 
   /**
-   * A Representation is a traversable and diffable map of observations. At the base,
-   * we have a list of explicit observations, derived from a peer's messages.
-   *
-   * From there, deductive observations can be made by establishing logical
-   * relationships between explicit observations.
-   *
-   * In the future, we can add more levels of reasoning on top of these.
-   *
-   * All of a peer's observations are stored as documents in a collection. These
-   * documents can be queried in various ways to produce this Representation object.
-   *
-   * Additionally, a "working representation" is a version of this data structure
-   * representing the most recent observations within a single session.
-   *
-   * A representation can have a maximum number of observations, which is applied
-   * individually to each level of reasoning. If a maximum is set, observations are
-   * added and removed in FIFO order.
+   * A curated subset of a peer representation, if context is requested from a
+   * specific perspective
    */
-  peer_representation?: PeersAPI.Representation | null;
+  peer_representation?: string | null;
 
   /**
    * The summary if available
@@ -422,7 +407,7 @@ export interface SessionGetOrCreateParams {
 
   metadata?: { [key: string]: unknown } | null;
 
-  peers?: { [key: string]: SessionsPeersAPI.SessionPeerConfig } | null;
+  peers?: { [key: string]: PeersAPI.SessionPeerConfig } | null;
 }
 
 export interface SessionSearchParams {
@@ -481,7 +466,6 @@ export declare namespace Sessions {
   export {
     Peers as Peers,
     type SessionPeerConfig as SessionPeerConfig,
-    type PeerSetConfigResponse as PeerSetConfigResponse,
     type PeerListParams as PeerListParams,
     type PeerAddParams as PeerAddParams,
     type PeerRemoveParams as PeerRemoveParams,
