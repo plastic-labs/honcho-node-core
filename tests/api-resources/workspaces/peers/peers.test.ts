@@ -97,6 +97,7 @@ describe('resource peers', () => {
   test('chat: required and optional params', async () => {
     const response = await client.workspaces.peers.chat('workspace_id', 'peer_id', {
       query: 'x',
+      reasoning_level: 'minimal',
       session_id: 'session_id',
       stream: true,
       target: 'target',
@@ -159,6 +160,17 @@ describe('resource peers', () => {
     });
   });
 
+  test('getRepresentation', async () => {
+    const responsePromise = client.workspaces.peers.getRepresentation('workspace_id', 'peer_id', {});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
   test('search: only required params', async () => {
     const responsePromise = client.workspaces.peers.search('workspace_id', 'peer_id', { query: 'query' });
     const rawResponse = await responsePromise.asResponse();
@@ -196,16 +208,5 @@ describe('resource peers', () => {
       peer_card: ['string'],
       target: 'target',
     });
-  });
-
-  test('workingRepresentation', async () => {
-    const responsePromise = client.workspaces.peers.workingRepresentation('workspace_id', 'peer_id', {});
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
   });
 });

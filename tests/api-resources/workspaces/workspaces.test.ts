@@ -70,39 +70,6 @@ describe('resource workspaces', () => {
     ).rejects.toThrow(Honcho.NotFoundError);
   });
 
-  test('deriverStatus', async () => {
-    const responsePromise = client.workspaces.deriverStatus('workspace_id');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('deriverStatus: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.workspaces.deriverStatus('workspace_id', { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Honcho.NotFoundError);
-  });
-
-  test('deriverStatus: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.workspaces.deriverStatus(
-        'workspace_id',
-        {
-          observer_id: 'observer_id',
-          sender_id: 'sender_id',
-          session_id: 'session_id',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Honcho.NotFoundError);
-  });
-
   test('getOrCreate: only required params', async () => {
     const responsePromise = client.workspaces.getOrCreate({ id: 'id' });
     const rawResponse = await responsePromise.asResponse();
@@ -118,9 +85,9 @@ describe('resource workspaces', () => {
     const response = await client.workspaces.getOrCreate({
       id: 'id',
       configuration: {
-        deriver: { custom_instructions: 'custom_instructions', enabled: true },
         dream: { enabled: true },
         peer_card: { create: true, use: true },
+        reasoning: { custom_instructions: 'custom_instructions', enabled: true },
         summary: {
           enabled: true,
           messages_per_long_summary: 20,
@@ -128,6 +95,31 @@ describe('resource workspaces', () => {
         },
       },
       metadata: { foo: 'bar' },
+    });
+  });
+
+  test('scheduleDream: only required params', async () => {
+    const responsePromise = client.workspaces.scheduleDream('workspace_id', {
+      dream_type: 'consolidate',
+      observer: 'observer',
+      session_id: 'session_id',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('scheduleDream: required and optional params', async () => {
+    const response = await client.workspaces.scheduleDream('workspace_id', {
+      dream_type: 'consolidate',
+      observer: 'observer',
+      session_id: 'session_id',
+      observed: 'observed',
+      reasoning_focus: 'deduction',
     });
   });
 
@@ -147,28 +139,6 @@ describe('resource workspaces', () => {
       query: 'query',
       filters: { foo: 'bar' },
       limit: 1,
-    });
-  });
-
-  test('triggerDream: only required params', async () => {
-    const responsePromise = client.workspaces.triggerDream('workspace_id', {
-      dream_type: 'consolidate',
-      observer: 'observer',
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('triggerDream: required and optional params', async () => {
-    const response = await client.workspaces.triggerDream('workspace_id', {
-      dream_type: 'consolidate',
-      observer: 'observer',
-      observed: 'observed',
     });
   });
 });

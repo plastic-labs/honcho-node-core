@@ -13,7 +13,7 @@ export class Peers extends APIResource {
   sessions: SessionsAPI.Sessions = new SessionsAPI.Sessions(this._client);
 
   /**
-   * Update a Peer's name and/or metadata
+   * Update a Peer's metadata and/or configuration.
    */
   update(
     workspaceId: string,
@@ -25,7 +25,7 @@ export class Peers extends APIResource {
   }
 
   /**
-   * Get All Peers for a Workspace
+   * Get all Peers for a Workspace, paginated with optional filters.
    */
   list(
     workspaceId: string,
@@ -76,7 +76,9 @@ export class Peers extends APIResource {
   }
 
   /**
-   * Chat
+   * Query a Peer's representation using natural language. Performs agentic search
+   * and reasoning to comprehensively answer the query based on all latent knowledge
+   * gathered about the peer from their messages and conclusions.
    */
   chat(
     workspaceId: string,
@@ -90,10 +92,10 @@ export class Peers extends APIResource {
   /**
    * Get context for a peer, including their representation and peer card.
    *
-   * This endpoint returns the working representation and peer card for a peer. If a
-   * target is specified, returns the context for the target from the observer peer's
-   * perspective. If no target is specified, returns the peer's own context
-   * (self-observation).
+   * This endpoint returns a curated subset of the representation and peer card for a
+   * peer. If a target is specified, returns the context for the target from the
+   * observer peer's perspective. If no target is specified, returns the peer's own
+   * context (self-observation).
    *
    * This is useful for getting all the context needed about a peer without making
    * multiple API calls.
@@ -122,7 +124,7 @@ export class Peers extends APIResource {
   }
 
   /**
-   * Get a Peer by ID
+   * Get a Peer by ID or create a new Peer with the given ID.
    *
    * If peer_id is provided as a query parameter, it uses that (must match JWT
    * workspace_id). Otherwise, it uses the peer_id from the JWT.
@@ -136,7 +138,29 @@ export class Peers extends APIResource {
   }
 
   /**
-   * Search a Peer
+   * Get a curated subset of a Peer's Representation. A Representation is always a
+   * subset of the total knowledge about the Peer. The subset can be scoped and
+   * filtered in various ways.
+   *
+   * If a session_id is provided in the body, we get the Representation of the Peer
+   * scoped to that Session. If a target is provided, we get the Representation of
+   * the target from the perspective of the Peer. If no target is provided, we get
+   * the omniscient Honcho Representation of the Peer.
+   */
+  getRepresentation(
+    workspaceId: string,
+    peerId: string,
+    body: PeerGetRepresentationParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<PeerGetRepresentationResponse> {
+    return this._client.post(`/v2/workspaces/${workspaceId}/peers/${peerId}/representation`, {
+      body,
+      ...options,
+    });
+  }
+
+  /**
+   * Search a Peer's messages, optionally filtered by various criteria.
    */
   search(
     workspaceId: string,
@@ -162,26 +186,6 @@ export class Peers extends APIResource {
     const { target, ...body } = params;
     return this._client.put(`/v2/workspaces/${workspaceId}/peers/${peerId}/card`, {
       query: { target },
-      body,
-      ...options,
-    });
-  }
-
-  /**
-   * Get a peer's working representation for a session.
-   *
-   * If a session_id is provided in the body, we get the working representation of
-   * the peer in that session. If a target is provided, we get the representation of
-   * the target from the perspective of the peer. If no target is provided, we get
-   * the omniscient Honcho representation of the peer.
-   */
-  workingRepresentation(
-    workspaceId: string,
-    peerId: string,
-    body: PeerWorkingRepresentationParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<PeerWorkingRepresentationResponse> {
-    return this._client.post(`/v2/workspaces/${workspaceId}/peers/${peerId}/representation`, {
       body,
       ...options,
     });
@@ -233,79 +237,6 @@ export interface PeerCardResponse {
   peer_card?: Array<string> | null;
 }
 
-/**
- * A Representation is a traversable and diffable map of observations. At the base,
- * we have a list of explicit observations, derived from a peer's messages.
- *
- * From there, deductive observations can be made by establishing logical
- * relationships between explicit observations.
- *
- * In the future, we can add more levels of reasoning on top of these.
- *
- * All of a peer's observations are stored as documents in a collection. These
- * documents can be queried in various ways to produce this Representation object.
- *
- * Additionally, a "working representation" is a version of this data structure
- * representing the most recent observations within a single session.
- *
- * A representation can have a maximum number of observations, which is applied
- * individually to each level of reasoning. If a maximum is set, observations are
- * added and removed in FIFO order.
- */
-export interface Representation {
-  /**
-   * Conclusions that MUST be true given explicit facts and premises - strict logical
-   * necessities. Each deduction should have premises and a single conclusion.
-   */
-  deductive?: Array<Representation.Deductive>;
-
-  /**
-   * Facts LITERALLY stated by the user - direct quotes or clear paraphrases only, no
-   * interpretation or inference. Example: ['The user is 25 years old', 'The user has
-   * a dog']
-   */
-  explicit?: Array<Representation.Explicit>;
-}
-
-export namespace Representation {
-  /**
-   * Deductive observation with multiple premises and one conclusion, plus metadata.
-   */
-  export interface Deductive {
-    /**
-     * The deductive conclusion
-     */
-    conclusion: string;
-
-    created_at: string;
-
-    message_ids: Array<number>;
-
-    session_name: string;
-
-    /**
-     * Supporting premises or evidence for this conclusion
-     */
-    premises?: Array<string>;
-  }
-
-  /**
-   * Explicit observation with content and metadata.
-   */
-  export interface Explicit {
-    /**
-     * The explicit observation
-     */
-    content: string;
-
-    created_at: string;
-
-    message_ids: Array<number>;
-
-    session_name: string;
-  }
-}
-
 export interface SessionGet {
   filters?: { [key: string]: unknown } | null;
 }
@@ -334,30 +265,15 @@ export interface PeerGetContextResponse {
   peer_card?: Array<string> | null;
 
   /**
-   * A Representation is a traversable and diffable map of observations. At the base,
-   * we have a list of explicit observations, derived from a peer's messages.
-   *
-   * From there, deductive observations can be made by establishing logical
-   * relationships between explicit observations.
-   *
-   * In the future, we can add more levels of reasoning on top of these.
-   *
-   * All of a peer's observations are stored as documents in a collection. These
-   * documents can be queried in various ways to produce this Representation object.
-   *
-   * Additionally, a "working representation" is a version of this data structure
-   * representing the most recent observations within a single session.
-   *
-   * A representation can have a maximum number of observations, which is applied
-   * individually to each level of reasoning. If a maximum is set, observations are
-   * added and removed in FIFO order.
+   * A curated subset of the representation of the target peer from the observer's
+   * perspective
    */
-  representation?: Representation | null;
+  representation?: string | null;
 }
 
-export type PeerSearchResponse = Array<MessagesAPI.Message>;
+export type PeerGetRepresentationResponse = { [key: string]: unknown };
 
-export type PeerWorkingRepresentationResponse = { [key: string]: unknown };
+export type PeerSearchResponse = Array<MessagesAPI.Message>;
 
 export interface PeerUpdateParams {
   configuration?: { [key: string]: unknown } | null;
@@ -374,8 +290,8 @@ export interface PeerListParams extends PageParams {
 
 export interface PeerCardParams {
   /**
-   * The peer whose card to retrieve. If not provided, returns the observer's own
-   * card
+   * Optional target peer to retrieve a card for, from the observer's perspective. If
+   * not provided, returns the observer's own card
    */
   target?: string | null;
 }
@@ -385,6 +301,11 @@ export interface PeerChatParams {
    * Dialectic API Prompt
    */
   query: string;
+
+  /**
+   * Level of reasoning to apply: minimal, low, medium, high, or extra-high
+   */
+  reasoning_level?: 'minimal' | 'low' | 'medium' | 'high' | 'extra-high';
 
   /**
    * ID of the session to scope the representation to
@@ -428,8 +349,8 @@ export interface PeerGetContextParams {
   search_top_k?: number | null;
 
   /**
-   * The target peer to get context for. If not provided, returns the peer's own
-   * context (self-observation)
+   * Optional target peer to get context for, from the observer's perspective. If not
+   * provided, returns the observer's own context (self-observation)
    */
   target?: string | null;
 }
@@ -442,37 +363,7 @@ export interface PeerGetOrCreateParams {
   metadata?: { [key: string]: unknown } | null;
 }
 
-export interface PeerSearchParams {
-  /**
-   * Search query
-   */
-  query: string;
-
-  /**
-   * Filters to scope the search
-   */
-  filters?: { [key: string]: unknown } | null;
-
-  /**
-   * Number of results to return
-   */
-  limit?: number;
-}
-
-export interface PeerSetCardParams {
-  /**
-   * Body param: The peer card content to set
-   */
-  peer_card: Array<string>;
-
-  /**
-   * Query param: The peer whose card to set. If not provided, sets the observer's
-   * own card
-   */
-  target?: string | null;
-}
-
-export interface PeerWorkingRepresentationParams {
+export interface PeerGetRepresentationParams {
   /**
    * Only used if `search_query` is provided. Whether to include the most derived
    * observations in the representation
@@ -503,13 +394,43 @@ export interface PeerWorkingRepresentationParams {
   search_top_k?: number | null;
 
   /**
-   * Get the working representation within this session
+   * Optional session ID within which to scope the representation
    */
   session_id?: string | null;
 
   /**
    * Optional peer ID to get the representation for, from the perspective of this
    * peer
+   */
+  target?: string | null;
+}
+
+export interface PeerSearchParams {
+  /**
+   * Search query
+   */
+  query: string;
+
+  /**
+   * Filters to scope the search
+   */
+  filters?: { [key: string]: unknown } | null;
+
+  /**
+   * Number of results to return
+   */
+  limit?: number;
+}
+
+export interface PeerSetCardParams {
+  /**
+   * Body param: The peer card content to set
+   */
+  peer_card: Array<string>;
+
+  /**
+   * Query param: Optional target peer to set a card for, from the observer's
+   * perspective. If not provided, sets the observer's own card
    */
   target?: string | null;
 }
@@ -523,12 +444,11 @@ export declare namespace Peers {
     type PageSession as PageSession,
     type Peer as Peer,
     type PeerCardResponse as PeerCardResponse,
-    type Representation as Representation,
     type SessionGet as SessionGet,
     type PeerChatResponse as PeerChatResponse,
     type PeerGetContextResponse as PeerGetContextResponse,
+    type PeerGetRepresentationResponse as PeerGetRepresentationResponse,
     type PeerSearchResponse as PeerSearchResponse,
-    type PeerWorkingRepresentationResponse as PeerWorkingRepresentationResponse,
     PeersPage as PeersPage,
     type PeerUpdateParams as PeerUpdateParams,
     type PeerListParams as PeerListParams,
@@ -536,9 +456,9 @@ export declare namespace Peers {
     type PeerChatParams as PeerChatParams,
     type PeerGetContextParams as PeerGetContextParams,
     type PeerGetOrCreateParams as PeerGetOrCreateParams,
+    type PeerGetRepresentationParams as PeerGetRepresentationParams,
     type PeerSearchParams as PeerSearchParams,
     type PeerSetCardParams as PeerSetCardParams,
-    type PeerWorkingRepresentationParams as PeerWorkingRepresentationParams,
   };
 
   export { Sessions as Sessions, type SessionListParams as SessionListParams };

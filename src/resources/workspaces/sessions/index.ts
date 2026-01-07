@@ -15,7 +15,6 @@ export {
 export {
   Peers,
   type SessionPeerConfig,
-  type PeerSetConfigResponse,
   type PeerListParams,
   type PeerAddParams,
   type PeerRemoveParams,

@@ -3,25 +3,21 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as ObservationsAPI from './observations';
+import * as ConclusionsAPI from './conclusions';
 import {
-  Observation,
-  ObservationCreate,
-  ObservationCreateParams,
-  ObservationCreateResponse,
-  ObservationDeleteResponse,
-  ObservationGet,
-  ObservationListParams,
-  ObservationQuery,
-  ObservationQueryParams,
-  ObservationQueryResponse,
-  Observations,
-  ObservationsPage,
-  PageObservation,
-} from './observations';
+  Conclusion,
+  ConclusionCreateParams,
+  ConclusionCreateResponse,
+  ConclusionListParams,
+  ConclusionQueryParams,
+  ConclusionQueryResponse,
+  Conclusions,
+  ConclusionsPage,
+} from './conclusions';
+import * as QueueAPI from './queue';
+import { Queue, QueueGetStatusParams, QueueGetStatusResponse } from './queue';
 import * as WebhooksAPI from './webhooks';
 import {
-  WebhookDeleteResponse,
   WebhookEndpoint,
   WebhookEndpointsPage,
   WebhookGetOrCreateParams,
@@ -41,16 +37,15 @@ import {
   PeerGetContextParams,
   PeerGetContextResponse,
   PeerGetOrCreateParams,
+  PeerGetRepresentationParams,
+  PeerGetRepresentationResponse,
   PeerListParams,
   PeerSearchParams,
   PeerSearchResponse,
   PeerSetCardParams,
   PeerUpdateParams,
-  PeerWorkingRepresentationParams,
-  PeerWorkingRepresentationResponse,
   Peers,
   PeersPage,
-  Representation,
   SessionGet,
 } from './peers/peers';
 import * as MessagesAPI from './sessions/messages';
@@ -68,20 +63,21 @@ import {
   SessionSearchResponse,
   SessionSummariesResponse,
   SessionUpdateParams,
-  Sessions as SessionsAPISessions,
+  Sessions,
   SessionsPage,
   Summary,
 } from './sessions/sessions';
 import { Page, type PageParams } from '../../pagination';
 
 export class Workspaces extends APIResource {
-  observations: ObservationsAPI.Observations = new ObservationsAPI.Observations(this._client);
   peers: PeersAPI.Peers = new PeersAPI.Peers(this._client);
   sessions: SessionsAPI.Sessions = new SessionsAPI.Sessions(this._client);
   webhooks: WebhooksAPI.Webhooks = new WebhooksAPI.Webhooks(this._client);
+  queue: QueueAPI.Queue = new QueueAPI.Queue(this._client);
+  conclusions: ConclusionsAPI.Conclusions = new ConclusionsAPI.Conclusions(this._client);
 
   /**
-   * Update a Workspace
+   * Update Workspace metadata and/or configuration.
    */
   update(
     workspaceId: string,
@@ -92,7 +88,7 @@ export class Workspaces extends APIResource {
   }
 
   /**
-   * Get all Workspaces
+   * Get all Workspaces, paginated with optional filters.
    */
   list(
     params?: WorkspaceListParams,
@@ -116,31 +112,16 @@ export class Workspaces extends APIResource {
   }
 
   /**
-   * Delete a Workspace
+   * Delete a Workspace. This will permanently delete all sessions, peers, messages,
+   * and conclusions associated with the workspace.
+   *
+   * This action cannot be undone.
    */
-  delete(workspaceId: string, options?: Core.RequestOptions): Core.APIPromise<Workspace> {
-    return this._client.delete(`/v2/workspaces/${workspaceId}`, options);
-  }
-
-  /**
-   * Get the deriver processing status, optionally scoped to an observer, sender,
-   * and/or session
-   */
-  deriverStatus(
-    workspaceId: string,
-    query?: WorkspaceDeriverStatusParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<DeriverStatus>;
-  deriverStatus(workspaceId: string, options?: Core.RequestOptions): Core.APIPromise<DeriverStatus>;
-  deriverStatus(
-    workspaceId: string,
-    query: WorkspaceDeriverStatusParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<DeriverStatus> {
-    if (isRequestOptions(query)) {
-      return this.deriverStatus(workspaceId, {}, query);
-    }
-    return this._client.get(`/v2/workspaces/${workspaceId}/deriver/status`, { query, ...options });
+  delete(workspaceId: string, options?: Core.RequestOptions): Core.APIPromise<void> {
+    return this._client.delete(`/v2/workspaces/${workspaceId}`, {
+      ...options,
+      headers: { Accept: '*/*', ...options?.headers },
+    });
   }
 
   /**
@@ -154,7 +135,31 @@ export class Workspaces extends APIResource {
   }
 
   /**
-   * Search a Workspace
+   * Manually schedule a dream task for a specific collection.
+   *
+   * This endpoint bypasses all automatic dream conditions (document threshold,
+   * minimum hours between dreams) and schedules the dream task for a future
+   * execution.
+   *
+   * Currently this endpoint only supports scheduling immediate dreams. In the
+   * future, users may pass a cron-style expression to schedule dreams at specific
+   * times.
+   */
+  scheduleDream(
+    workspaceId: string,
+    body: WorkspaceScheduleDreamParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<void> {
+    return this._client.post(`/v2/workspaces/${workspaceId}/schedule_dream`, {
+      body,
+      ...options,
+      headers: { Accept: '*/*', ...options?.headers },
+    });
+  }
+
+  /**
+   * Search messages in a Workspace using optional filters. Use `limit` to control
+   * the number of results returned.
    */
   search(
     workspaceId: string,
@@ -163,102 +168,14 @@ export class Workspaces extends APIResource {
   ): Core.APIPromise<WorkspaceSearchResponse> {
     return this._client.post(`/v2/workspaces/${workspaceId}/search`, { body, ...options });
   }
-
-  /**
-   * Manually trigger a dream task immediately for a specific collection.
-   *
-   * This endpoint bypasses all automatic dream conditions (document threshold,
-   * minimum hours between dreams) and executes the dream task immediately without
-   * delay.
-   */
-  triggerDream(
-    workspaceId: string,
-    body: WorkspaceTriggerDreamParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<void> {
-    return this._client.post(`/v2/workspaces/${workspaceId}/trigger_dream`, {
-      body,
-      ...options,
-      headers: { Accept: '*/*', ...options?.headers },
-    });
-  }
 }
 
 export class WorkspacesPage extends Page<Workspace> {}
 
-export interface DeriverConfiguration {
-  /**
-   * TODO: currently unused. Custom instructions to use for the deriver on this
-   * workspace/session/message.
-   */
-  custom_instructions?: string | null;
-
-  /**
-   * Whether to enable deriver functionality.
-   */
-  enabled?: boolean | null;
-}
-
-export interface DeriverStatus {
-  /**
-   * Completed work units
-   */
-  completed_work_units: number;
-
-  /**
-   * Work units currently being processed
-   */
-  in_progress_work_units: number;
-
-  /**
-   * Work units waiting to be processed
-   */
-  pending_work_units: number;
-
-  /**
-   * Total work units
-   */
-  total_work_units: number;
-
-  /**
-   * Per-session status when not filtered by session
-   */
-  sessions?: { [key: string]: DeriverStatus.Sessions } | null;
-}
-
-export namespace DeriverStatus {
-  export interface Sessions {
-    /**
-     * Completed work units
-     */
-    completed_work_units: number;
-
-    /**
-     * Work units currently being processed
-     */
-    in_progress_work_units: number;
-
-    /**
-     * Work units waiting to be processed
-     */
-    pending_work_units: number;
-
-    /**
-     * Total work units
-     */
-    total_work_units: number;
-
-    /**
-     * Session ID if filtered by session
-     */
-    session_id?: string | null;
-  }
-}
-
 export interface DreamConfiguration {
   /**
-   * Whether to enable dream functionality. If deriver is disabled, dreams will also
-   * be disabled and this setting will be ignored.
+   * Whether to enable dream functionality. If reasoning is disabled, dreams will
+   * also be disabled and this setting will be ignored.
    */
   enabled?: boolean | null;
 }
@@ -287,9 +204,22 @@ export interface PeerCardConfiguration {
   create?: boolean | null;
 
   /**
-   * Whether to use peer card related to this peer during deriver process.
+   * Whether to use peer card related to this peer during reasoning process.
    */
   use?: boolean | null;
+}
+
+export interface ReasoningConfiguration {
+  /**
+   * TODO: currently unused. Custom instructions to use for the reasoning system on
+   * this workspace/session/message.
+   */
+  custom_instructions?: string | null;
+
+  /**
+   * Whether to enable reasoning functionality.
+   */
+  enabled?: boolean | null;
 }
 
 export interface SummaryConfiguration {
@@ -329,21 +259,21 @@ export interface Workspace {
  */
 export interface WorkspaceConfiguration {
   /**
-   * Configuration for deriver functionality.
-   */
-  deriver?: DeriverConfiguration | null;
-
-  /**
-   * Configuration for dream functionality. If deriver is disabled, dreams will also
-   * be disabled and these settings will be ignored.
+   * Configuration for dream functionality. If reasoning is disabled, dreams will
+   * also be disabled and these settings will be ignored.
    */
   dream?: DreamConfiguration | null;
 
   /**
-   * Configuration for peer card functionality. If deriver is disabled, peer cards
+   * Configuration for peer card functionality. If reasoning is disabled, peer cards
    * will also be disabled and these settings will be ignored.
    */
   peer_card?: PeerCardConfiguration | null;
+
+  /**
+   * Configuration for reasoning functionality.
+   */
+  reasoning?: ReasoningConfiguration | null;
 
   /**
    * Configuration for summary functionality.
@@ -374,23 +304,6 @@ export interface WorkspaceListParams extends PageParams {
   filters?: { [key: string]: unknown } | null;
 }
 
-export interface WorkspaceDeriverStatusParams {
-  /**
-   * Optional observer ID to filter by
-   */
-  observer_id?: string | null;
-
-  /**
-   * Optional sender ID to filter by
-   */
-  sender_id?: string | null;
-
-  /**
-   * Optional session ID to filter by
-   */
-  session_id?: string | null;
-}
-
 export interface WorkspaceGetOrCreateParams {
   id: string;
 
@@ -403,6 +316,36 @@ export interface WorkspaceGetOrCreateParams {
   configuration?: WorkspaceConfiguration;
 
   metadata?: { [key: string]: unknown };
+}
+
+export interface WorkspaceScheduleDreamParams {
+  /**
+   * Type of dream to schedule
+   */
+  dream_type: 'consolidate';
+
+  /**
+   * Observer peer name
+   */
+  observer: string;
+
+  /**
+   * Session ID to scope the dream to
+   */
+  session_id: string;
+
+  /**
+   * Observed peer name (defaults to observer if not specified)
+   */
+  observed?: string | null;
+
+  /**
+   * Optional focus mode to bias the dream toward specific reasoning: 'deduction'
+   * prioritizes logical inferences from explicit facts, 'induction' prioritizes
+   * pattern recognition across observations, 'knowledge_update' detects when facts
+   * have changed over time
+   */
+  reasoning_focus?: 'deduction' | 'induction' | 'knowledge_update' | null;
 }
 
 export interface WorkspaceSearchParams {
@@ -422,40 +365,23 @@ export interface WorkspaceSearchParams {
   limit?: number;
 }
 
-export interface WorkspaceTriggerDreamParams {
-  /**
-   * Type of dream to trigger
-   */
-  dream_type: 'consolidate' | 'agent';
-
-  /**
-   * Observer peer name
-   */
-  observer: string;
-
-  /**
-   * Observed peer name (defaults to observer if not specified)
-   */
-  observed?: string | null;
-}
-
 Workspaces.WorkspacesPage = WorkspacesPage;
-Workspaces.Observations = Observations;
-Workspaces.ObservationsPage = ObservationsPage;
 Workspaces.Peers = Peers;
 Workspaces.PeersPage = PeersPage;
-Workspaces.Sessions = SessionsAPISessions;
+Workspaces.Sessions = Sessions;
 Workspaces.SessionsPage = SessionsPage;
 Workspaces.Webhooks = Webhooks;
 Workspaces.WebhookEndpointsPage = WebhookEndpointsPage;
+Workspaces.Queue = Queue;
+Workspaces.Conclusions = Conclusions;
+Workspaces.ConclusionsPage = ConclusionsPage;
 
 export declare namespace Workspaces {
   export {
-    type DeriverConfiguration as DeriverConfiguration,
-    type DeriverStatus as DeriverStatus,
     type DreamConfiguration as DreamConfiguration,
     type MessageSearchOptions as MessageSearchOptions,
     type PeerCardConfiguration as PeerCardConfiguration,
+    type ReasoningConfiguration as ReasoningConfiguration,
     type SummaryConfiguration as SummaryConfiguration,
     type Workspace as Workspace,
     type WorkspaceConfiguration as WorkspaceConfiguration,
@@ -463,26 +389,9 @@ export declare namespace Workspaces {
     WorkspacesPage as WorkspacesPage,
     type WorkspaceUpdateParams as WorkspaceUpdateParams,
     type WorkspaceListParams as WorkspaceListParams,
-    type WorkspaceDeriverStatusParams as WorkspaceDeriverStatusParams,
     type WorkspaceGetOrCreateParams as WorkspaceGetOrCreateParams,
+    type WorkspaceScheduleDreamParams as WorkspaceScheduleDreamParams,
     type WorkspaceSearchParams as WorkspaceSearchParams,
-    type WorkspaceTriggerDreamParams as WorkspaceTriggerDreamParams,
-  };
-
-  export {
-    Observations as Observations,
-    type Observation as Observation,
-    type ObservationCreate as ObservationCreate,
-    type ObservationGet as ObservationGet,
-    type ObservationQuery as ObservationQuery,
-    type PageObservation as PageObservation,
-    type ObservationCreateResponse as ObservationCreateResponse,
-    type ObservationDeleteResponse as ObservationDeleteResponse,
-    type ObservationQueryResponse as ObservationQueryResponse,
-    ObservationsPage as ObservationsPage,
-    type ObservationCreateParams as ObservationCreateParams,
-    type ObservationListParams as ObservationListParams,
-    type ObservationQueryParams as ObservationQueryParams,
   };
 
   export {
@@ -491,12 +400,11 @@ export declare namespace Workspaces {
     type PageSession as PageSession,
     type Peer as Peer,
     type PeerCardResponse as PeerCardResponse,
-    type Representation as Representation,
     type SessionGet as SessionGet,
     type PeerChatResponse as PeerChatResponse,
     type PeerGetContextResponse as PeerGetContextResponse,
+    type PeerGetRepresentationResponse as PeerGetRepresentationResponse,
     type PeerSearchResponse as PeerSearchResponse,
-    type PeerWorkingRepresentationResponse as PeerWorkingRepresentationResponse,
     PeersPage as PeersPage,
     type PeerUpdateParams as PeerUpdateParams,
     type PeerListParams as PeerListParams,
@@ -504,13 +412,13 @@ export declare namespace Workspaces {
     type PeerChatParams as PeerChatParams,
     type PeerGetContextParams as PeerGetContextParams,
     type PeerGetOrCreateParams as PeerGetOrCreateParams,
+    type PeerGetRepresentationParams as PeerGetRepresentationParams,
     type PeerSearchParams as PeerSearchParams,
     type PeerSetCardParams as PeerSetCardParams,
-    type PeerWorkingRepresentationParams as PeerWorkingRepresentationParams,
   };
 
   export {
-    SessionsAPISessions as Sessions,
+    Sessions as Sessions,
     type Session as Session,
     type SessionConfiguration as SessionConfiguration,
     type Summary as Summary,
@@ -530,10 +438,26 @@ export declare namespace Workspaces {
   export {
     Webhooks as Webhooks,
     type WebhookEndpoint as WebhookEndpoint,
-    type WebhookDeleteResponse as WebhookDeleteResponse,
     type WebhookTestEmitResponse as WebhookTestEmitResponse,
     WebhookEndpointsPage as WebhookEndpointsPage,
     type WebhookListParams as WebhookListParams,
     type WebhookGetOrCreateParams as WebhookGetOrCreateParams,
+  };
+
+  export {
+    Queue as Queue,
+    type QueueGetStatusResponse as QueueGetStatusResponse,
+    type QueueGetStatusParams as QueueGetStatusParams,
+  };
+
+  export {
+    Conclusions as Conclusions,
+    type Conclusion as Conclusion,
+    type ConclusionCreateResponse as ConclusionCreateResponse,
+    type ConclusionQueryResponse as ConclusionQueryResponse,
+    ConclusionsPage as ConclusionsPage,
+    type ConclusionCreateParams as ConclusionCreateParams,
+    type ConclusionListParams as ConclusionListParams,
+    type ConclusionQueryParams as ConclusionQueryParams,
   };
 }
