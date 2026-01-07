@@ -271,7 +271,9 @@ export interface PeerGetContextResponse {
   representation?: string | null;
 }
 
-export type PeerGetRepresentationResponse = { [key: string]: unknown };
+export interface PeerGetRepresentationResponse {
+  representation: string;
+}
 
 export type PeerSearchResponse = Array<MessagesAPI.Message>;
 
