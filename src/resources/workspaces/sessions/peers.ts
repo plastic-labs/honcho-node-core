@@ -10,7 +10,7 @@ import { type PageParams } from '../../../pagination';
 
 export class Peers extends APIResource {
   /**
-   * Get peers from a session
+   * Get all Peers in a Session. Results are paginated.
    */
   list(
     workspaceId: string,
@@ -39,7 +39,8 @@ export class Peers extends APIResource {
   }
 
   /**
-   * Add peers to a session
+   * Add Peers to a Session. If a Peer does not yet exist, it will be created
+   * automatically.
    */
   add(
     workspaceId: string,
@@ -54,7 +55,7 @@ export class Peers extends APIResource {
   }
 
   /**
-   * Get the configuration for a peer in a session
+   * Get the configuration for a Peer in a Session.
    */
   getConfig(
     workspaceId: string,
@@ -69,7 +70,7 @@ export class Peers extends APIResource {
   }
 
   /**
-   * Remove peers from a session
+   * Remove Peers by ID from a Session.
    */
   remove(
     workspaceId: string,
@@ -84,7 +85,10 @@ export class Peers extends APIResource {
   }
 
   /**
-   * Set the peers in a session
+   * Set the Peers in a Session. If a Peer does not yet exist, it will be created
+   * automatically.
+   *
+   * This will fully replace the current set of Peers in the Session.
    */
   set(
     workspaceId: string,
@@ -99,7 +103,7 @@ export class Peers extends APIResource {
   }
 
   /**
-   * Set the configuration for a peer in a session
+   * Set the configuration for a Peer in a Session.
    */
   setConfig(
     workspaceId: string,
@@ -107,17 +111,18 @@ export class Peers extends APIResource {
     peerId: string,
     body: PeerSetConfigParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<unknown> {
-    return this._client.post(`/v2/workspaces/${workspaceId}/sessions/${sessionId}/peers/${peerId}/config`, {
+  ): Core.APIPromise<void> {
+    return this._client.put(`/v2/workspaces/${workspaceId}/sessions/${sessionId}/peers/${peerId}/config`, {
       body,
       ...options,
+      headers: { Accept: '*/*', ...options?.headers },
     });
   }
 }
 
 export interface SessionPeerConfig {
   /**
-   * Whether honcho should form a global theory-of-mind representation of this peer
+   * Whether Honcho will use reasoning to form a representation of this peer
    */
   observe_me?: boolean | null;
 
@@ -127,8 +132,6 @@ export interface SessionPeerConfig {
    */
   observe_others?: boolean | null;
 }
-
-export type PeerSetConfigResponse = unknown;
 
 export interface PeerListParams extends PageParams {}
 
@@ -140,7 +143,7 @@ export type PeerSetParams = { [key: string]: SessionPeerConfig };
 
 export interface PeerSetConfigParams {
   /**
-   * Whether honcho should form a global theory-of-mind representation of this peer
+   * Whether Honcho will use reasoning to form a representation of this peer
    */
   observe_me?: boolean | null;
 
@@ -154,7 +157,6 @@ export interface PeerSetConfigParams {
 export declare namespace Peers {
   export {
     type SessionPeerConfig as SessionPeerConfig,
-    type PeerSetConfigResponse as PeerSetConfigResponse,
     type PeerListParams as PeerListParams,
     type PeerAddParams as PeerAddParams,
     type PeerRemoveParams as PeerRemoveParams,

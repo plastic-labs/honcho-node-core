@@ -35,8 +35,11 @@ export class Webhooks extends APIResource {
   /**
    * Delete a specific webhook endpoint.
    */
-  delete(workspaceId: string, endpointId: string, options?: Core.RequestOptions): Core.APIPromise<unknown> {
-    return this._client.delete(`/v2/workspaces/${workspaceId}/webhooks/${endpointId}`, options);
+  delete(workspaceId: string, endpointId: string, options?: Core.RequestOptions): Core.APIPromise<void> {
+    return this._client.delete(`/v2/workspaces/${workspaceId}/webhooks/${endpointId}`, {
+      ...options,
+      headers: { Accept: '*/*', ...options?.headers },
+    });
   }
 
   /**
@@ -70,8 +73,6 @@ export interface WebhookEndpoint {
   workspace_id: string | null;
 }
 
-export type WebhookDeleteResponse = unknown;
-
 export type WebhookTestEmitResponse = unknown;
 
 export interface WebhookListParams extends PageParams {}
@@ -85,7 +86,6 @@ Webhooks.WebhookEndpointsPage = WebhookEndpointsPage;
 export declare namespace Webhooks {
   export {
     type WebhookEndpoint as WebhookEndpoint,
-    type WebhookDeleteResponse as WebhookDeleteResponse,
     type WebhookTestEmitResponse as WebhookTestEmitResponse,
     WebhookEndpointsPage as WebhookEndpointsPage,
     type WebhookListParams as WebhookListParams,
