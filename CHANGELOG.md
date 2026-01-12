@@ -1,5 +1,45 @@
 # Changelog
 
+## 2.0.0 (2026-01-12)
+
+Full Changelog: [v1.8.0...v2.0.0](https://github.com/plastic-labs/honcho-node-core/compare/v1.8.0...v2.0.0)
+
+### ⚠ BREAKING CHANGES
+
+* **mcp:** remove deprecated tool schemes
+* **mcp:** **Migration:** To migrate, simply modify the command used to invoke the MCP server. Currently, the only supported tool scheme is code mode. Now, starting the server with just `node /path/to/mcp/server` or `npx package-name` will invoke code tools: changing your command to one of these is likely all you will need to do.
+
+### Features
+
+* **api:** add PeerGetRepresentationResponse ([8cc64d7](https://github.com/plastic-labs/honcho-node-core/commit/8cc64d7a5f2b5560939f769e2f68925e11fa25b9))
+* **api:** honcho 2.6.0 interface ([0a8bff5](https://github.com/plastic-labs/honcho-node-core/commit/0a8bff5419c949180d39e9bc9d5d8750867d2240))
+* **api:** manual updates ([7cd684c](https://github.com/plastic-labs/honcho-node-core/commit/7cd684ce61594b777aa9e6bdf9d7831a2af229ab))
+* **api:** manual updates ([dc4ac0f](https://github.com/plastic-labs/honcho-node-core/commit/dc4ac0ffd48642608da2f99f306f77f7ee5a9d1d))
+* **api:** manual updates -- `consolidate` dream_type to `omni` ([844cbb4](https://github.com/plastic-labs/honcho-node-core/commit/844cbb4ce01babf84633b2e9bc850c93b11a2f29))
+* **api:** remove last 'observation' references ([eb114aa](https://github.com/plastic-labs/honcho-node-core/commit/eb114aa91328fa9cbc81a38b629a47cfe8f7e9fb))
+
+
+### Bug Fixes
+
+* **mcp:** correct code tool api output types ([c7987b7](https://github.com/plastic-labs/honcho-node-core/commit/c7987b7cab57067524da636b85d1363e94b50395))
+* **mcp:** fix options parsing ([d80be1d](https://github.com/plastic-labs/honcho-node-core/commit/d80be1db7ce82cfbd290e95659c43ce83311c0e6))
+* **mcp:** pass base url to code tool ([2442bcb](https://github.com/plastic-labs/honcho-node-core/commit/2442bcbf0d188dfb71d3b01ffc3e8b639d94420b))
+* **mcp:** update code tool prompt ([79288fa](https://github.com/plastic-labs/honcho-node-core/commit/79288fa69be7a18c7017d1a2ce7ba27ba96b8b83))
+
+
+### Chores
+
+* break long lines in snippets into multiline ([5f1245b](https://github.com/plastic-labs/honcho-node-core/commit/5f1245b78d474a1e8f6f7e31a2ce934cc26458ce))
+* **internal:** codegen related update ([8e00aef](https://github.com/plastic-labs/honcho-node-core/commit/8e00aeff9dd7fff301f037664f32c16ace55943c))
+* **internal:** codegen related update ([d1f5880](https://github.com/plastic-labs/honcho-node-core/commit/d1f5880757921a677b7c6f9966964ccf92b178dc))
+* **internal:** codegen related update ([732d07d](https://github.com/plastic-labs/honcho-node-core/commit/732d07dd64b51b498f0601cad9ed67e991e90586))
+* **mcp:** remove deprecated tool schemes ([0b85e67](https://github.com/plastic-labs/honcho-node-core/commit/0b85e67d8d1a978088cab37f212a3c4f5b96c254))
+
+
+### Documentation
+
+* prominently feature MCP server setup in root SDK readmes ([d6fcd0d](https://github.com/plastic-labs/honcho-node-core/commit/d6fcd0d635b032675ceb2c2dfc7f6d88aadabb12))
+
 ## 1.8.0 (2025-12-15)
 
 Full Changelog: [v1.7.0...v1.8.0](https://github.com/plastic-labs/honcho-node-core/compare/v1.7.0...v1.8.0)
