@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.1.0 (2026-01-12)
+
+Full Changelog: [v2.0.0...v2.1.0](https://github.com/plastic-labs/honcho-node-core/compare/v2.0.0...v2.1.0)
+
+### Features
+
+* **api:** manual updates ([8829460](https://github.com/plastic-labs/honcho-node-core/commit/88294601b09d78160829423ff62474cf761732c5))
+
 ## 2.0.0 (2026-01-12)
 
 Full Changelog: [v1.8.0...v2.0.0](https://github.com/plastic-labs/honcho-node-core/compare/v1.8.0...v2.0.0)
