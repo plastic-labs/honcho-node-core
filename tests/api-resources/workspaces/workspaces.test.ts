@@ -100,7 +100,7 @@ describe('resource workspaces', () => {
 
   test('scheduleDream: only required params', async () => {
     const responsePromise = client.workspaces.scheduleDream('workspace_id', {
-      dream_type: 'consolidate',
+      dream_type: 'omni',
       observer: 'observer',
       session_id: 'session_id',
     });
@@ -115,11 +115,10 @@ describe('resource workspaces', () => {
 
   test('scheduleDream: required and optional params', async () => {
     const response = await client.workspaces.scheduleDream('workspace_id', {
-      dream_type: 'consolidate',
+      dream_type: 'omni',
       observer: 'observer',
       session_id: 'session_id',
       observed: 'observed',
-      reasoning_focus: 'deduction',
     });
   });
 
