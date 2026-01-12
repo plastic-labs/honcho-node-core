@@ -150,12 +150,6 @@ export namespace MessageCreate {
    */
   export interface Configuration {
     /**
-     * Configuration for peer card functionality. If reasoning is disabled, peer cards
-     * will also be disabled and these settings will be ignored.
-     */
-    peer_card?: WorkspacesAPI.PeerCardConfiguration | null;
-
-    /**
      * Configuration for reasoning functionality.
      */
     reasoning?: WorkspacesAPI.ReasoningConfiguration | null;
