@@ -28,10 +28,7 @@ describe('resource messages', () => {
         {
           content: 'content',
           peer_id: 'peer_id',
-          configuration: {
-            peer_card: { create: true, use: true },
-            reasoning: { custom_instructions: 'custom_instructions', enabled: true },
-          },
+          configuration: { reasoning: { custom_instructions: 'custom_instructions', enabled: true } },
           created_at: '2019-12-27T18:11:19.117Z',
           metadata: { foo: 'bar' },
         },
