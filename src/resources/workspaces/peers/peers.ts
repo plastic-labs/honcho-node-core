@@ -324,9 +324,9 @@ export interface PeerChatParams {
 
 export interface PeerGetContextParams {
   /**
-   * Whether to include the most derived conclusions in the representation
+   * Whether to include the most frequent conclusions in the representation
    */
-  include_most_derived?: boolean;
+  include_most_frequent?: boolean;
 
   /**
    * Maximum number of conclusions to include in the representation
@@ -367,10 +367,10 @@ export interface PeerGetOrCreateParams {
 
 export interface PeerGetRepresentationParams {
   /**
-   * Only used if `search_query` is provided. Whether to include the most derived
+   * Only used if `search_query` is provided. Whether to include the most frequent
    * conclusions in the representation
    */
-  include_most_derived?: boolean | null;
+  include_most_frequent?: boolean | null;
 
   /**
    * Only used if `search_query` is provided. Maximum number of conclusions to

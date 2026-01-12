@@ -332,10 +332,10 @@ export interface SessionCloneParams {
 
 export interface SessionGetContextParams {
   /**
-   * Only used if `last_message` is provided. Whether to include the most derived
+   * Only used if `last_message` is provided. Whether to include the most frequent
    * conclusions in the representation
    */
-  include_most_derived?: boolean;
+  include_most_frequent?: boolean;
 
   /**
    * The most recent message, used to fetch semantically relevant conclusions
