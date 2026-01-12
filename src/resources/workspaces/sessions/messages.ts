@@ -23,21 +23,6 @@ export class Messages extends APIResource {
   }
 
   /**
-   * Get a single message by ID from a Session.
-   */
-  retrieve(
-    workspaceId: string,
-    sessionId: string,
-    messageId: string,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Message> {
-    return this._client.get(
-      `/v2/workspaces/${workspaceId}/sessions/${sessionId}/messages/${messageId}`,
-      options,
-    );
-  }
-
-  /**
    * Update the metadata of a message.
    *
    * This will overwrite any existing metadata for the message.
@@ -83,6 +68,21 @@ export class Messages extends APIResource {
       `/v2/workspaces/${workspaceId}/sessions/${sessionId}/messages/list`,
       MessagesPage,
       { query: { page, reverse, size }, body, method: 'post', ...options },
+    );
+  }
+
+  /**
+   * Get a single message by ID from a Session.
+   */
+  get(
+    workspaceId: string,
+    sessionId: string,
+    messageId: string,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Message> {
+    return this._client.get(
+      `/v2/workspaces/${workspaceId}/sessions/${sessionId}/messages/${messageId}`,
+      options,
     );
   }
 

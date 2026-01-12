@@ -9,19 +9,19 @@ export class Queue extends APIResource {
    * Get the processing queue status for a Workspace, optionally scoped to an
    * observer, sender, and/or session.
    */
-  getStatus(
+  status(
     workspaceId: string,
-    query?: QueueGetStatusParams,
+    query?: QueueStatusParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<QueueGetStatusResponse>;
-  getStatus(workspaceId: string, options?: Core.RequestOptions): Core.APIPromise<QueueGetStatusResponse>;
-  getStatus(
+  ): Core.APIPromise<QueueStatusResponse>;
+  status(workspaceId: string, options?: Core.RequestOptions): Core.APIPromise<QueueStatusResponse>;
+  status(
     workspaceId: string,
-    query: QueueGetStatusParams | Core.RequestOptions = {},
+    query: QueueStatusParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<QueueGetStatusResponse> {
+  ): Core.APIPromise<QueueStatusResponse> {
     if (isRequestOptions(query)) {
-      return this.getStatus(workspaceId, {}, query);
+      return this.status(workspaceId, {}, query);
     }
     return this._client.get(`/v2/workspaces/${workspaceId}/queue/status`, { query, ...options });
   }
@@ -30,7 +30,7 @@ export class Queue extends APIResource {
 /**
  * Aggregated processing queue status.
  */
-export interface QueueGetStatusResponse {
+export interface QueueStatusResponse {
   /**
    * Completed work units
    */
@@ -54,10 +54,10 @@ export interface QueueGetStatusResponse {
   /**
    * Per-session status when not filtered by session
    */
-  sessions?: { [key: string]: QueueGetStatusResponse.Sessions } | null;
+  sessions?: { [key: string]: QueueStatusResponse.Sessions } | null;
 }
 
-export namespace QueueGetStatusResponse {
+export namespace QueueStatusResponse {
   /**
    * Status for a specific session within the processing queue.
    */
@@ -89,7 +89,7 @@ export namespace QueueGetStatusResponse {
   }
 }
 
-export interface QueueGetStatusParams {
+export interface QueueStatusParams {
   /**
    * Optional observer ID to filter by
    */
@@ -107,8 +107,5 @@ export interface QueueGetStatusParams {
 }
 
 export declare namespace Queue {
-  export {
-    type QueueGetStatusResponse as QueueGetStatusResponse,
-    type QueueGetStatusParams as QueueGetStatusParams,
-  };
+  export { type QueueStatusResponse as QueueStatusResponse, type QueueStatusParams as QueueStatusParams };
 }

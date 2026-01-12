@@ -9,8 +9,8 @@ const client = new Honcho({
 });
 
 describe('resource queue', () => {
-  test('getStatus', async () => {
-    const responsePromise = client.workspaces.queue.getStatus('workspace_id');
+  test('status', async () => {
+    const responsePromise = client.workspaces.queue.status('workspace_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -20,17 +20,17 @@ describe('resource queue', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('getStatus: request options instead of params are passed correctly', async () => {
+  test('status: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.workspaces.queue.getStatus('workspace_id', { path: '/_stainless_unknown_path' }),
+      client.workspaces.queue.status('workspace_id', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Honcho.NotFoundError);
   });
 
-  test('getStatus: request options and params are passed correctly', async () => {
+  test('status: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.workspaces.queue.getStatus(
+      client.workspaces.queue.status(
         'workspace_id',
         {
           observer_id: 'observer_id',

@@ -15,7 +15,7 @@ import {
   ConclusionsPage,
 } from './conclusions';
 import * as QueueAPI from './queue';
-import { Queue, QueueGetStatusParams, QueueGetStatusResponse } from './queue';
+import { Queue, QueueStatusParams, QueueStatusResponse } from './queue';
 import * as WebhooksAPI from './webhooks';
 import {
   WebhookEndpoint,
@@ -34,12 +34,12 @@ import {
   PeerCardResponse,
   PeerChatParams,
   PeerChatResponse,
-  PeerGetContextParams,
-  PeerGetContextResponse,
+  PeerContextParams,
+  PeerContextResponse,
   PeerGetOrCreateParams,
-  PeerGetRepresentationParams,
-  PeerGetRepresentationResponse,
   PeerListParams,
+  PeerRepresentationParams,
+  PeerRepresentationResponse,
   PeerSearchParams,
   PeerSearchResponse,
   PeerSetCardParams,
@@ -54,9 +54,9 @@ import {
   Session,
   SessionCloneParams,
   SessionConfiguration,
+  SessionContextParams,
+  SessionContextResponse,
   SessionDeleteResponse,
-  SessionGetContextParams,
-  SessionGetContextResponse,
   SessionGetOrCreateParams,
   SessionListParams,
   SessionSearchParams,
@@ -394,17 +394,17 @@ export declare namespace Workspaces {
     type PeerCardResponse as PeerCardResponse,
     type SessionGet as SessionGet,
     type PeerChatResponse as PeerChatResponse,
-    type PeerGetContextResponse as PeerGetContextResponse,
-    type PeerGetRepresentationResponse as PeerGetRepresentationResponse,
+    type PeerContextResponse as PeerContextResponse,
+    type PeerRepresentationResponse as PeerRepresentationResponse,
     type PeerSearchResponse as PeerSearchResponse,
     PeersPage as PeersPage,
     type PeerUpdateParams as PeerUpdateParams,
     type PeerListParams as PeerListParams,
     type PeerCardParams as PeerCardParams,
     type PeerChatParams as PeerChatParams,
-    type PeerGetContextParams as PeerGetContextParams,
+    type PeerContextParams as PeerContextParams,
     type PeerGetOrCreateParams as PeerGetOrCreateParams,
-    type PeerGetRepresentationParams as PeerGetRepresentationParams,
+    type PeerRepresentationParams as PeerRepresentationParams,
     type PeerSearchParams as PeerSearchParams,
     type PeerSetCardParams as PeerSetCardParams,
   };
@@ -415,14 +415,14 @@ export declare namespace Workspaces {
     type SessionConfiguration as SessionConfiguration,
     type Summary as Summary,
     type SessionDeleteResponse as SessionDeleteResponse,
-    type SessionGetContextResponse as SessionGetContextResponse,
+    type SessionContextResponse as SessionContextResponse,
     type SessionSearchResponse as SessionSearchResponse,
     type SessionSummariesResponse as SessionSummariesResponse,
     SessionsPage as SessionsPage,
     type SessionUpdateParams as SessionUpdateParams,
     type SessionListParams as SessionListParams,
     type SessionCloneParams as SessionCloneParams,
-    type SessionGetContextParams as SessionGetContextParams,
+    type SessionContextParams as SessionContextParams,
     type SessionGetOrCreateParams as SessionGetOrCreateParams,
     type SessionSearchParams as SessionSearchParams,
   };
@@ -438,8 +438,8 @@ export declare namespace Workspaces {
 
   export {
     Queue as Queue,
-    type QueueGetStatusResponse as QueueGetStatusResponse,
-    type QueueGetStatusParams as QueueGetStatusParams,
+    type QueueStatusResponse as QueueStatusResponse,
+    type QueueStatusParams as QueueStatusParams,
   };
 
   export {

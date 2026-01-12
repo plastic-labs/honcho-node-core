@@ -58,12 +58,8 @@ describe('resource peers', () => {
     });
   });
 
-  test('getConfig', async () => {
-    const responsePromise = client.workspaces.sessions.peers.getConfig(
-      'workspace_id',
-      'session_id',
-      'peer_id',
-    );
+  test('config', async () => {
+    const responsePromise = client.workspaces.sessions.peers.config('workspace_id', 'session_id', 'peer_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -73,10 +69,10 @@ describe('resource peers', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('getConfig: request options instead of params are passed correctly', async () => {
+  test('config: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.workspaces.sessions.peers.getConfig('workspace_id', 'session_id', 'peer_id', {
+      client.workspaces.sessions.peers.config('workspace_id', 'session_id', 'peer_id', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(Honcho.NotFoundError);

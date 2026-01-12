@@ -7,7 +7,6 @@ import * as Pagination from './pagination';
 import { type PageParams, PageResponse } from './pagination';
 import * as Uploads from './uploads';
 import * as API from './resources/index';
-import { KeyCreateParams, KeyCreateResponse, Keys } from './resources/keys';
 import {
   DreamConfiguration,
   MessageSearchOptions,
@@ -160,7 +159,6 @@ export class Honcho extends Core.APIClient {
   }
 
   workspaces: API.Workspaces = new API.Workspaces(this);
-  keys: API.Keys = new API.Keys(this);
 
   /**
    * Check whether the base URL is set to its default.
@@ -210,7 +208,6 @@ export class Honcho extends Core.APIClient {
 
 Honcho.Workspaces = Workspaces;
 Honcho.WorkspacesPage = WorkspacesPage;
-Honcho.Keys = Keys;
 
 export declare namespace Honcho {
   export type RequestOptions = Core.RequestOptions;
@@ -234,12 +231,6 @@ export declare namespace Honcho {
     type WorkspaceGetOrCreateParams as WorkspaceGetOrCreateParams,
     type WorkspaceScheduleDreamParams as WorkspaceScheduleDreamParams,
     type WorkspaceSearchParams as WorkspaceSearchParams,
-  };
-
-  export {
-    Keys as Keys,
-    type KeyCreateResponse as KeyCreateResponse,
-    type KeyCreateParams as KeyCreateParams,
   };
 }
 
