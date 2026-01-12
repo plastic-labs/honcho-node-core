@@ -100,25 +100,25 @@ export class Peers extends APIResource {
    * This is useful for getting all the context needed about a peer without making
    * multiple API calls.
    */
-  getContext(
+  context(
     workspaceId: string,
     peerId: string,
-    query?: PeerGetContextParams,
+    query?: PeerContextParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<PeerGetContextResponse>;
-  getContext(
+  ): Core.APIPromise<PeerContextResponse>;
+  context(
     workspaceId: string,
     peerId: string,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<PeerGetContextResponse>;
-  getContext(
+  ): Core.APIPromise<PeerContextResponse>;
+  context(
     workspaceId: string,
     peerId: string,
-    query: PeerGetContextParams | Core.RequestOptions = {},
+    query: PeerContextParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<PeerGetContextResponse> {
+  ): Core.APIPromise<PeerContextResponse> {
     if (isRequestOptions(query)) {
-      return this.getContext(workspaceId, peerId, {}, query);
+      return this.context(workspaceId, peerId, {}, query);
     }
     return this._client.get(`/v2/workspaces/${workspaceId}/peers/${peerId}/context`, { query, ...options });
   }
@@ -147,12 +147,12 @@ export class Peers extends APIResource {
    * the target from the perspective of the Peer. If no target is provided, we get
    * the omniscient Honcho Representation of the Peer.
    */
-  getRepresentation(
+  representation(
     workspaceId: string,
     peerId: string,
-    body: PeerGetRepresentationParams,
+    body: PeerRepresentationParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<PeerGetRepresentationResponse> {
+  ): Core.APIPromise<PeerRepresentationResponse> {
     return this._client.post(`/v2/workspaces/${workspaceId}/peers/${peerId}/representation`, {
       body,
       ...options,
@@ -248,7 +248,7 @@ export interface PeerChatResponse {
 /**
  * Context for a peer, including representation and peer card.
  */
-export interface PeerGetContextResponse {
+export interface PeerContextResponse {
   /**
    * The ID of the peer
    */
@@ -271,7 +271,7 @@ export interface PeerGetContextResponse {
   representation?: string | null;
 }
 
-export interface PeerGetRepresentationResponse {
+export interface PeerRepresentationResponse {
   representation: string;
 }
 
@@ -322,7 +322,7 @@ export interface PeerChatParams {
   target?: string | null;
 }
 
-export interface PeerGetContextParams {
+export interface PeerContextParams {
   /**
    * Whether to include the most frequent conclusions in the representation
    */
@@ -365,7 +365,7 @@ export interface PeerGetOrCreateParams {
   metadata?: { [key: string]: unknown } | null;
 }
 
-export interface PeerGetRepresentationParams {
+export interface PeerRepresentationParams {
   /**
    * Only used if `search_query` is provided. Whether to include the most frequent
    * conclusions in the representation
@@ -448,17 +448,17 @@ export declare namespace Peers {
     type PeerCardResponse as PeerCardResponse,
     type SessionGet as SessionGet,
     type PeerChatResponse as PeerChatResponse,
-    type PeerGetContextResponse as PeerGetContextResponse,
-    type PeerGetRepresentationResponse as PeerGetRepresentationResponse,
+    type PeerContextResponse as PeerContextResponse,
+    type PeerRepresentationResponse as PeerRepresentationResponse,
     type PeerSearchResponse as PeerSearchResponse,
     PeersPage as PeersPage,
     type PeerUpdateParams as PeerUpdateParams,
     type PeerListParams as PeerListParams,
     type PeerCardParams as PeerCardParams,
     type PeerChatParams as PeerChatParams,
-    type PeerGetContextParams as PeerGetContextParams,
+    type PeerContextParams as PeerContextParams,
     type PeerGetOrCreateParams as PeerGetOrCreateParams,
-    type PeerGetRepresentationParams as PeerGetRepresentationParams,
+    type PeerRepresentationParams as PeerRepresentationParams,
     type PeerSearchParams as PeerSearchParams,
     type PeerSetCardParams as PeerSetCardParams,
   };

@@ -118,25 +118,25 @@ export class Sessions extends APIResource {
    * Note that the summary will usually take up less space than this. If the caller
    * does not want a summary, we allocate all the tokens to recent messages.
    */
-  getContext(
+  context(
     workspaceId: string,
     sessionId: string,
-    query?: SessionGetContextParams,
+    query?: SessionContextParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<SessionGetContextResponse>;
-  getContext(
+  ): Core.APIPromise<SessionContextResponse>;
+  context(
     workspaceId: string,
     sessionId: string,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<SessionGetContextResponse>;
-  getContext(
+  ): Core.APIPromise<SessionContextResponse>;
+  context(
     workspaceId: string,
     sessionId: string,
-    query: SessionGetContextParams | Core.RequestOptions = {},
+    query: SessionContextParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<SessionGetContextResponse> {
+  ): Core.APIPromise<SessionContextResponse> {
     if (isRequestOptions(query)) {
-      return this.getContext(workspaceId, sessionId, {}, query);
+      return this.context(workspaceId, sessionId, {}, query);
     }
     return this._client.get(`/v2/workspaces/${workspaceId}/sessions/${sessionId}/context`, {
       query,
@@ -266,7 +266,7 @@ export interface Summary {
 
 export type SessionDeleteResponse = unknown;
 
-export interface SessionGetContextResponse {
+export interface SessionContextResponse {
   id: string;
 
   messages: Array<MessagesAPI.Message>;
@@ -330,7 +330,7 @@ export interface SessionCloneParams {
   message_id?: string | null;
 }
 
-export interface SessionGetContextParams {
+export interface SessionContextParams {
   /**
    * Only used if `last_message` is provided. Whether to include the most frequent
    * conclusions in the representation
@@ -438,14 +438,14 @@ export declare namespace Sessions {
     type SessionConfiguration as SessionConfiguration,
     type Summary as Summary,
     type SessionDeleteResponse as SessionDeleteResponse,
-    type SessionGetContextResponse as SessionGetContextResponse,
+    type SessionContextResponse as SessionContextResponse,
     type SessionSearchResponse as SessionSearchResponse,
     type SessionSummariesResponse as SessionSummariesResponse,
     SessionsPage as SessionsPage,
     type SessionUpdateParams as SessionUpdateParams,
     type SessionListParams as SessionListParams,
     type SessionCloneParams as SessionCloneParams,
-    type SessionGetContextParams as SessionGetContextParams,
+    type SessionContextParams as SessionContextParams,
     type SessionGetOrCreateParams as SessionGetOrCreateParams,
     type SessionSearchParams as SessionSearchParams,
   };

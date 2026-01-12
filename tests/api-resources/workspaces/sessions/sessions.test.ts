@@ -101,8 +101,8 @@ describe('resource sessions', () => {
     ).rejects.toThrow(Honcho.NotFoundError);
   });
 
-  test('getContext', async () => {
-    const responsePromise = client.workspaces.sessions.getContext('workspace_id', 'session_id');
+  test('context', async () => {
+    const responsePromise = client.workspaces.sessions.context('workspace_id', 'session_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -112,19 +112,17 @@ describe('resource sessions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('getContext: request options instead of params are passed correctly', async () => {
+  test('context: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.workspaces.sessions.getContext('workspace_id', 'session_id', {
-        path: '/_stainless_unknown_path',
-      }),
+      client.workspaces.sessions.context('workspace_id', 'session_id', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Honcho.NotFoundError);
   });
 
-  test('getContext: request options and params are passed correctly', async () => {
+  test('context: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.workspaces.sessions.getContext(
+      client.workspaces.sessions.context(
         'workspace_id',
         'session_id',
         {
