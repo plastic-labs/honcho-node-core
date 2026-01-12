@@ -104,8 +104,8 @@ describe('resource peers', () => {
     });
   });
 
-  test('getContext', async () => {
-    const responsePromise = client.workspaces.peers.getContext('workspace_id', 'peer_id');
+  test('context', async () => {
+    const responsePromise = client.workspaces.peers.context('workspace_id', 'peer_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -115,17 +115,17 @@ describe('resource peers', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('getContext: request options instead of params are passed correctly', async () => {
+  test('context: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.workspaces.peers.getContext('workspace_id', 'peer_id', { path: '/_stainless_unknown_path' }),
+      client.workspaces.peers.context('workspace_id', 'peer_id', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Honcho.NotFoundError);
   });
 
-  test('getContext: request options and params are passed correctly', async () => {
+  test('context: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.workspaces.peers.getContext(
+      client.workspaces.peers.context(
         'workspace_id',
         'peer_id',
         {
@@ -160,8 +160,8 @@ describe('resource peers', () => {
     });
   });
 
-  test('getRepresentation', async () => {
-    const responsePromise = client.workspaces.peers.getRepresentation('workspace_id', 'peer_id', {});
+  test('representation', async () => {
+    const responsePromise = client.workspaces.peers.representation('workspace_id', 'peer_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

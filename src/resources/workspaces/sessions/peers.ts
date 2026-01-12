@@ -57,7 +57,7 @@ export class Peers extends APIResource {
   /**
    * Get the configuration for a Peer in a Session.
    */
-  getConfig(
+  config(
     workspaceId: string,
     sessionId: string,
     peerId: string,
