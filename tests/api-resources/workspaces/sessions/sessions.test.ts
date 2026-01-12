@@ -128,7 +128,7 @@ describe('resource sessions', () => {
         'workspace_id',
         'session_id',
         {
-          include_most_derived: true,
+          include_most_frequent: true,
           last_message: 'last_message',
           limit_to_session: true,
           max_conclusions: 1,
