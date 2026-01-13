@@ -1,5 +1,19 @@
 # Changelog
 
+## 2.2.0 (2026-01-13)
+
+Full Changelog: [v2.1.0...v2.2.0](https://github.com/plastic-labs/honcho-node-core/compare/v2.1.0...v2.2.0)
+
+### Features
+
+* **api:** extra-high to max ([aed2573](https://github.com/plastic-labs/honcho-node-core/commit/aed2573de66acc6278149968f62ea2e40e2ae318))
+
+
+### Chores
+
+* **internal:** codegen related update ([ed7fb27](https://github.com/plastic-labs/honcho-node-core/commit/ed7fb273a7b2d5956821c894e59ff3bc133dcd1b))
+* **internal:** codegen related update ([248314d](https://github.com/plastic-labs/honcho-node-core/commit/248314decafa9b7e4fc6ecd8169c1e3593973cc4))
+
 ## 2.1.0 (2026-01-12)
 
 Full Changelog: [v2.0.0...v2.1.0](https://github.com/plastic-labs/honcho-node-core/compare/v2.0.0...v2.1.0)
