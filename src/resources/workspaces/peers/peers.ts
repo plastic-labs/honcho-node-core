@@ -305,9 +305,9 @@ export interface PeerChatParams {
   query: string;
 
   /**
-   * Level of reasoning to apply: minimal, low, medium, high, or extra-high
+   * Level of reasoning to apply: minimal, low, medium, high, or max
    */
-  reasoning_level?: 'minimal' | 'low' | 'medium' | 'high' | 'extra-high';
+  reasoning_level?: 'minimal' | 'low' | 'medium' | 'high' | 'max';
 
   /**
    * ID of the session to scope the representation to
