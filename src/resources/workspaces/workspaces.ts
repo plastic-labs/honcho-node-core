@@ -299,7 +299,7 @@ export interface WorkspaceUpdateParams {
 
 export interface WorkspaceListParams extends PageParams {
   /**
-   * Body param:
+   * Body param
    */
   filters?: { [key: string]: unknown } | null;
 }
