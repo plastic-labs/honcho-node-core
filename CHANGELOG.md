@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.2.1 (2026-01-17)
+
+Full Changelog: [v2.2.0...v2.2.1](https://github.com/plastic-labs/honcho-node-core/compare/v2.2.0...v2.2.1)
+
+### Chores
+
+* fix typo in descriptions ([dcef5ba](https://github.com/plastic-labs/honcho-node-core/commit/dcef5ba2f85e6405d696cfc3d097aa8218eb781d))
+* **internal:** update `actions/checkout` version ([1f2bebf](https://github.com/plastic-labs/honcho-node-core/commit/1f2bebf98cd71622c439fc591648c0f7aff7ec32))
+* **internal:** upgrade babel, qs, js-yaml ([c1ecab8](https://github.com/plastic-labs/honcho-node-core/commit/c1ecab8fe00d0423cad3399c571676d6aac112d3))
+* **mcp:** add intent param to execute tool ([192d76d](https://github.com/plastic-labs/honcho-node-core/commit/192d76d901467b891874ed72b7f0ac2d1bff18a4))
+* **mcp:** pass intent param to execute handler ([f645dc6](https://github.com/plastic-labs/honcho-node-core/commit/f645dc600ddb02a46262c7f2910441c083036906))
+* **mcp:** upgrade dependencies ([2a751d5](https://github.com/plastic-labs/honcho-node-core/commit/2a751d5f4588180967d9d2720400e12e6205ddde))
+
 ## 2.2.0 (2026-01-13)
 
 Full Changelog: [v2.1.0...v2.2.0](https://github.com/plastic-labs/honcho-node-core/compare/v2.1.0...v2.2.0)
