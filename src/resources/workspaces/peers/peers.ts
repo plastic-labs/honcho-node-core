@@ -285,7 +285,7 @@ export interface PeerUpdateParams {
 
 export interface PeerListParams extends PageParams {
   /**
-   * Body param:
+   * Body param
    */
   filters?: { [key: string]: unknown } | null;
 }

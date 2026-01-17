@@ -43,7 +43,7 @@ export class Sessions extends APIResource {
 
 export interface SessionListParams extends PageParams {
   /**
-   * Body param:
+   * Body param
    */
   filters?: { [key: string]: unknown } | null;
 }

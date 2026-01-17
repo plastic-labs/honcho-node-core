@@ -175,7 +175,7 @@ export interface MessageListParams extends PageParams {
   reverse?: boolean | null;
 
   /**
-   * Body param:
+   * Body param
    */
   filters?: { [key: string]: unknown } | null;
 }
